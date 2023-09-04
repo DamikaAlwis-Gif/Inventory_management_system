@@ -17,7 +17,7 @@ const SelectList = (props) => {
                 Select a lab
               </option>
               <option value="All">All</option>
-              {labs.map(lab => <option value={lab}>{lab}</option>)}
+              {labs.map(lab => <option key={lab} value={lab}>{lab}</option>)}
             </select>
           </div>
           <div className="col">

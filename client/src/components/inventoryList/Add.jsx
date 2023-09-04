@@ -1,14 +1,34 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Add = () => {
+
+  const [labs, setLabs] = useState([]); // array of lab names
+  useEffect(() => {
+    const getLabs = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/auth/access");
+        let list = [];
+        res.data.map((item) => {
+          list.push(item.name);
+        });
+       setLabs(list);
+      } catch (error) {
+         console.log(error);
+      }
+    };
+    getLabs();
+  }, []);
+
+  const portability = ["Yes", "No"];
+  axios.defaults.withCredentials = true;
   const [asset, setAsset] = useState({
     name: "",
-    resource_type: "Select a type",
+    resource_type: "",
     model: "",
     serial_number: "",
     specifications: "",
@@ -16,7 +36,7 @@ const Add = () => {
     location: "",
     availability: "Select availability",
     resource_condition: "Select condition",
-    is_portable: "",
+    is_portable: "Select",
     img_url: "",
     last_maintenance_date: "",
     maintenance_interval: "",
@@ -61,7 +81,7 @@ const Add = () => {
     e.preventDefault();
     setAsset({
       name: "",
-      resource_type: "Select a type",
+      resource_type: "",
       model: "",
       serial_number: "",
       specifications: "",
@@ -99,22 +119,18 @@ const Add = () => {
                 />
               </div>
               <div className="form-group col">
-                <label htmlFor="" className="form-label ">
+                <label htmlFor="type" className="form-label ">
                   Resource Type
                 </label>
-                <select
-                  className="form-select"
-                  name="resource_type"
+                <input
+                  type="text"
+                  className="form-control"
+                  id="type"
                   value={asset.resource_type}
                   onChange={(e) => handleChange(e)}
-                >
-                  <option selected disabled>
-                    Select a type
-                  </option>
-                  <option value="Computer">Computer</option>
-                  <option value="Laptop">Laptop</option>
-                  <option value="Printer">Printer</option>
-                </select>
+                  name="resource_type"
+                  placeholder="eg: Computer , Laptop , Printer"
+                />
               </div>
             </div>
             <div className="row">
@@ -162,20 +178,20 @@ const Add = () => {
             <div className="row">
               <div className="form-group col">
                 <label htmlFor="" className="form-label ">
-                  Lab_ID
+                  Lab Name
                 </label>
                 <select
                   className="form-select"
-                  name="ab_name"
+                  name="lab_name"
                   value={asset.lab_name}
                   onChange={(e) => handleChange(e)}
                 >
-                  <option selected disabled>
-                    Select a lab
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option disabled>Select a lab</option>
+                  {labs.map((lab) => (
+                    <option key={lab} value={lab}>
+                      {lab}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="form-group col">
@@ -188,7 +204,7 @@ const Add = () => {
                   id=""
                   onChange={(e) => handleChange(e)}
                   value={asset.location}
-                  name="Location"
+                  name="location"
                 />
               </div>
             </div>
@@ -200,7 +216,7 @@ const Add = () => {
                 <select
                   onChange={(e) => handleChange(e)}
                   class="form-select"
-                  name="Availability"
+                  name="availability"
                   value={asset.availability}
                 >
                   <option selected disabled>
@@ -226,7 +242,7 @@ const Add = () => {
                   </option>
                   <option value="Good">Good</option>
                   <option value="Needs repair">Needs repair</option>
-                  <option value="Bad">Bad</option>
+                  <option value="Under maintenance">Under maintenance</option>
                 </select>
               </div>
             </div>
@@ -241,7 +257,7 @@ const Add = () => {
                   id=""
                   onChange={(e) => handleChange(e)}
                   value={asset.last_maintenance_date}
-                  name="Last_Maintenance_Date"
+                  name="last_maintenance_date"
                 />
               </div>
 
@@ -255,7 +271,41 @@ const Add = () => {
                   id=""
                   value={asset.maintenance_interval}
                   onChange={(e) => handleChange(e)}
-                  name="Maintenance_Interval"
+                  name="maintenance_interval"
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="form-group col">
+                <label htmlFor="" className="form-label ">
+                  Is Portable
+                </label>
+                <select
+                  className="form-select"
+                  name="is_portable"
+                  value={asset.is_portable}
+                  onChange={(e) => handleChange(e)}
+                >
+                  <option disabled>Select</option>
+                  {portability.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group col">
+                <label htmlFor="" className="form-label ">
+                  Img Url
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id=""
+                  onChange={(e) => handleChange(e)}
+                  value={asset.img_url}
+                  name="img_url"
                 />
               </div>
             </div>

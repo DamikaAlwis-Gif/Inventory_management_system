@@ -51,7 +51,7 @@ const Resources = () => {
       const res = await axios.get(url);
       setResources(res.data);
       setintialResources(res.data);
-      console.log(res.data);
+      //console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +70,7 @@ const Resources = () => {
     e.preventDefault();
 
     const temp = intialResources.filter((resource) => {
-      console.log(options.lab, resource.lab_name);
+      //console.log(options.lab, resource.lab_name);
       return (
         (options.lab == resource.lab_name || options.lab === "All") &&
         (options.availability === resource.availability ||

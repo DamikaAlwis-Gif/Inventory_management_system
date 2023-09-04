@@ -43,7 +43,7 @@ resourceRouter.post("/", (req, res) => {
     req.body.model,
     req.body.serial_number,
     req.body.specifications,
-    req.body.lab_id,
+    req.body.lab_name,
     req.body.location,
     req.body.availability,
     req.body.resource_condition,
@@ -53,7 +53,7 @@ resourceRouter.post("/", (req, res) => {
     req.body.img_url,
   ];
   db.query(q, [values], (err, data) => {
-    if (err) return res.json(err);
+    if (err) console.log(err);
     else return res.json("Asset has been created successfully");
   });
 });
@@ -65,5 +65,49 @@ resourceRouter.get("/usermore/:id", (req, res) => {
     else return res.json(data);
   });
 });
+resourceRouter.get("/update/:id", (req, res) => {
+  const resource_id = req.params.id;
+  //console.log(resource_id);
+  const q = "SELECT * FROM resource WHERE resource_id = ?;";
+  db.query(q, [resource_id], (err, data) => {
+    if (err) return res.json(err);
+    else {
+      //console.log(data);
+      return res.json(data)};
+    
+  });
+});
+resourceRouter.put("/update/:id", (req, res) => {
+  const resource_id = req.params.id;
+  const q =
+  "UPDATE resource SET name = ?, resource_type = ?, model = ?, serial_number = ?, specifications = ?, lab_name = ?, location = ?, availability = ?, resource_condition = ?, is_portable = ?, last_maintenance_date = ?, maintenance_interval = ?, img_url = ? WHERE resource_id = ?;";
+    
+  
+  db.query(
+    q,
+    [
+      req.body.name,
+      req.body.resource_type,
+      req.body.model,
+      req.body.serial_number,
+      req.body.specifications,
+      req.body.lab_name,
+      req.body.location,
+      req.body.availability,
+      req.body.resource_condition,
+      req.body.is_portable,
+      req.body.last_maintenance_date,
+      req.body.maintenance_interval,
+      req.body.img_url,
+      resource_id,
+    ],
+    (err, data) => {
+      if (err) console.log(err);
+      else return res.json("Asset has been updated successfully");
+    }
+  );
+});
+
+
 
 export default resourceRouter;
