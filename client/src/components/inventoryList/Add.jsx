@@ -4,6 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import FormItem from "./FormItem";
+import FormItemSelect from "./FormItemSelect";
 
 const Add = () => {
 
@@ -24,7 +26,7 @@ const Add = () => {
     getLabs();
   }, []);
 
-  const portability = ["Yes", "No"];
+  
   axios.defaults.withCredentials = true;
   const [asset, setAsset] = useState({
     name: "",
@@ -32,10 +34,10 @@ const Add = () => {
     model: "",
     serial_number: "",
     specifications: "",
-    lab_name: "Select a lab",
+    lab_name: "Select",
     location: "",
-    availability: "Select availability",
-    resource_condition: "Select condition",
+    availability: "Select",
+    resource_condition: "Select",
     is_portable: "Select",
     img_url: "",
     last_maintenance_date: "",
@@ -85,11 +87,11 @@ const Add = () => {
       model: "",
       serial_number: "",
       specifications: "",
-      lab_name: "Select a lab",
+      lab_name: "Select",
       location: "",
-      availability: "Select availability",
-      resource_condition: "Select condition",
-      is_portable: "",
+      availability: "Select",
+      resource_condition: "Select",
+      is_portable: "Select",
       img_url: "",
       last_maintenance_date: "",
       maintenance_interval: "",
@@ -104,210 +106,126 @@ const Add = () => {
 
           <form>
             <div className="row">
-              <div className="form-group col">
-                <label htmlFor="name" className="form-label ">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  value={asset.name}
-                  onChange={(e) => handleChange(e)}
-                  name="name"
-                  //placeholder="title"
-                />
-              </div>
-              <div className="form-group col">
-                <label htmlFor="type" className="form-label ">
-                  Resource Type
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="type"
-                  value={asset.resource_type}
-                  onChange={(e) => handleChange(e)}
-                  name="resource_type"
-                  placeholder="eg: Computer , Laptop , Printer"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Model
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  onChange={(e) => handleChange(e)}
-                  value={asset.model}
-                  id=""
-                  name="model"
-                />
-              </div>
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Serial Number
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id=""
-                  onChange={(e) => handleChange(e)}
-                  value={asset.serial_number}
-                  name="serial_number"
-                />
-              </div>
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"name"}
+                value={asset.name}
+                title={"Name"}
+                placeholder={""}
+              ></FormItem>
+
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"resource_type"}
+                value={asset.resource_type}
+                placeholder={"eg: Computer , Laptop , Printer"}
+                title={"Resource Type"}
+              ></FormItem>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="" className="form-label ">
-                Specifications
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id=""
-                onChange={(e) => handleChange(e)}
-                value={asset.specifications}
-                name="specifications"
+            <div className="row">
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"model"}
+                value={asset.model}
+                placeholder={""}
+                title={"Model"}
+              ></FormItem>
+
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"serial_number"}
+                value={asset.serial_number}
+                placeholder={""}
+                title={"Serial Number"}
+              ></FormItem>
+            </div>
+            <FormItem
+              onChange={handleChange}
+              type={"text"}
+              name={"specifications"}
+              value={asset.specifications}
+              placeholder={""}
+              title={"Specifications"}
+            />
+
+            <div className="row">
+              <FormItemSelect
+                onChange={handleChange}
+                name={"lab_name"}
+                value={asset.lab_name}
+                title={"Lab Name"}
+                list={labs}
+              ></FormItemSelect>
+
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"location"}
+                value={asset.location}
+                placeholder={""}
+                title={"Location"}
+              />
+            </div>
+
+            <div className="row">
+              <FormItemSelect
+                onChange={handleChange}
+                name={"availability"}
+                value={asset.availability}
+                title={"Availability"}
+                list={["Available", "Not Available", "Under Maintenace"]}
+              />
+
+              <FormItemSelect
+                onChange={handleChange}
+                name={"resource_condition"}
+                value={asset.resource_condition}
+                title={"Condition"}
+                list={["Good", "Needs repair", "Out of order"]}
               />
             </div>
             <div className="row">
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Lab Name
-                </label>
-                <select
-                  className="form-select"
-                  name="lab_name"
-                  value={asset.lab_name}
-                  onChange={(e) => handleChange(e)}
-                >
-                  <option disabled>Select a lab</option>
-                  {labs.map((lab) => (
-                    <option key={lab} value={lab}>
-                      {lab}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id=""
-                  onChange={(e) => handleChange(e)}
-                  value={asset.location}
-                  name="location"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Availability
-                </label>
-                <select
-                  onChange={(e) => handleChange(e)}
-                  class="form-select"
-                  name="availability"
-                  value={asset.availability}
-                >
-                  <option selected disabled>
-                    Select availability
-                  </option>
-                  <option value="Available">Available</option>
-                  <option value="Not Available">Not Available</option>
-                  <option value="Under Maintenace">Under Maintenace</option>
-                </select>
-              </div>
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Condition
-                </label>
-                <select
-                  className="form-select"
-                  name="Condition"
-                  value={asset.condition}
-                  onChange={(e) => handleChange(e)}
-                >
-                  <option selected disabled>
-                    Select condition
-                  </option>
-                  <option value="Good">Good</option>
-                  <option value="Needs repair">Needs repair</option>
-                  <option value="Under maintenance">Under maintenance</option>
-                </select>
-              </div>
-            </div>
-            <div className="row">
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Last Maintenance Date
-                </label>
-                <input
-                  type="date"
-                  className="form-control"
-                  id=""
-                  onChange={(e) => handleChange(e)}
-                  value={asset.last_maintenance_date}
-                  name="last_maintenance_date"
-                />
-              </div>
+              <FormItem
+                onChange={handleChange}
+                type={"date"}
+                name={"last_maintenance_date"}
+                value={asset.last_maintenance_date}
+                placeholder={""}
+                title={"Last Maintenance Date"}
+              />
 
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Maintenance Interval
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id=""
-                  value={asset.maintenance_interval}
-                  onChange={(e) => handleChange(e)}
-                  name="maintenance_interval"
-                />
-              </div>
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"maintenance_interval"}
+                value={asset.maintenance_interval}
+                placeholder={""}
+                title={"Maintenance Interval"}
+              />
             </div>
 
             <div className="row">
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Is Portable
-                </label>
-                <select
-                  className="form-select"
-                  name="is_portable"
-                  value={asset.is_portable}
-                  onChange={(e) => handleChange(e)}
-                >
-                  <option disabled>Select</option>
-                  {portability.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group col">
-                <label htmlFor="" className="form-label ">
-                  Img Url
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id=""
-                  onChange={(e) => handleChange(e)}
-                  value={asset.img_url}
-                  name="img_url"
-                />
-              </div>
+              <FormItemSelect
+                onChange={handleChange}
+                name={"is_portable"}
+                value={asset.is_portable}
+                title={"Is Portable"}
+                list={["Yes", "No"]}
+              />
+
+              <FormItem
+                onChange={handleChange}
+                type={"text"}
+                name={"img_url"}
+                value={asset.img_url}
+                placeholder={""}
+                title={"Image Url"}
+              />
             </div>
           </form>
           <div className="my-3">

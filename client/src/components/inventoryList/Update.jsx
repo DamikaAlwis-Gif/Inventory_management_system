@@ -101,8 +101,8 @@ const Update = () => {
                 type={"text"}
                 name={"name"}
                 value={asset.name}
-                _id={"name"}
                 title={"Name"}
+                placeholder={""}
               ></FormItem>
 
               <FormItem
@@ -121,7 +121,7 @@ const Update = () => {
                 type={"text"}
                 name={"model"}
                 value={asset.model}
-                ///placeholder={""}
+                placeholder={''}
                 title={"Model"}
               ></FormItem>
 
@@ -130,7 +130,7 @@ const Update = () => {
                 type={"text"}
                 name={"serial_number"}
                 value={asset.serial_number}
-                ///placeholder={""}
+                placeholder={""}
                 title={"Serial Number"}
               ></FormItem>
             </div>
@@ -139,7 +139,7 @@ const Update = () => {
               type={"text"}
               name={"specifications"}
               value={asset.specifications}
-              ///placeholder={""}
+              placeholder={""}
               title={"Specifications"}
             />
 
@@ -157,7 +157,7 @@ const Update = () => {
                 type={"text"}
                 name={"location"}
                 value={asset.location}
-                ///placeholder={""}
+                placeholder={""}
                 title={"Location"}
               />
             </div>
@@ -173,8 +173,8 @@ const Update = () => {
 
               <FormItemSelect
                 onChange={handleChange}
-                name={"condition"}
-                value={asset.condition}
+                name={"resource_condition"}
+                value={asset.resource_condition}
                 title={"Condition"}
                 list={["Good", "Needs repair", "Out of order"]}
               />
@@ -185,7 +185,7 @@ const Update = () => {
                 type={"date"}
                 name={"last_maintenance_date"}
                 value={asset.last_maintenance_date}
-                ///placeholder={""}
+                placeholder={""}
                 title={"Last Maintenance Date"}
               />
 
@@ -194,7 +194,7 @@ const Update = () => {
                 type={"text"}
                 name={"maintenance_interval"}
                 value={asset.maintenance_interval}
-                ///placeholder={""}
+                placeholder={""}
                 title={"Maintenance Interval"}
               />
             </div>
@@ -213,7 +213,7 @@ const Update = () => {
                 type={"text"}
                 name={"img_url"}
                 value={asset.img_url}
-                ///placeholder={""}
+                placeholder={""}
                 title={"Image Url"}
               />
             </div>

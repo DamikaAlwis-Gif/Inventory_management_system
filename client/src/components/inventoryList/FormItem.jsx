@@ -1,7 +1,7 @@
 import React from 'react'
 
 const FormItem = (props) => {
-    const {placeholder, title, value, onChange, name , type}= props;
+    const {placeholder, title, value, onChange, name , type }= props;
   return (
     <>
       <div className="form-group col">
