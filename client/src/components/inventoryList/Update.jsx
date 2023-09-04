@@ -62,24 +62,40 @@ const Update = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, save it!",
+      confirmButtonText: "Yes, update it!",
     }).then((result) => {
       if (result.isConfirmed) {
         handleIsConfirmed();
-        Swal.fire("Saved!", "New asset has been saved.", "success");
+        
       }
     });
   };
+  const handleError = () => { 
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!",
+    });
+    navigate("/adminmore/" + id);
+  };
+
 
   const handleIsConfirmed = async () => {
     try {
       const responce = await axios.put(
         "http://localhost:8800/resources/update/" + id,asset );
-      navigate("/adminmore/" + id);
-      console.log(responce.data);
-    } catch (error) {
-      console.log(error);
-    }
+
+        if (responce.data.status === "ok") {
+          Swal.fire("Updated!", "The asset has been updated.", "success");
+           navigate("/adminmore/" + id);
+        }
+        else{
+          handleError();
+        }
+
+     } catch (error) {
+       handleError();
+       }
   };
   const handleCancel = (e) => {
     e.preventDefault();

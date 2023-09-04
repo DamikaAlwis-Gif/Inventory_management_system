@@ -61,21 +61,37 @@ const Add = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         handleIsConfirmed();
-        Swal.fire("Saved!", "New asset has been saved.", "success");
+        
       }
     });
   };
+  const handleError = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!",
+    });
+    navigate("/resources");
+  };
+
+
 
   const handleIsConfirmed = async () => {
     try {
-      const responce = await axios.post(
-        "http://localhost:8800/resources",
-        asset
-      );
-      navigate("/resources");
-      console.log(responce.data);
-    } catch (error) {
-      console.log(error);
+      const response = await axios.post("http://localhost:8800/resources",asset);
+      console.log(response.data);
+      if(response.data.status === "ok"){
+        Swal.fire("Saved!", "New asset has been saved.", "success");
+        navigate("/resources");
+      }
+      else{// database error
+        handleError();
+       }
+    } 
+    catch (error) {//axios error
+      handleError();
+     console.log(error);
+
     }
   };
 

@@ -53,8 +53,9 @@ resourceRouter.post("/", (req, res) => {
     req.body.img_url,
   ];
   db.query(q, [values], (err, data) => {
-    if (err) console.log(err);
-    else return res.json("Asset has been created successfully");
+
+    if (err) res.json({status: "not ok"});
+    else return res.json({status: "ok"});
   });
 });
 resourceRouter.get("/usermore/:id", (req, res) => {
@@ -102,8 +103,8 @@ resourceRouter.put("/update/:id", (req, res) => {
       resource_id,
     ],
     (err, data) => {
-      if (err) console.log(err);
-      else return res.json("Asset has been updated successfully");
+      if (err) return res.json({status: "not ok"});
+      else return res.json({status: "ok"} );
     }
   );
 });
