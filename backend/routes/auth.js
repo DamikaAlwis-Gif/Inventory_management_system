@@ -78,6 +78,7 @@ const verifyUser = (req, res, next) => {
         return res.json({ err: "You are not authorized" }); // token is not valid
       } else {
         req.name = decoded.name;
+        req.role = decoded.role;
         next(); // proceed to the next middleware or route handler
       }
     }); // verify the token
