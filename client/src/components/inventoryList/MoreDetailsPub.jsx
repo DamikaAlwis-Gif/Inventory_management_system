@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Navbar from "../Auth/NavBar";
 import TableMore from "./TableMore";
 
 const MoreDetailsPub = () => {
