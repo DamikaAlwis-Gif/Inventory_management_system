@@ -9,6 +9,8 @@ import TableMore from "./TableMore";
 const MoreDetails = () => {
   const [details, setDetails] = useState({});
   const { id } = useParams();
+ // alert(id);
+ // const id=2;
   const [ok, setok] = useState(true);
 
   
@@ -61,6 +63,17 @@ const MoreDetails = () => {
     }
   };
 
+  const handleReserve = async (e,id) => {
+    try {
+      e.preventDefault();
+     // const res = await axios.delete("http://localhost:8800/resources/" + id);
+      console.log("Redirected to reservation data page!");
+      navigate(`/reserve/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {ok ? (
@@ -79,7 +92,10 @@ const MoreDetails = () => {
                 >
                   Delete
                 </button>
-                <button className="btn btn btn-primary btn-sm ">
+                <button 
+                type="button"
+                className="btn btn btn-primary btn-sm "
+                onClick={(e) => handleReserve(e,id)}>
                   Reserve
                 </button>
                 <button className="btn btn btn-warning btn-sm m-2"> Shedule Maintenance

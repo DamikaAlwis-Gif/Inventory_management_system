@@ -13,6 +13,9 @@ import Contact from "./components/common/Contact";
 import MoreDetailsPub from "./components/inventoryList/MoreDetailsPub";
 import ShowNavBar from "./components/common/ShowNavBar";
 
+import Reserve from "./components/inventoryList/Reserve";
+import AddReservDate from"./components/inventoryList/AddReservDate";
+
 function App() {
   
   return (
@@ -30,6 +33,10 @@ function App() {
           <Route path="/account" element={<Account></Account>}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/usermore/:id" element={<MoreDetailsPub />}></Route>
+
+          <Route path="/reserve/:id" element={<Reserve />}></Route>
+          <Route path="/AddReservDate/:id" element={<AddReservDate />}></Route>
+        
         </Routes>
       </BrowserRouter>
     </div>

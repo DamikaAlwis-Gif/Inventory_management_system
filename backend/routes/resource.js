@@ -25,6 +25,17 @@ resourceRouter.get("/adminmore/:id", (req, res) => {
   });
 });
 
+//get reservation table data for the requested id
+resourceRouter.get("/reservation/:id", (req, res) => {
+  const resource_id = req.params.id;
+  const q = "SELECT starting_time,ending_time FROM unavailability WHERE resource_id = ? ;";
+  db.query(q, [resource_id], (err, data) => {
+    if (err) return res.json(err);
+    else return res.json(data);
+  });
+});
+
+
 resourceRouter.delete("/:id", (req, res) => {
   const resource_id = req.params.id;
   const q = "DELETE FROM resource  WHERE resource_id = ?;";
@@ -57,6 +68,31 @@ resourceRouter.post("/", (req, res) => {
     else return res.json("Asset has been created successfully");
   });
 });
+
+
+//save and find conflicts in reservation times
+resourceRouter.post("/reservedate", (req, res) => {
+  const q =
+    "INSERT INTO reservation (`user_id`,`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
+  const values = [
+    req.body.user_id,
+    req.body.resource_id,
+    req.body.start_date,
+    req.body.start_time,
+    req.body.end_date,
+    req.body.end_time,
+    req.body.status,
+    req.body.purpose,
+    req.body.reservation_type,
+  
+  ];
+  db.query(q, [values], (err, data) => {
+    if (err) return res.json(err);
+    else return res.json("Reservation created successfully !");
+  });
+});
+
+
 resourceRouter.get("/usermore/:id", (req, res) => {
   const resource_id = req.params.id;
   const q = "SELECT * FROM userview WHERE resource_id = ?;";
