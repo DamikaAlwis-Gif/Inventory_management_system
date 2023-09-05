@@ -4,7 +4,7 @@ const FormItem = (props) => {
     const {placeholder, title, value, onChange, name , type }= props;
   return (
     <>
-      <div className="form-group col">
+      <div className="form-group  col">
         <label htmlFor={name} className="form-label ">
           {title}
         </label>
@@ -16,7 +16,9 @@ const FormItem = (props) => {
           onChange={(e) => onChange(e)}
           name={name}
           placeholder={placeholder}
+          required
         />
+        <div className="invalid-feedback">Please provide a valid input!</div>
       </div>
     </>
   );

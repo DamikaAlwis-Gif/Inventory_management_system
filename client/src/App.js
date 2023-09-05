@@ -15,7 +15,8 @@ import ShowNavBar from "./components/common/ShowNavBar";
 import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import ReportSection from "./components/reports/ReportSection";
-
+import AdminDashboard from "./components/common/AdminDashboard";
+import Piechart from "./components/reports/Piechart";
 function App() {
   
   return (
@@ -82,6 +83,9 @@ function App() {
           }></Route>
           <Route path="*" element={<h1>Not Found</h1>}></Route>
           <Route path="/reports" element ={<ReportSection/>}></Route>
+          <Route path="/admindashboard" element ={<AdminDashboard/>}></Route>
+          <Route path="/piechart" element ={<Piechart/>}></Route>
+
         </Routes>
       </BrowserRouter>
     </div>

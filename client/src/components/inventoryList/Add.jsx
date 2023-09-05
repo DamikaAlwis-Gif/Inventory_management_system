@@ -120,7 +120,10 @@ const Add = () => {
         <div className="col-6 bg-primary-subtle mx-auto shadow rounded">
           <h1 className="my-3">Add a Asset</h1>
 
-          <form>
+          <form
+            className="needs-validation g-3"
+            onSubmit={(e) => handleSave(e)}
+          >
             <div className="row">
               <FormItem
                 onChange={handleChange}
@@ -243,23 +246,23 @@ const Add = () => {
                 title={"Image Url"}
               />
             </div>
+            <div className="my-3">
+              <button
+                type="submit"
+                className="btn btn btn-success  "
+                //onClick={(e) => handleSave(e)}
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn btn-danger m-2"
+                onClick={(e) => handleClear(e)}
+              >
+                Clear
+              </button>
+            </div>
           </form>
-          <div className="my-3">
-            <button
-              type="button"
-              className="btn btn btn-success  "
-              onClick={(e) => handleSave(e)}
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              className="btn btn btn-danger m-2"
-              onClick={(e) => handleClear(e)}
-            >
-              Clear
-            </button>
-          </div>
         </div>
       </div>
     </div>
