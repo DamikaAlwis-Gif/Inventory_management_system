@@ -56,7 +56,7 @@ const Navbar = () => {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to ="/contact"
+                to="/contact"
                 style={{ color: "white" }}
               >
                 Contact
@@ -72,6 +72,16 @@ const Navbar = () => {
                 Account
               </a>
             </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="/reports"
+                style={{ color: "white" }}
+              >
+                Reports
+              </a>
+            </li>
+
             <li className="nav-item">
               <button
                 className="btn btn-danger btn-sm mt-2"

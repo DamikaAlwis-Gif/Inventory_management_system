@@ -14,6 +14,7 @@ import MoreDetailsPub from "./components/inventoryList/MoreDetailsPub";
 import ShowNavBar from "./components/common/ShowNavBar";
 import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import ReportSection from "./components/reports/ReportSection";
 
 function App() {
   
@@ -80,6 +81,7 @@ function App() {
             </ProtectedRoute>
           }></Route>
           <Route path="*" element={<h1>Not Found</h1>}></Route>
+          <Route path="/reports" element ={<ReportSection/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

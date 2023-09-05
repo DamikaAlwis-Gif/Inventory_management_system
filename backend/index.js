@@ -9,6 +9,8 @@ import resourceRouter from "./routes/resource.js";
 import authRouter from "./routes/auth.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import reportRouter from "./routes/report.js"; 
+
 app.use(express.json());
 app.use(cors(
   {credentials: true,
@@ -26,3 +28,4 @@ app.get("/", (req, res) => {
 app.use("/resources", resourceRouter);
 
 app.use("/auth", authRouter);
+app.use("/report", reportRouter);
