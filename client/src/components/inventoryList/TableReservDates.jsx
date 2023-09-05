@@ -13,8 +13,8 @@ const TableReservDates = (props) => {
           </tr>
         </thead>
         <tbody className="table-group-divider">
-          {Object.entries(details).map((unavailability) => (
-            <tr key={unavailability.id}>
+          {details.map((unavailability) => (
+            <tr >
               <td>{unavailability.starting_time}</td>
               <td>{unavailability.ending_time}</td>
               

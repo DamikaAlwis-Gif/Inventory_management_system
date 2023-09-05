@@ -20,8 +20,8 @@ const Reserve = () => {
             // res.data checks not null or undefined
             // res.data.length checks length property of res.data is greater than 0.
             if (res.data && res.data.length > 0) {
-              setDetails(res.data[0]);
-              console.log(res.data[0]);
+              setDetails(res.data);
+             // console.log(res.data[0]);
             } else {
               setok(false);
             }
@@ -42,7 +42,7 @@ const Reserve = () => {
         }
       };
 
-
+//  <TableMore details={details} />
 return(
     <div>
       {ok ? (
@@ -54,8 +54,9 @@ return(
                 
                 <button className="btn btn btn-warning btn-sm m-2" onClick={(e) => handleGoAhead(e,id)}> Go ahead!
                 </button>
-
-                <TableMore details={details} />
+               
+                <TableReservDates details={details} ></TableReservDates>
+               
               </div>
             </div>
             ;
