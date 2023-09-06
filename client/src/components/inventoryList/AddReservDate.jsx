@@ -1,13 +1,19 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const AddReservDate= ()=>{
     const { id } = useParams();
+    // const u_id=22;
+   const[u_id,set_uid]=useState(0);
+
+    
+   
+   
     const[info,setAsset]= useState({
-        user_id: 22, // get the user's id and set here---Implement this!
+        user_id: u_id, // get the user's id and set here---Implement this!
         resource_id: id,
         start_date: "",
         start_time: "",
@@ -17,6 +23,22 @@ const AddReservDate= ()=>{
         purpose: "",
         reservation_type: "Select a type",
     });
+ 
+    useEffect(() => {
+      const getUserInfo = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/auth/user");
+            //console.log(res.data[0]);
+            set_uid(res.data[0].user_id);
+           // console.log(res.data[0].user_id);
+            setAsset((prev) => ({ ...prev, user_id: res.data[0].user_id }));
+  
+        } catch (error) {
+            console.log(error);
+        }
+     }
+     getUserInfo(); 
+      }, []);  
 
     const handleChange = (e) => {
         setAsset((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,21 +60,25 @@ const AddReservDate= ()=>{
         }).then((result) => {
           if (result.isConfirmed) {
             handleIsConfirmed();
-            // handle conflicts and show result
-           // Swal.fire("Saved!", "handle conflicts and show result.", "success");
+            
           }
         });
       };
 
       const handleIsConfirmed = async () => {
+       
         try {
           const responce = await axios.post(
             "http://localhost:8800/resources/reservedate",
             info
           );
-          Swal.fire("Saved!", "handle conflicts and show result.", "success");
-          navigate("/resources");
+          if(responce.data=="Done"){
+           Swal.fire("Saved!", "Reservation Added", "success");      
+           navigate("/resources");
           console.log(responce.data);
+             }else{
+              Swal.fire('Item is unavailable!', 'Please consider selecting another time slot! ', 'warning');
+             }
 
         } catch (error) {
           console.log(error);
@@ -63,7 +89,7 @@ const AddReservDate= ()=>{
   const handleClear = (e) => {
     e.preventDefault();
     setAsset({
-        user_id: 22, // get the user's id and set here---Implement this!
+        user_id: u_id, // get the user's id and set here---Implement this!
         resource_id: id,
         start_date: "",
         start_time: "",

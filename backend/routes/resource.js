@@ -2,6 +2,7 @@ import express from "express";
 import db from "../dataBase/db.js";
 
 const resourceRouter = express.Router();
+//let flag;
 
 resourceRouter.get("/:labs", (req, res) => {
   
@@ -73,17 +74,19 @@ resourceRouter.post("/", (req, res) => {
 
 //save and find conflicts in reservation times
 resourceRouter.post("/reservedate", (req, res) => {
-  if(myfunc(req.body.start_date,
-    req.body.start_time,
-    req.body.end_date,
-    req.body.end_time)){
-      console.log("true");
-    }else{
-      console.log("false");
-    }
-  const q =
+
+   const q =
     "INSERT INTO reservation (`user_id`,`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
-  const values = [
+  /*
+    const r =
+    "INSERT INTO unavailability (`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
+    
+    let [year, month, day] = req.body.start_date.split('-');
+    let [hour, minute, second] = req.body.start_time.split(':');
+
+    const usr_start=  new Date(year, month - 1, day, hour, minute, second);
+*/
+    const values = [
     req.body.user_id,
     req.body.resource_id,
     req.body.start_date,
@@ -95,10 +98,25 @@ resourceRouter.post("/reservedate", (req, res) => {
     req.body.reservation_type,
   
   ];
-/*  db.query(q, [values], (err, data) => {
-    if (err) return res.json(err);
-    else return res.json("Reservation created successfully !");
-  }); */
+   
+  chkConflicts(req.body.start_date,
+    req.body.start_time,
+    req.body.end_date,
+    req.body.end_time,(result) => {
+    //console.log(result); // This will log either true or false based on the query result
+
+      if(result){
+          db.query(q, [values], (err, data) => {
+           if (err) return res.json(err);
+           else return res.json("Done");
+           }); 
+        //return res.json("no conflict");
+      }else{
+        return res.json("confilct");
+      }
+
+  });
+  
 });
 
 
@@ -114,8 +132,9 @@ resourceRouter.get("/usermore/:id", (req, res) => {
 
 
 // unavilability-reservation clash handle
- let myfunc=(start_date,start_time,end_date,end_time)=>{
-var valid=true;
+ let chkConflicts=(start_date,start_time,end_date,end_time,callback)=>{
+var flag=true;
+
 const sql = 'SELECT starting_time,ending_time FROM unavailability WHERE resource_id=7';
 
 db.query(sql, (queryErr, results) => {
@@ -125,7 +144,7 @@ db.query(sql, (queryErr, results) => {
   }
 
   if (results.length > 0) {
-   
+    //callback(true);
     for (let i = 0; i < results.length; i++) {
      
     
@@ -133,30 +152,9 @@ db.query(sql, (queryErr, results) => {
     const datetimeValue1 = results[i].starting_time;
     const datetimeValue2 = results[i].ending_time;
 
-    // Extract year, month, day, and hour
     const unav_start = new Date(datetimeValue1);
-   /* const year1 = datetime1.getFullYear();
-    const month1 = datetime1.getMonth() + 1; // Months are zero-indexed
-    const day1 = datetime1.getDate();
-    const hour1 = datetime1.getHours(); 
-
-    // Put the extracted components into an array
-    const start_dt = [year1, month1, day1, hour1];
-
-    console.log('Datetime components:', start_dt); */
-
-    //duplication
-     // Extract year, month, day, and hour
-     const unav_end = new Date(datetimeValue2);
-   /*  const year2 = datetime2.getFullYear();
-     const month2 = datetime2.getMonth() + 1; // Months are zero-indexed
-     const day2 = datetime2.getDate();
-     const hour2 = datetime2.getHours();
- 
-     // Put the extracted components into an array
-     const end_dt = [year2, month2, day2, hour2];
- 
-     console.log('Datetime components:', end_dt); */
+    const unav_end = new Date(datetimeValue2);
+   
 
       //perform check per row
 
@@ -171,32 +169,24 @@ db.query(sql, (queryErr, results) => {
 
        const usr_end=  new Date(year, month - 1, day, hour, minute, second);
 
-
-      /*if(usr_start<unav_start & usr_end<unav_start){
-        console.log("okay");
-      }else if(usr_start>unav_end){
-        console.log("okay");
-      }else{
-        console.log("not okay");
-      }
-      */
       if((usr_start<unav_start & usr_end<unav_start)||(usr_start>unav_end)){
-        console.log("okay1");
-        valid=true;
+       // console.log("okay1");
+       
         
       }else{
-        console.log("not okay1");
-        valid=false;
+       // console.log("not okay1");
+        flag=false;
+       // callback(false);
         break;
       
       }
 
-    }
+    }callback(flag);
 
   }
 
 });
-return valid;
+
 
 };
 
