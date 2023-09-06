@@ -15,6 +15,7 @@ import ShowNavBar from "./components/common/ShowNavBar";
 
 import Reserve from "./components/inventoryList/Reserve";
 import AddReservDate from"./components/inventoryList/AddReservDate";
+import Maintenance from "./components/inventoryList/Maintenance";
 
 function App() {
   
@@ -36,6 +37,7 @@ function App() {
 
           <Route path="/reserve/:id" element={<Reserve />}></Route>
           <Route path="/AddReservDate/:id" element={<AddReservDate />}></Route>
+          <Route path="/maintenance/:id" element={<Maintenance />}></Route>
         
         </Routes>
       </BrowserRouter>

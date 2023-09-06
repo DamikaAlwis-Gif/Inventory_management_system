@@ -15,7 +15,7 @@ resourceRouter.get("/:labs", (req, res) => {
              // console.log(err);
               return res.json(err);}
     else{
-      console.log(data);
+      // console.log(data);
        return res.json(data);
      } // sends a json responce
   });
@@ -41,6 +41,16 @@ resourceRouter.get("/reservation/:id", (req, res) => {
  // myfunc();
 });
 
+//get maintenance table data for the requested id
+resourceRouter.get("/maintenance/:id", (req, res) => {
+  const resource_id = req.params.id;
+  const q = "SELECT maintenance_type,start_date,completion_date,status FROM maintenance WHERE resource_id = ? ;";
+  db.query(q, [resource_id], (err, data) => {
+    if (err) return res.json(err);
+    else return res.json(data);
+  });
+
+});
 
 resourceRouter.delete("/:id", (req, res) => {
   const resource_id = req.params.id;

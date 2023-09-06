@@ -74,6 +74,16 @@ const MoreDetails = () => {
     }
   };
 
+  const handleMaintenance = async (e,id) => {
+    try {
+      e.preventDefault();
+      console.log("Redirected to maintenance page!");
+      navigate(`/maintenance/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       {ok ? (
@@ -98,7 +108,10 @@ const MoreDetails = () => {
                 onClick={(e) => handleReserve(e,id)}>
                   Reserve
                 </button>
-                <button className="btn btn btn-warning btn-sm m-2"> Shedule Maintenance
+                <button 
+                type="button"
+                className="btn btn btn-warning btn-sm m-2"
+                onClick={(e) => handleMaintenance(e,id)}> Shedule Maintenance
                 </button>
 
                 <TableMore details={details} />
