@@ -47,7 +47,7 @@ return(
     <div>
       {ok ? (
         <div>
-          <h1 className="text-center"> Unavailability of the item</h1>
+          <h2 className="text-center"> Unavailable times of the selected item:</h2>
           <div className="container">
             <div className="row">
               <div className="col-md mx-auto">
@@ -65,8 +65,10 @@ return(
       ) : (
         <div className="container text-center p-5">
           <p className="display-6 ">
-            The asset with resource id {id} is avialable all the time!
+            No scheduled maintenances or reservations yet for the item with Resorce_id {id}!
           </p>
+          <button className="btn btn btn-warning btn-sm m-2" onClick={(e) => handleGoAhead(e,id)}> Go ahead!
+                </button>
         </div>
       )}
     </div>

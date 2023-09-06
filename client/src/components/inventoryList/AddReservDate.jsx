@@ -76,8 +76,10 @@ const AddReservDate= ()=>{
            Swal.fire("Saved!", "Reservation Added", "success");      
            navigate("/resources");
           console.log(responce.data);
-             }else{
-              Swal.fire('Item is unavailable!', 'Please consider selecting another time slot! ', 'warning');
+             }else if(responce.data=="start_end_error"){
+              Swal.fire('Warning!', 'Requested ending date should be greater than starting date! ', 'warning');
+            }else{
+              Swal.fire('Item is unavailable at selected time!', 'Please consider selecting another time slot! ', 'warning');
              }
 
         } catch (error) {

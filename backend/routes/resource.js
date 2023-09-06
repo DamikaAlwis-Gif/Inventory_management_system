@@ -77,15 +77,22 @@ resourceRouter.post("/reservedate", (req, res) => {
 
    const q =
     "INSERT INTO reservation (`user_id`,`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
-  /*
+  
     const r =
-    "INSERT INTO unavailability (`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
+    "INSERT INTO unavailability (`resource_id`,`starting_time`,`ending_time`) values (?)";
     
     let [year, month, day] = req.body.start_date.split('-');
     let [hour, minute, second] = req.body.start_time.split(':');
 
-    const usr_start=  new Date(year, month - 1, day, hour, minute, second);
-*/
+    const start_time_unav=  new Date(year, month - 1, day, hour, minute, second);
+
+     [year, month, day] = req.body.end_date.split('-');
+     [hour, minute, second] = req.body.end_time.split(':');
+
+    const end_time_unav=  new Date(year, month - 1, day, hour, minute, second);
+    const values_for_anav=[req.body.resource_id,start_time_unav,end_time_unav];
+    
+
     const values = [
     req.body.user_id,
     req.body.resource_id,
@@ -98,6 +105,11 @@ resourceRouter.post("/reservedate", (req, res) => {
     req.body.reservation_type,
   
   ];
+
+  if(end_time_unav<=start_time_unav){
+   // console.log("it happens");
+    return res.json("start_end_error");
+  }
    
   chkConflicts(req.body.start_date,
     req.body.start_time,
@@ -107,8 +119,14 @@ resourceRouter.post("/reservedate", (req, res) => {
 
       if(result){
           db.query(q, [values], (err, data) => {
-           if (err) return res.json(err);
-           else return res.json("Done");
+           if (err){ return res.json(err);}
+           else{
+              db.query(r, [values_for_anav], (err, data) => {
+              if (err) console.log(err);
+              else console.log("updated unavailability table");
+              }); 
+             return res.json("Done");
+            }
            }); 
         //return res.json("no conflict");
       }else{
