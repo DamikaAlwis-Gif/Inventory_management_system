@@ -45,10 +45,10 @@ const Maintenance = () => {
 
 
   
-      const handleAddNew = async (e,id) => {
+      const handleAddNew = async (e) => {
         try {
           e.preventDefault();
-          // navigate(`/AddReservDate/${id}`);
+           navigate(`/maintenanceAdd/${id}`);
         } catch (error) {
           console.log(error);
         }
@@ -103,7 +103,7 @@ return(
           <div className="row">
             <div className="col-md mx-auto">
               
-              <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e,id)}> Add New Maintenance
+              <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
               </button>
 
 
@@ -121,7 +121,7 @@ return(
         <p className="display-6 ">
           No scheduled maintenances yet for the item with Resorce_id {id}!
         </p>
-        <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew}> Add New Maintenance
+        <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
               </button>
       </div>
     )}

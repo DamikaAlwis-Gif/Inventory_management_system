@@ -126,7 +126,7 @@ resourceRouter.post("/reservedate", (req, res) => {
     return res.json("start_end_error");
   }
    
-  chkConflicts(req.body.start_date,
+  chkConflicts(req.body.resource_id,req.body.start_date,
     req.body.start_time,
     req.body.end_date,
     req.body.end_time,(result) => {
@@ -154,6 +154,71 @@ resourceRouter.post("/reservedate", (req, res) => {
   
 });
 
+
+//handle adding new maintenance schedule
+resourceRouter.post("/maintenaceadd", (req, res) => {
+
+  const q =
+    "INSERT INTO maintenance (`resource_id`,`maintenance_type`,`start_date`,`completion_date`,`status`) values (?)";
+  
+    const r =
+    "INSERT INTO unavailability (`resource_id`,`starting_time`,`ending_time`) values (?)";
+    
+
+    let [year, month, day] = req.body.start_date.split('-');
+    let [hour, minute, second] = req.body.start_time.split(':');
+
+    const start_datetime=  new Date(year, month - 1, day, hour, minute, second);
+
+     [year, month, day] = req.body.completion_date.split('-');
+     [hour, minute, second] = req.body.completion_time.split(':');
+
+    const end_datetime=  new Date(year, month - 1, day, hour, minute, second);
+
+    const values_for_anav=[req.body.resource_id,start_datetime,end_datetime];
+  
+    const values = [
+      req.body.resource_id,
+      req.body.maintenance_type,
+      start_datetime,
+      end_datetime,
+      req.body.status,   
+    ];
+
+    if(end_datetime<=start_datetime){
+      // console.log("it happens");
+       return res.json("start_end_error");
+     }
+
+     return res.json("bb");
+/*
+     chkConflicts(req.body.resource_id,req.body.start_date,
+      req.body.start_time,
+      req.body.completion_date,
+      req.body.completion_time,(result) => {
+      
+        if(result){
+            db.query(q, [values], (err, data) => {
+             if (err){ 
+              console.log(err);
+              return res.json(err);}
+             else{
+                db.query(r, [values_for_anav], (err, data) => {
+                if (err) console.log(err);
+                else console.log("updated unavailability table");
+                }); 
+               return res.json("Done");
+              }
+             }); 
+          //return res.json("no conflict");
+        }else{
+          return res.json("confilct");
+        }
+  
+    });
+    */
+
+});
 
 resourceRouter.get("/usermore/:id", (req, res) => {
   const resource_id = req.params.id;
@@ -225,12 +290,12 @@ resourceRouter.get("/updtmtschedule/:id", (req, res) => {
 
 
 // unavilability-reservation clash handle
- let chkConflicts=(start_date,start_time,end_date,end_time,callback)=>{
+ let chkConflicts=(res_id,start_date,start_time,end_date,end_time,callback)=>{
 var flag=true;
 
-const sql = 'SELECT starting_time,ending_time FROM unavailability WHERE resource_id=7';
+const sql = 'SELECT starting_time,ending_time FROM unavailability WHERE resource_id=?;';
 
-db.query(sql, (queryErr, results) => {
+db.query(sql,[res_id], (queryErr, results) => {
   if (queryErr) {
     console.error('Error executing the query: ' + queryErr.stack);
     return;
