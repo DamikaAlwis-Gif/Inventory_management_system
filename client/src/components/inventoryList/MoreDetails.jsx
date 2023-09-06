@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Navbar from "../Auth/NavBar";
 import TableMore from "./TableMore";
 
 const MoreDetails = () => {
@@ -62,6 +61,10 @@ const MoreDetails = () => {
       console.log(error);
     }
   };
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    navigate("/update/" + id);
+  };
 
   const handleReserve = async (e,id) => {
     try {
@@ -92,7 +95,7 @@ const MoreDetails = () => {
           <div className="container">
             <div className="row">
               <div className="col-md mx-auto">
-                <button type="button" className="btn btn-primary btn-sm ">
+                <button type="button" className="btn btn-primary btn-sm " onClick={(e) => handleUpdate(e)}>
                   Update
                 </button>
                 <button
@@ -102,6 +105,7 @@ const MoreDetails = () => {
                 >
                   Delete
                 </button>
+
                 <button 
                 type="button"
                 className="btn btn btn-primary btn-sm "
@@ -113,6 +117,17 @@ const MoreDetails = () => {
                 className="btn btn btn-warning btn-sm m-2"
                 onClick={(e) => handleMaintenance(e,id)}> Shedule Maintenance
                 </button>
+                {/* <div className="container">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <img
+                        src={"https://picsum.photos/500/300"}
+                        alt="Your Image"
+                        className="img-fluid"
+                      />
+                    </div>
+                  </div>
+                </div> */}
 
                 <TableMore details={details} />
               </div>

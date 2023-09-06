@@ -12,6 +12,8 @@ import Account from "./components/common/Account";
 import Contact from "./components/common/Contact";
 import MoreDetailsPub from "./components/inventoryList/MoreDetailsPub";
 import ShowNavBar from "./components/common/ShowNavBar";
+import Access from "./components/Auth/Access";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 import Reserve from "./components/inventoryList/Reserve";
 import AddReservDate from"./components/inventoryList/AddReservDate";
@@ -22,23 +24,77 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <ShowNavBar><NavBar /></ShowNavBar>
+        <ShowNavBar>
+          <NavBar />
+        </ShowNavBar>
         <Routes>
           <Route path="/resources" element={<Resources />}></Route>
-          <Route path="/add" element={<Add />}></Route>
-          <Route path="/update/:id" element={<Update />}></Route>
-          <Route path="/adminmore/:id" element={<MoreDetails />}></Route>
+          <Route
+            path="/add"
+            element={
+              <ProtectedRoute allowedRoles={Access.add}>
+                <Add />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/update/:id"
+            element={
+              <ProtectedRoute allowedRoles={Access.update}>
+                <Update />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/adminmore/:id"
+            element={
+              <ProtectedRoute allowedRoles={Access.adminmore}>
+                <MoreDetails />
+              </ProtectedRoute>
+            }
+          ></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
-          <Route path="/dashboard" element={<DashBoard />}></Route>
-          <Route path="/account" element={<Account></Account>}></Route>
-          <Route path="/contact" element={<Contact />}></Route>
-          <Route path="/usermore/:id" element={<MoreDetailsPub />}></Route>
+
+         
+         
+          
 
           <Route path="/reserve/:id" element={<Reserve />}></Route>
           <Route path="/AddReservDate/:id" element={<AddReservDate />}></Route>
           <Route path="/maintenance/:id" element={<Maintenance />}></Route>
         
+
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={Access.dashboard}>
+                <DashBoard />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute allowedRoles = {Access.account}>
+                <Account />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route path="/contact"
+           element={<ProtectedRoute allowedRoles = {Access.contact}>
+            <Contact />
+          </ProtectedRoute>}></Route>
+
+          <Route path="/usermore/:id" 
+          element={
+            <ProtectedRoute allowedRoles={Access.publicmore}>
+              <MoreDetailsPub />
+            </ProtectedRoute>
+          }></Route>
+          <Route path="*" element={<h1>Not Found</h1>}></Route>
+
         </Routes>
       </BrowserRouter>
     </div>

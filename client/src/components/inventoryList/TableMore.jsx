@@ -19,7 +19,7 @@ const TableMore = (props) => {
 
         <tbody className="table-group-divider">
           {Object.entries(details).map(([key, value]) => (
-            <tr>
+            <tr key={key}>
               <td>{formatText(key)}</td>
               <td>{value}</td>
             </tr>
