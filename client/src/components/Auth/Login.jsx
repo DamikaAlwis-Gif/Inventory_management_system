@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+
+import  Alert from '@mui/material/Alert';
 
 
 const Login = () => {
@@ -93,9 +96,7 @@ const Login = () => {
                     onChange={(e) => handleChange(e)}
                   />
                   {errors.user_name && (
-                    <div className="alert alert-danger alert-sm">
-                      {errors.user_name}
-                    </div>
+                    <Alert severity="warning">{errors.user_name}</Alert>
                   )}
                 </div>
                 <div className="form-group my-2">
@@ -110,15 +111,15 @@ const Login = () => {
                     onChange={(e) => handleChange(e)}
                   />
                   {errors.password && (
-                    <div className="alert alert-danger alert-sm">
-                      {errors.password}
-                    </div>
+                    <Alert severity="warning">{errors.password}</Alert>
                   )}
                 </div>
-
-                <button type="submit" className="btn btn-primary btn-sm">
+                {/* <button type="submit" className="btn btn-primary btn-sm">
                   Login
-                </button>
+                </button> */}
+                <Button variant="contained" type="submit" >
+                  Login
+                </Button>
                 <Link to="/register" className="btn btn-link my-2 ">
                   Create Account
                 </Link>
