@@ -5,15 +5,19 @@ const resourceRouter = express.Router();
 //let flag;
 
 resourceRouter.get("/:labs", (req, res) => {
-  
    const labsParam = req.params.labs;
    const labs = labsParam ? labsParam.split(",") : [];
  
   //console.log(labs);
   const q = "SELECT * FROM first_view WHERE lab_name IN (?) ;";
   db.query(q, [labs],(err, data) => {
-    if (err) return res.json(err);
-    else return res.json(data); // sends a json responce
+    if (err) {
+             // console.log(err);
+              return res.json(err);}
+    else{
+      console.log(data);
+       return res.json(data);
+     } // sends a json responce
   });
 });
 
@@ -119,7 +123,9 @@ resourceRouter.post("/reservedate", (req, res) => {
 
       if(result){
           db.query(q, [values], (err, data) => {
-           if (err){ return res.json(err);}
+           if (err){ 
+            console.log(err);
+            return res.json(err);}
            else{
               db.query(r, [values_for_anav], (err, data) => {
               if (err) console.log(err);
