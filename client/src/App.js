@@ -15,6 +15,9 @@ import ShowNavBar from "./components/common/ShowNavBar";
 import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
+import Reserve from "./components/inventoryList/Reserve";
+import AddReservDate from"./components/inventoryList/AddReservDate";
+
 function App() {
   
   return (
@@ -52,6 +55,15 @@ function App() {
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
 
+         
+         
+          
+
+          <Route path="/reserve/:id" element={<Reserve />}></Route>
+          <Route path="/AddReservDate/:id" element={<AddReservDate />}></Route>
+        
+
+
           <Route
             path="/dashboard"
             element={
@@ -80,6 +92,7 @@ function App() {
             </ProtectedRoute>
           }></Route>
           <Route path="*" element={<h1>Not Found</h1>}></Route>
+
         </Routes>
       </BrowserRouter>
     </div>
