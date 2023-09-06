@@ -44,7 +44,7 @@ resourceRouter.get("/reservation/:id", (req, res) => {
 //get maintenance table data for the requested id
 resourceRouter.get("/maintenance/:id", (req, res) => {
   const resource_id = req.params.id;
-  const q = "SELECT maintenance_type,start_date,completion_date,status FROM maintenance WHERE resource_id = ? ;";
+  const q = "SELECT maintenance_id,maintenance_type,start_date,completion_date,status FROM maintenance WHERE resource_id = ? ;";
   db.query(q, [resource_id], (err, data) => {
     if (err) return res.json(err);
     else return res.json(data);
@@ -162,6 +162,20 @@ resourceRouter.get("/usermore/:id", (req, res) => {
     else return res.json(data);
   });
 
+});
+
+//changing status of maintenance as "done"
+resourceRouter.get("/updtmtschedule/:id", (req, res) => {
+  const maintenance_id=req.params.id;
+  const q = "UPDATE maintenance SET status = 'Done' WHERE maintenance_id = ?;"
+  db.query(q, [maintenance_id], (err, data) => {
+    if (err) {
+      console.log(err);
+     // console.log("hello");
+      return res.json(err);}
+    else return res.json(maintenance_id);
+  });
+  
 });
 
 
