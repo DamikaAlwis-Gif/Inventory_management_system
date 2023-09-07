@@ -91,34 +91,29 @@ resourceRouter.post("/", (req, res) => {
 resourceRouter.post("/reservedate", (req, res) => {
 
    const q =
-    "INSERT INTO reservation (`user_id`,`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
+    "INSERT INTO reservation (`user_id`,`resource_id`,`start_date`,`end_date`,`status`,`purpose`,`reservation_type`) values (?)";
   
     const r =
     "INSERT INTO unavailability (`resource_id`,`starting_time`,`ending_time`) values (?)";
     
-    let [year, month, day] = req.body.start_date.split('-');
-    let [hour, minute, second] = req.body.start_time.split(':');
+ 
 
-    const start_time_unav=  new Date(year, month - 1, day, hour, minute, second);
+    //const start_time_unav=  new Date(year, month - 1, day, hour, minute, second);
+    const start_time_unav= new Date(req.body.start_dt + ":00.000Z");
+    const end_time_unav= new Date(req.body.end_dt + ":00.000Z");
 
-     [year, month, day] = req.body.end_date.split('-');
-     [hour, minute, second] = req.body.end_time.split(':');
-
-    const end_time_unav=  new Date(year, month - 1, day, hour, minute, second);
     const values_for_anav=[req.body.resource_id,start_time_unav,end_time_unav];
     
 
     const values = [
     req.body.user_id,
     req.body.resource_id,
-    req.body.start_date,
-    req.body.start_time,
-    req.body.end_date,
-    req.body.end_time,
+    start_time_unav,
+    end_time_unav,
     req.body.status,
     req.body.purpose,
     req.body.reservation_type,
-  
+
   ];
 
   if(end_time_unav<=start_time_unav){
@@ -126,10 +121,9 @@ resourceRouter.post("/reservedate", (req, res) => {
     return res.json("start_end_error");
   }
    
-  chkConflicts(req.body.resource_id,req.body.start_date,
-    req.body.start_time,
-    req.body.end_date,
-    req.body.end_time,(result) => {
+  chkConflicts(req.body.resource_id,start_time_unav,
+    end_time_unav,
+   (result) => {
     //console.log(result); // This will log either true or false based on the query result
 
       if(result){
@@ -290,7 +284,7 @@ resourceRouter.get("/updtmtschedule/:id", (req, res) => {
 
 
 // unavilability-reservation clash handle
- let chkConflicts=(res_id,start_date,start_time,end_date,end_time,callback)=>{
+ let chkConflicts=(res_id,start_date,end_date,callback)=>{
 var flag=true;
 
 const sql = 'SELECT starting_time,ending_time FROM unavailability WHERE resource_id=?;';
@@ -307,27 +301,36 @@ db.query(sql,[res_id], (queryErr, results) => {
      
     
     // Assuming the datetime is the first result in the query
-    const datetimeValue1 = results[i].starting_time;
-    const datetimeValue2 = results[i].ending_time;
+    const unav_start = results[i].starting_time;
+    const unav_end = results[i].ending_time;
 
-    const unav_start = new Date(datetimeValue1);
-    const unav_end = new Date(datetimeValue2);
+   // console.log(start_date+","+end_date+","+unav_start+","+unav_end+"/n");
+
+    // const unav_start = new Date(datetimeValue1);
+    // const unav_end = new Date(datetimeValue2);
    
 
       //perform check per row
 
-      let [year, month, day] = start_date.split('-');
-      let [hour, minute, second] = start_time.split(':');
+      // let [year, month, day] = start_date.split('-');
+      // let [hour, minute, second] = start_time.split(':');
 
-      const usr_start=  new Date(year, month - 1, day, hour, minute, second);
+      // const usr_start=  new Date(year, month - 1, day, hour, minute, second);
 
 
-       [year, month, day] = end_date.split('-');
-       [hour, minute, second] = end_time.split(':');
+      //  [year, month, day] = end_date.split('-');
+      //  [hour, minute, second] = end_time.split(':');
 
-       const usr_end=  new Date(year, month - 1, day, hour, minute, second);
+      //  const usr_end=  new Date(year, month - 1, day, hour, minute, second);
+      /* */
+      
 
-      if((usr_start<unav_start & usr_end<unav_start)||(usr_start>unav_end)){
+      // const usr_start = new Date(start_date + ":00.000Z");
+      
+      // const usr_end = new Date(end_date + ":00.000Z");
+      // console.log(usr_start+","+usr_end+","+unav_start+","+unav_end+"/n");
+
+      if((start_date<unav_start & end_date<unav_start)||(start_date>unav_end)){
        // console.log("okay1");
        
         
