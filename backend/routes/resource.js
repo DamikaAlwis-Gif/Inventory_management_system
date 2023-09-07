@@ -115,17 +115,18 @@ resourceRouter.post("/reservedate", (req, res) => {
     req.body.reservation_type,
 
   ];
+  //console.log(values);
 
   if(end_time_unav<=start_time_unav){
    // console.log("it happens");
     return res.json("start_end_error");
   }
-   
+  
   chkConflicts(req.body.resource_id,start_time_unav,
     end_time_unav,
    (result) => {
     //console.log(result); // This will log either true or false based on the query result
-
+    
       if(result){
           db.query(q, [values], (err, data) => {
            if (err){ 
@@ -320,6 +321,9 @@ db.query(sql,[res_id], (queryErr, results) => {
 
     }callback(flag);
 
+  }else{
+    flag=true;
+    callback(flag);
   }
 
 });

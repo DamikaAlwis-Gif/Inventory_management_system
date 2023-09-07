@@ -5,8 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
-const AddReservDate= ()=>{
-    const { id } = useParams();
+const AddReservDate= (props)=>{
+  const { id } = props;
+   // const { id } = useParams();
     // const u_id=22;
    const[u_id,set_uid]=useState(0);
 
@@ -26,7 +27,7 @@ const AddReservDate= ()=>{
       const getUserInfo = async () => {
         try {
             const res = await axios.get("http://localhost:8800/auth/user");
-            //console.log(res.data[0]);
+            console.log("usr:"+res.data[0]);
             set_uid(res.data[0].user_id);
            // console.log(res.data[0].user_id);
             setAsset((prev) => ({ ...prev, user_id: res.data[0].user_id }));
@@ -59,6 +60,7 @@ const AddReservDate= ()=>{
         }).then((result) => {
           if (result.isConfirmed) {
             handleIsConfirmed();
+            console.log(info);
             
           }
         });

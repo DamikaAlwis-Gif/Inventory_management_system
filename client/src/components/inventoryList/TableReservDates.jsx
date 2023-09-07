@@ -2,6 +2,7 @@ import React from "react";
 
 const TableReservDates = (props) => {
   const { details,onClickMore } = props;
+  // {unavailability.starting_time.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true })
   return (
     <div>
       <table className="table table-primary table-hover table-responsive  ">
