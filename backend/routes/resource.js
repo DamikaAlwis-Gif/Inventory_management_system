@@ -304,31 +304,7 @@ db.query(sql,[res_id], (queryErr, results) => {
     const unav_start = results[i].starting_time;
     const unav_end = results[i].ending_time;
 
-   // console.log(start_date+","+end_date+","+unav_start+","+unav_end+"/n");
-
-    // const unav_start = new Date(datetimeValue1);
-    // const unav_end = new Date(datetimeValue2);
    
-
-      //perform check per row
-
-      // let [year, month, day] = start_date.split('-');
-      // let [hour, minute, second] = start_time.split(':');
-
-      // const usr_start=  new Date(year, month - 1, day, hour, minute, second);
-
-
-      //  [year, month, day] = end_date.split('-');
-      //  [hour, minute, second] = end_time.split(':');
-
-      //  const usr_end=  new Date(year, month - 1, day, hour, minute, second);
-      /* */
-      
-
-      // const usr_start = new Date(start_date + ":00.000Z");
-      
-      // const usr_end = new Date(end_date + ":00.000Z");
-      // console.log(usr_start+","+usr_end+","+unav_start+","+unav_end+"/n");
 
       if((start_date<unav_start & end_date<unav_start)||(start_date>unav_end)){
        // console.log("okay1");
