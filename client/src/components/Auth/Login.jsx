@@ -4,8 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-
 import  Alert from '@mui/material/Alert';
+import { validateProperty , validate } from "../Validation/LoginValidation";
 
 
 const Login = () => {
@@ -15,18 +15,8 @@ const Login = () => {
   });
   const [errors, setErrors] = useState({});
 
-  console.log(errors);
+   console.log(errors);
   console.log(value);
-
-  const validateProperty = ({ name, value }) => {
-    if (name === "user_name") {
-      if (value.trim() === "") return "Username is required";
-    }
-    if (name === "password") {
-      if (value.trim() === "") return "Password is required";
-    }
-  }
-
   const handleChange = (e) => {
     
     
@@ -43,7 +33,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = validate();
+    const errors = validate(value);
     setErrors(errors || {});
     if (errors) return;
     try {
@@ -59,18 +49,7 @@ const Login = () => {
       alert(error);
     }
   };
-  const validate = () => {
-    const erros = {};
-    const { user_name, password } = value;
-    if (user_name.trim() === "") {
-      erros.user_name = "Username is required";
-    }
-    if (password.trim() === "") {
-      erros.password = "Password is required";
-    }
-    return Object.keys(erros).length === 0 ? null : erros;
-  };
-
+  
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">

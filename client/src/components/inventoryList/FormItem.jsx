@@ -1,7 +1,7 @@
 import React from 'react'
-
+import Alert from "@mui/material/Alert";
 const FormItem = (props) => {
-    const {placeholder, title, value, onChange, name , type }= props;
+    const {placeholder, title, value, onChange, name , type, error }= props;
   return (
     <>
       <div className="form-group  col">
@@ -16,9 +16,11 @@ const FormItem = (props) => {
           onChange={(e) => onChange(e)}
           name={name}
           placeholder={placeholder}
-          required
         />
-        <div className="invalid-feedback">Please provide a valid input!</div>
+        {error && (
+          <Alert severity="error">{error}</Alert>
+        )}
+        
       </div>
     </>
   );
