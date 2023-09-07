@@ -13,7 +13,16 @@ resourceRouter.get("/:labs", (req, res) => {
   const q = "SELECT * FROM first_view WHERE lab_name IN (?) ;";
   db.query(q, [labs],(err, data) => {
     if (err) return res.json(err);
-    else return res.json(data); // sends a json responce
+    else {
+      
+      const typeList = [];
+      data.forEach((item) => {
+        if (!typeList.includes(item.resource_type)) {
+          typeList.push(item.resource_type);
+        }
+      });
+      return res.json({ data: data, typeList: typeList });
+    } 
   });
 });
 

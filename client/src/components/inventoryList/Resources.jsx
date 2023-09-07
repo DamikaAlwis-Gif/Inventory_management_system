@@ -6,17 +6,22 @@ import SelectLIst from "./SelectList";
 import Table from "./Table";
 
 
+
 const Resources = () => {
   const [resources, setResources] = useState([]);
   const [intialResources, setintialResources] = useState([]);
   const [role, setRole] = useState("");
   const [labs, setLabs] = useState(["lab"]); // array of lab names
   const [labsLoaded, setLabsLoaded] = useState(false); // labs has loaded or not
+  const [types, setTypes] = useState([]); // array of types
+
+
   axios.defaults.withCredentials = true;
 
   const [options, setoptions] = useState({
-    lab: "Select a lab",
-    availability: "Select availability",
+    lab: "",
+    availability: "",
+    type: "",
   });
 
   const handleChange = (e) => {
@@ -49,9 +54,11 @@ const Resources = () => {
       const params = labs.join(",");
       const url = `http://localhost:8800/resources/${params}`;
       const res = await axios.get(url);
-      setResources(res.data);
-      setintialResources(res.data);
-      //console.log(res.data);
+      
+      setResources(res.data.data);
+      setintialResources(res.data.data);
+      setTypes(res.data.typeList)
+      
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +81,8 @@ const Resources = () => {
       return (
         (options.lab == resource.lab_name || options.lab === "All") &&
         (options.availability === resource.availability ||
-          options.availability === "All")
+          options.availability === "All") &&
+           (options.type === resource.resource_type || options.type === "All")
       );
     });
     setResources(temp);
@@ -83,17 +91,26 @@ const Resources = () => {
     e.preventDefault();
     navigate("/add");
   };
-
+  const [searchvalue, setSearchvalue] = useState("");
+  const handleSearchByType = (e) => {
+    const value = e.target.value;
+    setSearchvalue(value);
+  };
   return (
     <div>
       <h1 className="text-center">Resources</h1>
 
       <div className="container">
+        
+        
         <SelectLIst
           onChange={handleChange}
           onSearch={handleSearch}
           options={options}
           labs={labs}
+          types={types}
+          searchvalue={searchvalue}
+          handleSearchByType={handleSearchByType}
         ></SelectLIst>
         {role === "Technical Officer" && (
           <div className="my-2">
@@ -105,7 +122,7 @@ const Resources = () => {
             </button>
           </div>
         )}
-        <Table resources={resources} onClickMore={handleMore}></Table>
+        <Table resources={resources} onClickMore={handleMore} searchvalue = {searchvalue}></Table>
       </div>
     </div>
   );

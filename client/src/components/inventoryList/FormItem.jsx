@@ -4,7 +4,7 @@ const FormItem = (props) => {
     const {placeholder, title, value, onChange, name , type, error }= props;
   return (
     <>
-      <div className="form-group  col">
+      <div className="form-group col">
         <label htmlFor={name} className="form-label ">
           {title}
         </label>

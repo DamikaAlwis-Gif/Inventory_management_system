@@ -15,8 +15,7 @@ const Login = () => {
   });
   const [errors, setErrors] = useState({});
 
-   console.log(errors);
-  console.log(value);
+   
   const handleChange = (e) => {
     
     

@@ -1,7 +1,9 @@
 import React from "react";
 
 const Table = (props) => {
-  const { resources, onClickMore } = props;
+  const { resources, onClickMore ,searchvalue } = props;
+   console.log(searchvalue);
+   console.log(typeof(searchvalue));
   return (
     <div>
       <table className="table table-primary table-hover table-responsive  ">
@@ -14,8 +16,10 @@ const Table = (props) => {
             <th>Availability</th>
           </tr>
         </thead>
+       
         <tbody className="table-group-divider">
-          {resources.map((resource) => (
+          {resources.filter(item => searchvalue === "" || item.resource_id.toString().includes(searchvalue) 
+          ||item.name.toLowerCase().includes(searchvalue) ).map((resource) => (
             <tr
               key={resource.resource_id}
               onClick={(e) => onClickMore(e, resource.resource_id)}
