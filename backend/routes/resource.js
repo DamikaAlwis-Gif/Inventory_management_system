@@ -2,6 +2,7 @@ import express from "express";
 import db from "../dataBase/db.js";
 
 const resourceRouter = express.Router();
+//let flag;
 
 resourceRouter.get("/:labs", (req, res) => {
   
@@ -24,6 +25,18 @@ resourceRouter.get("/adminmore/:id", (req, res) => {
     else return res.json(data);
   });
 });
+
+//get reservation table data for the requested id
+resourceRouter.get("/reservation/:id", (req, res) => {
+  const resource_id = req.params.id;
+  const q = "SELECT starting_time,ending_time FROM unavailability WHERE resource_id = ? ;";
+  db.query(q, [resource_id], (err, data) => {
+    if (err) return res.json(err);
+    else return res.json(data);
+  });
+ // myfunc();
+});
+
 
 resourceRouter.delete("/:id", (req, res) => {
   const resource_id = req.params.id;
@@ -59,6 +72,74 @@ resourceRouter.post("/", (req, res) => {
     else return res.json({status: "ok"});
   });
 });
+
+
+//save and find conflicts in reservation times
+resourceRouter.post("/reservedate", (req, res) => {
+
+   const q =
+    "INSERT INTO reservation (`user_id`,`resource_id`,`start_date`,`start_time`,`end_date`,`end_time`,`status`,`purpose`,`reservation_type`) values (?)";
+  
+    const r =
+    "INSERT INTO unavailability (`resource_id`,`starting_time`,`ending_time`) values (?)";
+    
+    let [year, month, day] = req.body.start_date.split('-');
+    let [hour, minute, second] = req.body.start_time.split(':');
+
+    const start_time_unav=  new Date(year, month - 1, day, hour, minute, second);
+
+     [year, month, day] = req.body.end_date.split('-');
+     [hour, minute, second] = req.body.end_time.split(':');
+
+    const end_time_unav=  new Date(year, month - 1, day, hour, minute, second);
+    const values_for_anav=[req.body.resource_id,start_time_unav,end_time_unav];
+    
+
+    const values = [
+    req.body.user_id,
+    req.body.resource_id,
+    req.body.start_date,
+    req.body.start_time,
+    req.body.end_date,
+    req.body.end_time,
+    req.body.status,
+    req.body.purpose,
+    req.body.reservation_type,
+  
+  ];
+
+  if(end_time_unav<=start_time_unav){
+   // console.log("it happens");
+    return res.json("start_end_error");
+  }
+   
+  chkConflicts(req.body.start_date,
+    req.body.start_time,
+    req.body.end_date,
+    req.body.end_time,(result) => {
+    //console.log(result); // This will log either true or false based on the query result
+
+      if(result){
+          db.query(q, [values], (err, data) => {
+           if (err){ return res.json(err);}
+           else{
+              db.query(r, [values_for_anav], (err, data) => {
+              if (err) console.log(err);
+              else console.log("updated unavailability table");
+              }); 
+             return res.json("Done");
+            }
+           }); 
+        //return res.json("no conflict");
+      }else{
+        return res.json("confilct");
+      }
+
+  });
+  
+});
+
+
 resourceRouter.get("/usermore/:id", (req, res) => {
   const resource_id = req.params.id;
   const q = "SELECT * FROM userview WHERE resource_id = ?;";
@@ -66,6 +147,7 @@ resourceRouter.get("/usermore/:id", (req, res) => {
     if (err) return res.json(err);
     else return res.json(data);
   });
+
 });
 resourceRouter.get("/update/:id", (req, res) => {
   const resource_id = req.params.id;
@@ -111,5 +193,65 @@ resourceRouter.put("/update/:id", (req, res) => {
 });
 
 
+
+
+// unavilability-reservation clash handle
+ let chkConflicts=(start_date,start_time,end_date,end_time,callback)=>{
+var flag=true;
+
+const sql = 'SELECT starting_time,ending_time FROM unavailability WHERE resource_id=7';
+
+db.query(sql, (queryErr, results) => {
+  if (queryErr) {
+    console.error('Error executing the query: ' + queryErr.stack);
+    return;
+  }
+
+  if (results.length > 0) {
+    //callback(true);
+    for (let i = 0; i < results.length; i++) {
+     
+    
+    // Assuming the datetime is the first result in the query
+    const datetimeValue1 = results[i].starting_time;
+    const datetimeValue2 = results[i].ending_time;
+
+    const unav_start = new Date(datetimeValue1);
+    const unav_end = new Date(datetimeValue2);
+   
+
+      //perform check per row
+
+      let [year, month, day] = start_date.split('-');
+      let [hour, minute, second] = start_time.split(':');
+
+      const usr_start=  new Date(year, month - 1, day, hour, minute, second);
+
+
+       [year, month, day] = end_date.split('-');
+       [hour, minute, second] = end_time.split(':');
+
+       const usr_end=  new Date(year, month - 1, day, hour, minute, second);
+
+      if((usr_start<unav_start & usr_end<unav_start)||(usr_start>unav_end)){
+       // console.log("okay1");
+       
+        
+      }else{
+       // console.log("not okay1");
+        flag=false;
+       // callback(false);
+        break;
+      
+      }
+
+    }callback(flag);
+
+  }
+
+});
+
+
+};
 
 export default resourceRouter;
