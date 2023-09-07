@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import FormItem from "./FormItem";
 import FormItemSelect from "./FormItemSelect";
+import { validate, validateProperty } from "../Validation/AddValidation";
 
 const Update = () => {
   const { id } = useParams();
   const [labs, setLabs] = useState([]); // array of lab names
+  const [errors, setErrors] = useState({});
 
   //console.log(labs);
   const [asset, setAsset] = useState({});
@@ -49,12 +51,20 @@ const Update = () => {
   axios.defaults.withCredentials = true;
   
   const handleChange = (e) => {
+    const errorslist = { ...errors };
+    const error = validateProperty(e.target);
+    if (error) errorslist[e.target.name] = error;
+    else delete errorslist[e.target.name];
+    setErrors(errorslist);
     setAsset((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(asset);
+    //console.log(asset);
   };
   const navigate = useNavigate();
   const handleSave = (e) => {
     e.preventDefault();
+    const errors = validate(asset);
+    setErrors(errors || {});
+    if (errors) return;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -119,6 +129,7 @@ const Update = () => {
                 value={asset.name}
                 title={"Name"}
                 placeholder={""}
+                error={errors.name}
               ></FormItem>
 
               <FormItem
@@ -128,6 +139,7 @@ const Update = () => {
                 value={asset.resource_type}
                 placeholder={"eg: Computer , Laptop , Printer"}
                 title={"Resource Type"}
+                error={errors.resource_type}
               ></FormItem>
             </div>
 
@@ -137,8 +149,9 @@ const Update = () => {
                 type={"text"}
                 name={"model"}
                 value={asset.model}
-                placeholder={''}
+                placeholder={""}
                 title={"Model"}
+                error={errors.model}
               ></FormItem>
 
               <FormItem
@@ -148,6 +161,7 @@ const Update = () => {
                 value={asset.serial_number}
                 placeholder={""}
                 title={"Serial Number"}
+                error={errors.serial_number}
               ></FormItem>
             </div>
             <FormItem
@@ -157,6 +171,7 @@ const Update = () => {
               value={asset.specifications}
               placeholder={""}
               title={"Specifications"}
+              error={errors.specifications}
             />
 
             <div className="row">
@@ -166,6 +181,7 @@ const Update = () => {
                 value={asset.lab_name}
                 title={"Lab Name"}
                 list={labs}
+                error={errors.lab_name}
               ></FormItemSelect>
 
               <FormItem
@@ -175,6 +191,7 @@ const Update = () => {
                 value={asset.location}
                 placeholder={""}
                 title={"Location"}
+                error={errors.location}
               />
             </div>
 
@@ -185,6 +202,7 @@ const Update = () => {
                 value={asset.availability}
                 title={"Availability"}
                 list={["Available", "Not Available", "Under Maintenace"]}
+                error={errors.availability}
               />
 
               <FormItemSelect
@@ -193,6 +211,7 @@ const Update = () => {
                 value={asset.resource_condition}
                 title={"Condition"}
                 list={["Good", "Needs repair", "Out of order"]}
+                error={errors.resource_condition}
               />
             </div>
             <div className="row">
@@ -203,6 +222,7 @@ const Update = () => {
                 value={asset.last_maintenance_date}
                 placeholder={""}
                 title={"Last Maintenance Date"}
+                error={errors.last_maintenance_date}
               />
 
               <FormItem
@@ -212,6 +232,7 @@ const Update = () => {
                 value={asset.maintenance_interval}
                 placeholder={""}
                 title={"Maintenance Interval"}
+                error={errors.maintenance_interval}
               />
             </div>
 
@@ -222,6 +243,7 @@ const Update = () => {
                 value={asset.is_portable}
                 title={"Is Portable"}
                 list={["Yes", "No"]}
+                error={errors.is_portable}
               />
 
               <FormItem
@@ -231,6 +253,7 @@ const Update = () => {
                 value={asset.img_url}
                 placeholder={""}
                 title={"Image Url"}
+                error={errors.img_url}
               />
             </div>
           </form>

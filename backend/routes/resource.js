@@ -67,7 +67,8 @@ resourceRouter.post("/", (req, res) => {
   ];
   db.query(q, [values], (err, data) => {
 
-    if (err) res.json({status: "not ok"});
+    if (err) {res.json({ status: "not ok" });
+    console.log(err);}
     else return res.json({status: "ok"});
   });
 });

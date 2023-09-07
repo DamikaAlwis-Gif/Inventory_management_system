@@ -1,7 +1,7 @@
 import React from 'react'
-
+import Alert from "@mui/material/Alert";
 const FormItemSelect = (props) => {
-    const {name, title, list , value , onChange} = props;
+    const {name, title, list , value , onChange, error} = props;
   return (
     <>
       <div className="form-group col">
@@ -14,13 +14,16 @@ const FormItemSelect = (props) => {
           value={value}
           onChange={(e) => onChange(e)}
         >
-          <option disabled>Select</option>
+          <option value="" disabled>
+            Choose..
+          </option>
           {list.map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
           ))}
         </select>
+        {error && <Alert severity="error">{error}</Alert>}
       </div>
     </>
   );
