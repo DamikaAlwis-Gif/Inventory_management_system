@@ -7,6 +7,7 @@ import express from "express";
 const app = express();
 import resourceRouter from "./routes/resource.js";
 import authRouter from "./routes/auth.js";
+import checkoutRouter from "./routes/checkout.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import reportRouter from "./routes/report.js"; 
@@ -26,6 +27,6 @@ app.get("/", (req, res) => {
   res.json("Hello this is backend");
 });
 app.use("/resources", resourceRouter);
-
 app.use("/auth", authRouter);
+app.use("/checkout", checkoutRouter);
 app.use("/report", reportRouter);
