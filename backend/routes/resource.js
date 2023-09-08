@@ -2,7 +2,14 @@ import express from "express";
 import db from "../dataBase/db.js";
 
 const resourceRouter = express.Router();
-//let flag;
+
+const TempMaintenanceData = {
+  maintenance: [],
+  unavialability: [],
+  del_records: []
+ 
+};
+
 
 resourceRouter.get("/:labs", (req, res) => {
    const labsParam = req.params.labs;
@@ -159,16 +166,8 @@ resourceRouter.post("/maintenaceadd", (req, res) => {
     const r =
     "INSERT INTO unavailability (`resource_id`,`starting_time`,`ending_time`) values (?)";
     
-
-    let [year, month, day] = req.body.start_date.split('-');
-    let [hour, minute, second] = req.body.start_time.split(':');
-
-    const start_datetime=  new Date(year, month - 1, day, hour, minute, second);
-
-     [year, month, day] = req.body.completion_date.split('-');
-     [hour, minute, second] = req.body.completion_time.split(':');
-
-    const end_datetime=  new Date(year, month - 1, day, hour, minute, second);
+    const start_datetime=  new Date(req.body.start_date + ":00.000Z");
+    const end_datetime=  new Date(req.body.completion_date + ":00.000Z");
 
     const values_for_anav=[req.body.resource_id,start_datetime,end_datetime];
   
@@ -181,18 +180,16 @@ resourceRouter.post("/maintenaceadd", (req, res) => {
     ];
 
     if(end_datetime<=start_datetime){
-      // console.log("it happens");
        return res.json("start_end_error");
      }
 
-     return res.json("bb");
-/*
-     chkConflicts(req.body.resource_id,req.body.start_date,
-      req.body.start_time,
-      req.body.completion_date,
-      req.body.completion_time,(result) => {
+   //  return res.json("bb");
+
+   chkResvConflicts(req.body.resource_id,start_datetime,
+      end_datetime,
+      (result) => {
       
-        if(result){
+        if(result.length==0){
             db.query(q, [values], (err, data) => {
              if (err){ 
               console.log(err);
@@ -207,13 +204,64 @@ resourceRouter.post("/maintenaceadd", (req, res) => {
              }); 
           //return res.json("no conflict");
         }else{
-          return res.json("confilct");
+          TempMaintenanceData.maintenance=values;
+          TempMaintenanceData.unavialability=values_for_anav;
+          return res.json(result);
         }
   
     });
-    */
+    
 
 });
+
+
+
+//Fetch Maintenace clash data
+resourceRouter.post("/maintenanceClash/", (req, res) => {
+  //const resource_id = req.params.id;
+  const res_id_values=req.body;
+  TempMaintenanceData.del_records=res_id_values;
+  const q = "SELECT * FROM reservation WHERE reservation_id IN (?);";
+  db.query(q, [res_id_values], (err, data) => {
+    if (err){ return res.json(err);}
+    else{ 
+      //console.log("data is: "+data);
+     // console.log(TempMaintenanceData);
+      return res.json(data);}
+  });
+  
+
+});
+
+
+
+
+
+
+//Delete clashing reservations and adding maintenance
+resourceRouter.put("/maintenanceDelUpdate", (req, res) => {
+
+const p = "INSERT INTO maintenance (`resource_id`,`maintenance_type`,`start_date`,`completion_date`,`status`) values (?);";
+  const q ="INSERT INTO unavailability (`resource_id`,`starting_time`,`ending_time`) values (?)";
+  const r =`DELETE FROM reservation WHERE reservation_id IN (?)`;
+
+  db.query(p, [TempMaintenanceData.maintenance], (err, data) => {
+    if (err) {console.log(err);return res.json(err);}
+    else {
+      db.query(q, [TempMaintenanceData.unavialability], (err, data) => {
+        if (err) return res.json(err);
+        else{
+          db.query(r, [TempMaintenanceData.del_records], (err, data) => {
+            if (err) {console.log(err);return res.json(err);}
+            else return res.json("Done");
+          });
+        } 
+      });
+    }
+  }); 
+ 
+});
+
 
 resourceRouter.get("/usermore/:id", (req, res) => {
   const resource_id = req.params.id;
@@ -329,6 +377,48 @@ db.query(sql,[res_id], (queryErr, results) => {
 });
 
 
+};
+
+let chkResvConflicts=(res_id,start_date,end_date,callback)=>{
+  //var flag=true;
+  let container=[];
+  // implement for checkin-checkout as well.................!
+  const sql = 'SELECT reservation_id,start_date,end_date FROM reservation WHERE resource_id=?;';
+  
+  db.query(sql,[res_id], (queryErr, results) => {
+    if (queryErr) {
+      console.error('Error executing the query: ' + queryErr.stack);
+      return;
+    }
+  
+    if (results.length > 0) {
+      for (let i = 0; i < results.length; i++) {
+       
+      // Assuming the datetime is the first result in the query
+      const unav_start = results[i].start_date;
+      const unav_end = results[i].end_date;
+  
+        if((start_date<unav_start & end_date<unav_start)||(start_date>unav_end)){
+         // console.log("okay1");
+         
+          
+        }else{
+         // console.log("not okay1");
+         // flag=false;
+          container.push(results[i].reservation_id);
+          // break;
+        
+        }
+  
+      }callback(container);
+  
+    }else{
+      //flag=true;
+
+      callback(container);
+    }
+  
+  });
 };
 
 export default resourceRouter;

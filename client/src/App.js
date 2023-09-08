@@ -18,6 +18,8 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import Reserve from "./components/inventoryList/Reserve";
 import Maintenance from "./components/inventoryList/Maintenance";
 import MaintenanceAdd from "./components/inventoryList/MaintenanceAdd";
+import MtClashHandle from "./components/inventoryList/MtClashHandle";
+
 
 function App() {
   
@@ -64,7 +66,7 @@ function App() {
         
           <Route path="/maintenance/:id" element={<Maintenance />}></Route>
           <Route path="/maintenanceAdd/:id" element={<MaintenanceAdd />}></Route>
-        
+          <Route path="/maintenanceClashes/:id/:data" element={<MtClashHandle />}></Route>
 
 
           <Route

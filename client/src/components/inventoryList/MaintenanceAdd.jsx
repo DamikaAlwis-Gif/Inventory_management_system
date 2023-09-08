@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 
 
+
 const MaintenanceAdd = () => {
 const {id}=useParams();
 const navigate = useNavigate();
@@ -12,11 +13,12 @@ const[info,setInfo]= useState({
     resource_id: id,
     maintenance_type: "Select a type",
     start_date: "",
-    start_time:"",
     completion_date: "",
-    completion_time:"",
-    status: "",
+    status: "Undone",
 });
+
+const[resData,setresData]=useState();
+const[ex,setEx]=useState(false);
 
 const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -50,13 +52,19 @@ const handleChange = (e) => {
         info
       );
       if(responce.data=="Done"){
-       Swal.fire("Saved!", "Reservation Added", "success");      
-       navigate("/resources");
+       Swal.fire("Maintenance Added!", "No exsiting reservations affected!", "success");      
+       navigate(`/maintenance/${id}`);
       console.log(responce.data);
          }else if(responce.data=="start_end_error"){
           Swal.fire('Warning!', 'Requested ending date should be greater than starting date! ', 'warning');
         }else{
-          Swal.fire('Item is unavailable at selected time!', 'Please consider selecting another time slot! ', 'warning');
+          Swal.fire('There are affecting reservations in this period!', 'Remove them or reschedule maintenance ', 'warning');
+
+          setresData(responce.data);
+           navigate(`/maintenanceClashes/${id}/${responce.data.join(',')}`);
+          // console.log(responce.data);
+          // console.log("from var:"+resData);
+           
          }
 
     } catch (error) {
@@ -70,20 +78,19 @@ const handleChange = (e) => {
         resource_id: id,
         maintenance_type: "Select a type",
         start_date: "",
-        start_time:"",
         completion_date: "",
-        completion_time:"",
-        status: ""
+        status: "Undone"
     });
   };
 
 
 return(
+     
     <div className="container-md">
         <div className="row my-5 ">
           <div className="col-6 bg-primary-subtle mx-auto shadow rounded">
             <h1 className="my-3">Schedule a Maintenance</h1>
-
+         
             <form>
               <div className="row">
                 
@@ -100,72 +107,45 @@ return(
                     <option selected disabled>
                       Select a type
                     </option>
-                    <option value="On_premises">simple</option>
-                    <option value="Out_premises">hard</option>
+                    <option value="simple">simple</option>
+                    <option value="hard">hard</option>
                     
                   </select>
                 </div>
               </div>
+ 
+              <br/>
 
-              <div className="row">
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    Start Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id=""
-                    onChange={(e) => handleChange(e)}
-                    value={info.start_date}
-                    name="start_date"
-                  />
-                </div>
-  
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    Start Time
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id=""
-                    value={info.start_time}
-                    onChange={(e) => handleChange(e)}
-                    name="start_time"
-                  />
-                </div>
-              </div>
+             
+<div className="row " >
+<div className="form-group col">
+<label htmlFor="" className="form-label ">
+      Start Date:  
+    </label>
 
-              <div className="row">
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    Completion Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id=""
-                    onChange={(e) => handleChange(e)}
-                    value={info.completion_date}
-                    name="completion_date"
-                  />
-                </div>
+    <input type="datetime-local"  
+    className="form-control"
+      onChange={(e) => handleChange(e)}
+      value={info.start_date}
+      id=""
+      name="start_date"></input>
+</div></div>
+<br/>
+<div className="row " >
+<div className="form-group col">
+<label htmlFor="" className="form-label ">
+      Completion Date:  
+    </label>
+
+    <input type="datetime-local"  
+    className="form-control"
+      onChange={(e) => handleChange(e)}
+      value={info.completion_date}
+      id=""
+      name="completion_date"></input>
+</div></div>
+              
   
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    Completion Time
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id=""
-                    value={info.completion_time}
-                    onChange={(e) => handleChange(e)}
-                    name="completion_time"
-                  />
-                </div>
-              </div>
 
               </form>
 
