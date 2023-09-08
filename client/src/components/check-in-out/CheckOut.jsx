@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NAVBAR_HEIGHT } from '../../constants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import CustomDateTimePicker from './CustomDateTimePicker';
@@ -12,6 +12,8 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
 import axios from 'axios';
@@ -29,6 +31,8 @@ export default function CheckOut() {
   const [dueDatetime, setDueDatetime] = useState(defaultDueDate);
   const [displayMessage, setDisplayMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [open, setOpen] = useState(false);
+  const [userIdError, setUserIdError] = useState(true);
 
   const formattedCheckoutDatetime = checkoutDatetime.format('YYYY-MM-DD HH:mm:00');
   const formattedDueDatetime = dueDatetime && dueDatetime.format('YYYY-MM-DD HH:mm:00');
@@ -36,7 +40,8 @@ export default function CheckOut() {
   const formattedRetDatetime = retDatetime && retDatetime.format('YYYY-MM-DD 12:00:00');
 
   const onSubmit = (data) => {
-    console.log(formattedRetDatetime);
+    setDisplayMessage("");
+
     const formData = {
       userId: data.userId,
       resourceId: data.resourceId,
@@ -60,26 +65,48 @@ export default function CheckOut() {
       
       setDisplayMessage(
         <span>
-          Check-out recorded for<br /><strong>User ID: {data.userId}</strong><br /><strong>Resource ID: {data.resourceId}</strong>
+          <strong>Resource ID: {data.resourceId}</strong> successfully checked-out to <strong>User ID: {data.userId}</strong> 
         </span>);
       setMessageType("success");
       reset();
 
     }) .catch (error => {
+      // if the item is already recorded as checked out
+      if (error.response.status === 409) {
+        setMessageType("error");
+      // if there is a scheduled maintenance or reservation shortly
+      } else if (error.response.status === 490) {
+        setMessageType("warning");
+      } else {
+        setMessageType("info")
+      }
+
       if (error.response.data.message) {
-        setDisplayMessage(error.response.data.message);
+        setDisplayMessage(<span><strong>{error.response.data.message}</strong></span>);
       } else {
         setDisplayMessage("An error occurred.");
       }
-      setMessageType("error");
     });
+    setOpen(true);
   };
+
+  useEffect(() => {
+    if (setOpen) {
+      const timeout = setTimeout(() => {
+        setOpen(false)
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [displayMessage]);
 
   const navigate = useNavigate();
 
   return (
+// <Container>
 <Container
       maxWidth="md"
+      disableGutters={true}
       sx={{
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
         overflowY: 'auto',
@@ -123,9 +150,16 @@ export default function CheckOut() {
             label="User ID"
             variant="outlined"
             fullWidth type="text"
-            {...register('userId', {required: "User ID is required"})}
-            error={!!errors.userId}
-            helperText={errors.userId?.message}/>
+            {...register('userId', {required: "User ID is required."})}
+            error={userIdError && errors.userId}
+            helperText={userIdError && errors.userId?.message}
+
+            // set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {e.target.value = e.target.value.toUpperCase();
+            setUserIdError(false);
+            }}
+          />
+
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -134,7 +168,18 @@ export default function CheckOut() {
             variant="outlined"
             fullWidth
             type="text"
-            {...register('resourceId', {required: "Resource ID is required"})}
+            {...register('resourceId', {required: "Resource ID is required.",
+            pattern: {
+              value: /^[0-9]+$/, // to allow only digits as input
+              message: "Should only contain digits."},
+            // validate: {
+            //   access: (value) => {
+            //       if (value === "999888") {
+            //         return "You don't have access to this resource"
+            //       }
+            //     }
+            //   }
+            })}
             error={!!errors.resourceId}
             helperText={errors.resourceId?.message}/>
         </Grid>
@@ -153,6 +198,9 @@ export default function CheckOut() {
             customDisablePast={false}
             customDisableFuture={true}
           />
+        </Grid>
+        <Grid item xs={12}>
+        <Divider variant="middle" />
         </Grid>
         <Grid item xs={12}>
           {/*The due date & time is set to 4PM on the next day at the moment of initial render.
@@ -179,7 +227,7 @@ export default function CheckOut() {
             maxRows={4}
             fullWidth
             type="text"
-            {...register('purpose', {required: "Purpose is required"})}
+            {...register('purpose', {required: "Purpose is required."})}
             error={!!errors.purpose}
             helperText={errors.purpose?.message}
           />
@@ -192,24 +240,37 @@ export default function CheckOut() {
             height: '40px',
             textTransform: 'capitalize',
           }}>Cancel</Button>
-          <Button type="submit" variant="contained" color="primary" sx={{
+          <Button type="submit" variant="contained" color="primary"  sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',            
           }}>Proceed</Button>
         </Grid>
       </Grid>
-      {displayMessage && (
-        <Grid item xs={12}>
+      {/* {displayMessage && (
+        <Grid item xs={12}
+        style={{
+          opacity: 1,
+          transition: 'opacity 0.5s ease-in-out',
+          marginBottom: '1rem',
+        }}>
             <Alert severity={messageType} sx={{ display: 'flex', marginTop: '1rem' }}>
               <AlertTitle>{messageType === "success" ? "Success!" : "Error!"}</AlertTitle>
             {displayMessage}
           </Alert>
         </Grid>
-        )}
+        )} */}
+
+      <Snackbar open={open} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
+        <Alert severity={messageType} sx={{ width: '100%' }}>
+          {displayMessage}
+        </Alert>
+      </Snackbar>
+      
     </form>
     </FormProvider>
     {/* <DevTool control={control} />       */}
     </Container>
+    // </Container>
   )
 }
