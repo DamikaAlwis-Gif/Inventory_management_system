@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
+
+.custom-navbar {
+  height: 55px;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #33267327;
+  /* box-shadow: 0 4px 6px #f6f6ff; */
+  padding: 10px 4vw;
+  width: auto !important;
+  transition: width 0.5s;
+
+  @media screen and (max-width: 1350px) {
+    padding: 10px 3vw;}
+  @media screen and (max-width: 1265px) {
+    padding: 10px 2vw;}
+  @media screen and (max-width: 1050px) {
+    padding: 10px 4vw 10px 4vw;}
+}
+
+/* Styling for institution logo and name */
+.custom-logo-name {
+  display: flex;
+  align-items: center;
+}
+
+.custom-logo {
+  width: 35px;
+  height: 35px;
+  padding-top: 0px;
+}
+
+.custom-name {
+  color: #281E59;
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 23px;
+  font-weight: 700;
+  margin-left: 0px;
+  padding: 5px 0px 0px 10px;
+  @media screen and (max-width: 1265px) {
+    font-size: 125%;
+    margin-left: 3px;
+  }
+}
+
+.custom-nav-links.custom-nav-center-group .custom-link-box {
+  display: inline-block;
+  padding: 16px 15px 14px 15px;
+  height: 100%;
+  @media screen and (max-width: 1265px) {
+    padding: 15px 12px;
+  }
+  @media screen and (max-width: 1150px) {
+    padding: 15px 9px;
+  }
+}
+
+.custom-nav-links.custom-nav-right-group .custom-link-box {
+  display: inline-block;
+  padding: 16px 15px 14px 15px;
+  height: 100%;
+  @media screen and (max-width: 1265px) {
+    padding: 15px 10px;
+  }
+  /* @media screen and (max-width: 1265px) {
+    padding: 15px 5px;
+  } */
+}
+
+.custom-nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.custom-nav-links.custom-nav-center-group .custom-link {
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #332673;
+  @media screen and (max-width: 1150px) {
+    font-size: 15px;}
+  @media screen and (max-width: 1050px) {
+    display: none;}
+}
+
+.custom-nav-links.custom-nav-center-group .custom-link:hover {
+  /* color: #664DE6; */
+  border-bottom: 1px solid #332673;
+  box-shadow: 0px 8px 12px -8px #332673;
+  padding: 0px 0px 1px 0px;
+  /* background-color: #D6D8FF; */
+}
+
+.custom-nav-links.custom-nav-right-group .custom-link {
+
+  @media screen and (max-width: 1050px) {
+    display: none;}
+}
+
+.custom-nav-links.custom-nav-right-group .custom-link:hover {
+  /* color: #664DE6; */
+  border-bottom: 1px solid #332673;
+  box-shadow: 0px 8px 12px -8px #332673;
+  /* background-color: #D6D8FF; */
+}
+
+.custom-dropdown-container {
+  display: none;
+  position: absolute;
+  top: 54px;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #d6d8ff;
+  max-width: fit-content; /* Set the maximum width */
+  width: 100%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* make the dropdown appear above other content */
+}
+
+.custom-dropdown-button {
+  display: none;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  font-weight: 600;
+  color: #332673;
+  margin-right: 0px;
+  margin-left: auto; /* Push to the right corner */
+@media screen and (max-width: 1050px) {
+    display: block;
+  }
+}
+
+.custom-dropdown-link {
+  text-decoration: none;
+  color: #332673;
+  display: block;
+  padding: 0px 10px;
+  border-bottom: 1px solid #d6d8ff;
+  transition: background-color 0.3s ease;
+}
+
+.custom-dropdown-link:hover {
+  color: #281E59;
+  font-weight: 500;
+  background-color: #c4b8ff4b;
+}
+  
+.custom-dropdown-container .custom-dropdown-link .custom-link-box {
+  display: inline-block;
+  padding: 0.6em 10px;
+  height: 100%;
+}
+
+  .custom-dropdown-button:focus + .custom-dropdown-container,
+  .custom-dropdown-container:hover {
+    display: block;
+  }
+
