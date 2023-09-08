@@ -6,7 +6,7 @@ const ShowNavBar = ({children}) => {
   return (
 
     <>
-        {location.pathname === "/" || location.pathname === "/register"  ? null : children}
+        {location.pathname === "/" || location.pathname === "/register" || location.pathname === "/login" ? null : children}
     </>
   )
 }
