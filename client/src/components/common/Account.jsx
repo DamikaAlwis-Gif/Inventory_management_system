@@ -20,6 +20,7 @@ const Account = () => {
      }
     getUserInfo(); 
     }, [])
+    
     useEffect(() => {
         
         const getUserInfo = async () => {
