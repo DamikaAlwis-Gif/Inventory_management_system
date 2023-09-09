@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Report from './Report';
+import axios from 'axios';
 
 const ReportSection = () => {
     const [selectedRadio, setSelectedRadio] = useState(""); // Initialize with the ID of the initially checked radio button
@@ -8,7 +9,23 @@ const ReportSection = () => {
     const handleRadioChange = (event) => {
       setSelectedRadio(event.target.id);
     };
+    axios.defaults.withCredentials = true;
+    const [accessLab, setAccessLab] = useState([]);
 
+    useEffect(() => {
+      const getLabs = async () => {
+        try {
+          const res = await axios.get("http://localhost:8800/auth/access");
+          
+          const list = res.data.map((item) => item.name);
+          setAccessLab(list);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getLabs();
+    }, []);
+    
   return (
     <div>
       <h2 className="text-center">Reports</h2>
@@ -57,7 +74,7 @@ const ReportSection = () => {
               Maintenance
             </label>
           </div>
-          <Report selectedRadio={selectedRadio} />
+          <Report accessLab = {accessLab} selectedRadio={selectedRadio} />
         </div>
       </div>
     </div>
