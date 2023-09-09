@@ -9,7 +9,7 @@ const TableMore = (props) => {
 
   return (
     <>
-      <table className="table table-primary table-hover table-sm table-responsive">
+      <table className="table table-primary table-sm table-responsive">
         <thead className="">
           <tr>
             <th>Attribute</th>

@@ -95,7 +95,11 @@ const MoreDetails = () => {
           <div className="container">
             <div className="row">
               <div className="col-md mx-auto">
-                <button type="button" className="btn btn-primary btn-sm " onClick={(e) => handleUpdate(e)}>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm "
+                  onClick={(e) => handleUpdate(e)}
+                >
                   Update
                 </button>
                 <button
@@ -106,30 +110,37 @@ const MoreDetails = () => {
                   Delete
                 </button>
 
-                <button 
-                type="button"
-                className="btn btn btn-primary btn-sm "
-                onClick={(e) => handleReserve(e,id)}>
+                <button
+                  type="button"
+                  className="btn btn btn-primary btn-sm "
+                  onClick={(e) => handleReserve(e, id)}
+                >
                   Reserve
                 </button>
+
                 <button 
                 type="button"
                 className="btn btn btn-warning btn-sm m-2"
                 onClick={(e) => handleMaintenance(e,id)}> Shedule Maintenance
-                </button>
-                {/* <div className="container">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <img
-                        src={"https://picsum.photos/500/300"}
-                        alt="Your Image"
-                        className="img-fluid"
-                      />
-                    </div>
-                  </div>
-                </div> */}
 
-                <TableMore details={details} />
+               
+
+                </button>
+
+                <div className="row mt-3 border border-2 rounded shadow p-3">
+                  <div className="col-md-4 ">
+                    <img
+                      src={
+                        "https://images.unsplash.com/photo-1587831990711-23ca6441447b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVza3RvcCUyMGNvbXB1dGVyfGVufDB8fDB8fHww&w=1000&q=80"
+                      }
+                      alt="Your Image"
+                      className="img-fluid rounded border-4 mx-auto d-block"
+                    />
+                  </div>
+                  <div className="col-md ">
+                    <TableMore details={details} />
+                  </div>
+                </div>
               </div>
             </div>
             ;

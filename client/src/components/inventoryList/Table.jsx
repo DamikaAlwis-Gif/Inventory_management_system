@@ -1,7 +1,20 @@
 import React from "react";
+import { paginate } from "../utils/paginate";
 
 const Table = (props) => {
-  const { resources, onClickMore } = props;
+  const { resources : allResources , onClickMore,currentPage, pageSize  } = props;
+  //  console.log(searchvalue);
+  //  console.log(typeof(searchvalue));
+
+  if (allResources.length === 0) {
+    return (
+      <div className="container text-center p-5">
+        <p className="display-6 ">No resources found!</p>
+      </div>
+    );
+  }
+  const resources = paginate(allResources,currentPage, pageSize );
+  
   return (
     <div>
       <table className="table table-primary table-hover table-responsive  ">
@@ -14,6 +27,7 @@ const Table = (props) => {
             <th>Availability</th>
           </tr>
         </thead>
+       
         <tbody className="table-group-divider">
           {resources.map((resource) => (
             <tr

@@ -1,7 +1,7 @@
 import React from 'react'
-
+import Alert from "@mui/material/Alert";
 const FormItem = (props) => {
-    const {placeholder, title, value, onChange, name , type }= props;
+    const {placeholder, title, value, onChange, name , type, error }= props;
   return (
     <>
       <div className="form-group col">
@@ -17,6 +17,10 @@ const FormItem = (props) => {
           name={name}
           placeholder={placeholder}
         />
+        {error && (
+          <Alert severity="error">{error}</Alert>
+        )}
+        
       </div>
     </>
   );

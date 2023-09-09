@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import FormItem from "./FormItem";
 import FormItemSelect from "./FormItemSelect";
+import { validate, validateProperty } from "../Validation/AddValidation";
 
 const Add = () => {
 
@@ -14,10 +15,7 @@ const Add = () => {
     const getLabs = async () => {
       try {
         const res = await axios.get("http://localhost:8800/auth/access");
-        let list = [];
-        res.data.map((item) => {
-          list.push(item.name);
-        });
+        const list = res.data.map((item) =>  item.name);
        setLabs(list);
       } catch (error) {
          console.log(error);
@@ -34,22 +32,37 @@ const Add = () => {
     model: "",
     serial_number: "",
     specifications: "",
-    lab_name: "Select",
+    lab_name: "",
     location: "",
-    availability: "Select",
-    resource_condition: "Select",
-    is_portable: "Select",
+    availability: "",
+    resource_condition: "",
+    is_portable: "",
     img_url: "",
     last_maintenance_date: "",
     maintenance_interval: "",
   });
+  //console.log(asset);
+  const [errors, setErrors] = useState({});
+  //console.log(errors);
+
+
+
   const handleChange = (e) => {
+    const errorslist = { ...errors };
+    const error = validateProperty(e.target);
+    if (error) errorslist[e.target.name] = error;
+    else delete errorslist[e.target.name];
+    setErrors(errorslist);
     setAsset((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(asset);
+    
   };
   const navigate = useNavigate();
+
   const handleSave = (e) => {
     e.preventDefault();
+    const errors = validate(asset);
+    setErrors(errors || {});
+    if (errors) return;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -103,11 +116,11 @@ const Add = () => {
       model: "",
       serial_number: "",
       specifications: "",
-      lab_name: "Select",
+      lab_name: "",
       location: "",
-      availability: "Select",
-      resource_condition: "Select",
-      is_portable: "Select",
+      availability: "",
+      resource_condition: "",
+      is_portable: "",
       img_url: "",
       last_maintenance_date: "",
       maintenance_interval: "",
@@ -120,7 +133,10 @@ const Add = () => {
         <div className="col-6 bg-primary-subtle mx-auto shadow rounded">
           <h1 className="my-3">Add a Asset</h1>
 
-          <form>
+          <form
+            className=" g-3"
+            onSubmit={(e) => handleSave(e)}
+          >
             <div className="row">
               <FormItem
                 onChange={handleChange}
@@ -129,6 +145,7 @@ const Add = () => {
                 value={asset.name}
                 title={"Name"}
                 placeholder={""}
+                error={errors.name}
               ></FormItem>
 
               <FormItem
@@ -138,6 +155,7 @@ const Add = () => {
                 value={asset.resource_type}
                 placeholder={"eg: Computer , Laptop , Printer"}
                 title={"Resource Type"}
+                error={errors.resource_type}
               ></FormItem>
             </div>
 
@@ -149,6 +167,7 @@ const Add = () => {
                 value={asset.model}
                 placeholder={""}
                 title={"Model"}
+                error={errors.model}
               ></FormItem>
 
               <FormItem
@@ -158,6 +177,7 @@ const Add = () => {
                 value={asset.serial_number}
                 placeholder={""}
                 title={"Serial Number"}
+                error={errors.serial_number}
               ></FormItem>
             </div>
             <FormItem
@@ -167,6 +187,7 @@ const Add = () => {
               value={asset.specifications}
               placeholder={""}
               title={"Specifications"}
+              error={errors.specifications}
             />
 
             <div className="row">
@@ -176,6 +197,7 @@ const Add = () => {
                 value={asset.lab_name}
                 title={"Lab Name"}
                 list={labs}
+                error={errors.lab_name}
               ></FormItemSelect>
 
               <FormItem
@@ -185,6 +207,7 @@ const Add = () => {
                 value={asset.location}
                 placeholder={""}
                 title={"Location"}
+                error={errors.location}
               />
             </div>
 
@@ -195,6 +218,7 @@ const Add = () => {
                 value={asset.availability}
                 title={"Availability"}
                 list={["Available", "Not Available", "Under Maintenace"]}
+                error={errors.availability}
               />
 
               <FormItemSelect
@@ -203,6 +227,7 @@ const Add = () => {
                 value={asset.resource_condition}
                 title={"Condition"}
                 list={["Good", "Needs repair", "Out of order"]}
+                error={errors.resource_condition}
               />
             </div>
             <div className="row">
@@ -213,6 +238,7 @@ const Add = () => {
                 value={asset.last_maintenance_date}
                 placeholder={""}
                 title={"Last Maintenance Date"}
+                error={errors.last_maintenance_date}
               />
 
               <FormItem
@@ -222,6 +248,7 @@ const Add = () => {
                 value={asset.maintenance_interval}
                 placeholder={""}
                 title={"Maintenance Interval"}
+                error={errors.maintenance_interval}
               />
             </div>
 
@@ -232,6 +259,7 @@ const Add = () => {
                 value={asset.is_portable}
                 title={"Is Portable"}
                 list={["Yes", "No"]}
+                error={errors.is_portable}
               />
 
               <FormItem
@@ -241,25 +269,26 @@ const Add = () => {
                 value={asset.img_url}
                 placeholder={""}
                 title={"Image Url"}
+                error={errors.img_url}
               />
             </div>
+            <div className="my-3">
+              <button
+                type="submit"
+                className="btn btn btn-success  "
+                //onClick={(e) => handleSave(e)}
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn btn-danger m-2"
+                onClick={(e) => handleClear(e)}
+              >
+                Clear
+              </button>
+            </div>
           </form>
-          <div className="my-3">
-            <button
-              type="button"
-              className="btn btn btn-success  "
-              onClick={(e) => handleSave(e)}
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              className="btn btn btn-danger m-2"
-              onClick={(e) => handleClear(e)}
-            >
-              Clear
-            </button>
-          </div>
         </div>
       </div>
     </div>

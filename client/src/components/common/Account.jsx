@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 
 import axios from 'axios';
-import Navbar from '../Auth/NavBar';
 const Account = () => {
 
     axios.defaults.withCredentials = true;
@@ -21,6 +20,7 @@ const Account = () => {
      }
     getUserInfo(); 
     }, [])
+    
     useEffect(() => {
         
         const getUserInfo = async () => {

@@ -18,13 +18,21 @@ resourceRouter.get("/:labs", (req, res) => {
   //console.log(labs);
   const q = "SELECT * FROM first_view WHERE lab_name IN (?) ;";
   db.query(q, [labs],(err, data) => {
-    if (err) {
-             // console.log(err);
-              return res.json(err);}
-    else{
-      // console.log(data);
-       return res.json(data);
-     } // sends a json responce
+
+   
+
+    if (err) return res.json(err);
+    else {
+      
+      const typeList = [];
+      data.forEach((item) => {
+        if (!typeList.includes(item.resource_type)) {
+          typeList.push(item.resource_type);
+        }
+      });
+      return res.json({ data: data, typeList: typeList });
+    } 
+
   });
 });
 
@@ -88,7 +96,8 @@ resourceRouter.post("/", (req, res) => {
   ];
   db.query(q, [values], (err, data) => {
 
-    if (err) res.json({status: "not ok"});
+    if (err) {res.json({ status: "not ok" });
+    console.log(err);}
     else return res.json({status: "ok"});
   });
 });
