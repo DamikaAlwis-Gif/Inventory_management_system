@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import TableReservDates from "./TableReservDates";
-import TableMore from "./TableMore";
+import AddReservDate from "./AddReservDate";
+
 
 const Reserve = () => {
     const { id } = useParams();
-    //const [details, setDetails] = useState({});
     const [details, setDetails] = useState([]);
     const [ok, setok] = useState(true);
     const navigate = useNavigate();
@@ -33,28 +33,17 @@ const Reserve = () => {
         fetchAllDetailsByID(id);
       }, []);
   
-      const handleGoAhead = async (e,id) => {
-        try {
-          e.preventDefault();
-           navigate(`/AddReservDate/${id}`);
-        } catch (error) {
-          console.log(error);
-        }
-      };
+      
 
-//  <TableMore details={details} />
 return(
     <div>
       {ok ? (
         <div>
-          <h2 className="text-center"> Unavailable times of the selected item:</h2>
+          <h3 className="text-center"> Unavailable times of the selected item:</h3>
           <div className="container">
             <div className="row">
               <div className="col-md mx-auto">
-                
-                <button className="btn btn btn-warning btn-sm m-2" onClick={(e) => handleGoAhead(e,id)}> Go ahead!
-                </button>
-               
+                             
                 <TableReservDates details={details} ></TableReservDates>
                
               </div>
@@ -64,21 +53,20 @@ return(
         </div>
       ) : (
         <div className="container text-center p-5">
-          <p className="display-6 ">
+          <h3>
             No scheduled maintenances or reservations yet for the item with Resorce_id {id}!
-          </p>
-          <button className="btn btn btn-warning btn-sm m-2" onClick={(e) => handleGoAhead(e,id)}> Go ahead!
-                </button>
+          </h3>
+        
         </div>
       )}
+
+        <AddReservDate id={id}></AddReservDate>
+
     </div>
 
 );
 
-//   return <div>Hehe, this is the reserve data input page<br/>
-//                 item id is :  {id}<br/>
-//                 <TableMore details={details} />
-//         </div>;
+
 };
 
 export default Reserve;
