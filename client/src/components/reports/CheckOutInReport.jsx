@@ -57,7 +57,7 @@ const CheckOutInReport = (props) => {
   };
 
   return (
-    <div className="row">
+    <div className="row mt-3">
       <div className="col ">
         <div className="form-floating mb-3 ">
           <input

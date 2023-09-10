@@ -26,6 +26,7 @@ import AdminDashboard from "./components/common/AdminDashboard";
 import Piechart from "./components/reports/Piechart";
 import Reserve from "./components/inventoryList/Reserve";
 import AddReservDate from"./components/inventoryList/AddReservDate";
+import Analytics from "./components/reports/Analytics";
 
 function App() {
   
@@ -106,7 +107,7 @@ function App() {
           <Route path="/reports" element ={<ReportSection/>}></Route>
           <Route path="/admindashboard" element ={<AdminDashboard/>}></Route>
           <Route path="/piechart" element ={<Piechart/>}></Route>
-
+          <Route path = "/analytics" element ={<Analytics/>}></Route>
 
         </Routes>
       </BrowserRouter>
