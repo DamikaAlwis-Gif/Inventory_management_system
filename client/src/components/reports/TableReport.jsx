@@ -2,10 +2,17 @@ import React from 'react'
 import { formatDate } from '../utils/formatDate';
 const TableReport = (props) => {
     const {details} = props;
-
+    
+    if(details.length===0){
+        return (
+        
+        <div className="container text-center p-5">
+        <p className="display-6 ">No records found!</p>
+        </div>)
+    }
+console.log(details);
   return (
     <div className="mt-2">
-      {details.length >0 ? (
         <table className="table table-primary ">
           <thead>
             <tr>
@@ -36,11 +43,8 @@ const TableReport = (props) => {
             ))}
           </tbody>
         </table>
-      ) : (
-        <div>
-            There is no data to show
-        </div>
-      )}
+      
+      
     </div>
   );
 }

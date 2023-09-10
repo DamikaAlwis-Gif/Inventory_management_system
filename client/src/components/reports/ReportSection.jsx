@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Report from './Report';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 const ReportSection = () => {
-    const [selectedRadio, setSelectedRadio] = useState(""); // Initialize with the ID of the initially checked radio button
+    const [selectedRadio, setSelectedRadio] = useState("check_in_check_out"); // Initialize with the ID of the initially checked radio button
 
     const handleRadioChange = (event) => {
       setSelectedRadio(event.target.id);
@@ -30,6 +31,9 @@ const ReportSection = () => {
     <div>
       <h2 className="text-center">Reports</h2>
       <div className="container">
+        <div className='mt-2'>
+          <Link to = "/analytics">Analytics</Link>
+        </div>
         <div className="mt-4">
           <div className="btn-group btn-group-sm " role="group">
             <input
