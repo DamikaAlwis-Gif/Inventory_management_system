@@ -31,6 +31,16 @@ const MoreDetailsPub = () => {
 
   const navigate = useNavigate();
   
+  const handleReserve = async (e,id) => {
+    try {
+      e.preventDefault();
+     // const res = await axios.delete("http://localhost:8800/resources/" + id);
+      console.log("Redirected to reservation data page!");
+      navigate(`/reserve/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -42,9 +52,13 @@ const MoreDetailsPub = () => {
             <div className="row">
               <div className="col-md mx-auto">
 
-                <button className="btn btn-primary btn-sm my-2">
-                    Reserve
+              <button 
+                type="button"
+                className="btn btn btn-primary btn-sm "
+                onClick={(e) => handleReserve(e,id)}>
+                  Reserve
                 </button>
+                
                 <TableMore details={details} />    
               </div>
             </div>

@@ -31,8 +31,8 @@ checkoutRouter.post('/', async (req, res) => {
           (dataMaintenance[0] !== undefined &&
           dataMaintenance[0].maintenanceCount > 0)) {
 
-          console.log('Unable to check-out since this item has been scheduled for maintenance shortly.');
-          res.status(409).json({message: 'Unable to check-out since this item has been scheduled for maintenance shortly.'});
+          console.log('This item is scheduled for maintenance within the period you specified.');
+          res.status(490).json({message: 'This item is scheduled for maintenance within the period you specified.'});
         }
         else {
           const reservationSql = 'SELECT COUNT(*) AS reservationCount FROM reservation WHERE resource_id = ? AND ((start_date BETWEEN ? AND ?) OR status = "ongoing-reservation")';
@@ -43,8 +43,8 @@ checkoutRouter.post('/', async (req, res) => {
           if (dataReservation !== undefined &&
             (dataReservation[0] !== undefined &&
             dataReservation[0].reservationCount > 0)) {
-            console.log('Unable to check-out since this item is currently reserved.');
-            res.status(409).json({message: `Unable to check-out since this item is currently reserved.`});
+            console.log('This item is reserved for use within the period you specified.');
+            res.status(490).json({message: `This item is reserved for use within the period you specified.`});
           }
           else {
             const insertSql = 'INSERT INTO check_in_check_out (resource_id, user_id,  check_out_datetime, due_datetime, status, purpose) VALUES (?, ?, ?, ?, ?, ?)';

@@ -80,6 +80,16 @@ const MoreDetails = () => {
     }
   };
 
+  const handleMaintenance = async (e,id) => {
+    try {
+      e.preventDefault();
+      console.log("Redirected to maintenance page!");
+      navigate(`/maintenance/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       {ok && loaded ? (
@@ -110,8 +120,14 @@ const MoreDetails = () => {
                 >
                   Reserve
                 </button>
-                <button className="btn btn btn-warning btn-sm m-2">
-                  Shedule Maintenance
+
+                <button 
+                type="button"
+                className="btn btn btn-warning btn-sm m-2"
+                onClick={(e) => handleMaintenance(e,id)}> Shedule Maintenance
+
+               
+
                 </button>
 
                 <div className="row mt-3 border border-2 rounded shadow p-3">

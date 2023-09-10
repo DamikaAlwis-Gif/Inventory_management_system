@@ -4,21 +4,20 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddReservDate= ()=>{
-    const { id } = useParams();
+
+const AddReservDate= (props)=>{
+  const { id } = props;
+   // const { id } = useParams();
     // const u_id=22;
    const[u_id,set_uid]=useState(0);
 
-    
    
    
     const[info,setAsset]= useState({
         user_id: u_id, // get the user's id and set here---Implement this!
         resource_id: id,
-        start_date: "",
-        start_time: "",
-        end_date: "",
-        end_time: "",
+        start_dt: "",
+        end_dt: "",
         status: "",
         purpose: "",
         reservation_type: "Select a type",
@@ -28,7 +27,7 @@ const AddReservDate= ()=>{
       const getUserInfo = async () => {
         try {
             const res = await axios.get("http://localhost:8800/auth/user");
-            //console.log(res.data[0]);
+            console.log("usr:"+res.data[0]);
             set_uid(res.data[0].user_id);
            // console.log(res.data[0].user_id);
             setAsset((prev) => ({ ...prev, user_id: res.data[0].user_id }));
@@ -49,6 +48,7 @@ const AddReservDate= ()=>{
 
       const handleSave = (e) => {
         e.preventDefault();
+       // console.log(info.start_dt.toString().slice(0, 19).replace('T', ' ')+":00");
         Swal.fire({
           title: "Are you sure?",
           text: " ",
@@ -60,6 +60,7 @@ const AddReservDate= ()=>{
         }).then((result) => {
           if (result.isConfirmed) {
             handleIsConfirmed();
+            console.log(info);
             
           }
         });
@@ -80,6 +81,7 @@ const AddReservDate= ()=>{
               Swal.fire('Warning!', 'Requested ending date should be greater than starting date! ', 'warning');
             }else{
               Swal.fire('Item is unavailable at selected time!', 'Please consider selecting another time slot! ', 'warning');
+              console.log(responce.data);
              }
 
         } catch (error) {
@@ -91,15 +93,13 @@ const AddReservDate= ()=>{
   const handleClear = (e) => {
     e.preventDefault();
     setAsset({
-        user_id: u_id, // get the user's id and set here---Implement this!
-        resource_id: id,
-        start_date: "",
-        start_time: "",
-        end_date: "",
-        end_time: "",
-        status: "",
-        purpose: "",
-        reservation_type: "Select a type",
+      user_id: u_id, 
+      resource_id: id,
+      start_dt: "",
+      end_dt: "",
+      status: "",
+      purpose: "",
+      reservation_type: "Select a type",
     });
   };
 
@@ -163,68 +163,37 @@ const AddReservDate= ()=>{
               </div>
   
               
-         
+         <br/>
 
              
-              <div className="row">
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    Start Date
+              <div className="row " >
+              <div className="form-group col">
+              <label htmlFor="" className="form-label ">
+                    Start Date:  
                   </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id=""
-                    onChange={(e) => handleChange(e)}
-                    value={info.start_date}
-                    name="start_date"
-                  />
-                </div>
-  
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    Start Time
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id=""
-                    value={info.start_time}
-                    onChange={(e) => handleChange(e)}
-                    name="start_time"
-                  />
-                </div>
-              </div>
 
-              <div className="row">
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    End Date
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id=""
+                  <input type="datetime-local"  
+                  className="form-control"
                     onChange={(e) => handleChange(e)}
-                    value={info.end_date}
-                    name="end_date"
-                  />
-                </div>
-  
-                <div className="form-group col">
-                  <label htmlFor="" className="form-label ">
-                    end_time
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
+                    value={info.start_dt}
                     id=""
-                    value={info.end_time}
+                    name="start_dt"></input>
+              </div></div>
+  <br/>
+            <div className="row " >
+              <div className="form-group col">
+              <label htmlFor="" className="form-label ">
+                    Ending Date:  
+                  </label>
+
+                  <input type="datetime-local"  
+                  className="form-control"
                     onChange={(e) => handleChange(e)}
-                    name="end_time"
-                  />
-                </div>
-              </div>
+                    value={info.end_dt}
+                    id=""
+                    name="end_dt"></input>
+              </div></div>
+             
 
 
             </form>

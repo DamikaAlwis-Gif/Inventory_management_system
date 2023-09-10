@@ -25,8 +25,13 @@ import ReportSection from "./components/reports/ReportSection";
 import AdminDashboard from "./components/common/AdminDashboard";
 import Piechart from "./components/reports/Piechart";
 import Reserve from "./components/inventoryList/Reserve";
+
 import AddReservDate from"./components/inventoryList/AddReservDate";
 import Analytics from "./components/reports/Analytics";
+import Maintenance from "./components/inventoryList/Maintenance";
+import MaintenanceAdd from "./components/inventoryList/MaintenanceAdd";
+import MtClashHandle from "./components/inventoryList/MtClashHandle";
+
 
 function App() {
   
@@ -70,8 +75,10 @@ function App() {
           
 
           <Route path="/reserve/:id" element={<Reserve />}></Route>
-          <Route path="/AddReservDate/:id" element={<AddReservDate />}></Route>
         
+          <Route path="/maintenance/:id" element={<Maintenance />}></Route>
+          <Route path="/maintenanceAdd/:id" element={<MaintenanceAdd />}></Route>
+          <Route path="/maintenanceClashes/:id/:data" element={<MtClashHandle />}></Route>
 
 
           <Route
