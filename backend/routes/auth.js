@@ -1,7 +1,7 @@
 import express from "express";
 import db from "../dataBase/db.js";
 import jwt from "jsonwebtoken";
-import bcrypt, { compareSync } from "bcrypt";
+import bcrypt from "bcrypt";
 
 const saltRounds = 10;
 const router = express.Router();
@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.json({ err: "You are not authorized" }); // therre is no token
+    return res.json({ err: "There is no token" }); // therre is no token
   } else {
     jwt.verify(token, "jwtSecret", (err, decoded) => {
       if (err) {

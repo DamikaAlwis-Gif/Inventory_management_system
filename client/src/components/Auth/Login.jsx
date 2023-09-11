@@ -11,10 +11,12 @@ import institutionLogo from "../../Images/InstitutionLogo.svg";
 
 
 const Login = () => {
+
   const [value, setValue] = useState({
     user_name: "",
     password: "",
   });
+  axios.defaults.withCredentials = true;
   const [errors, setErrors] = useState({});
 
    

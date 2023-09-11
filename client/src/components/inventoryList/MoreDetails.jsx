@@ -132,7 +132,7 @@ const MoreDetails = () => {
                   Shedule Maintenance
                 </button>
 
-                <div className="row mt-3 border border-2 rounded shadow p-3">
+                <div className="row g-0 mt-3 border border-2 rounded shadow p-3">
                   <div className="col-md-4 ">
                     <img
                       src={
