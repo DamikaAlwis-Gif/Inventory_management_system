@@ -137,7 +137,7 @@ const Analytics = () => {
 
   return (
     <div className="container">
-      <h2 className="text-center">Analytics</h2>
+      <h1 className="text-center">Analytics</h1>
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
       </div>
@@ -158,7 +158,7 @@ const Analytics = () => {
           )}
         </div>
       </div>
-      <div className='row mt-3'>
+      <div className='row '>
         <div className='col-md-8'>
           <LineChart />
         </div>

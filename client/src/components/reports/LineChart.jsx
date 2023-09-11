@@ -9,7 +9,7 @@ PointElement} from 'chart.js';
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const LineChart = () => {
-    const labels = ["January", "February", "March", "April", "May", "June", "July"];
+    const labels = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
     const data = {
       labels: labels,
       datasets: [
@@ -33,6 +33,16 @@ const LineChart = () => {
           pointBackgroundColor: "blue",
           backgroundColor: "blue",
         },
+        {
+          axis: "y",
+          label: "Check-ins",
+          data: [12, 34, 56, 78, 90, 12, 34],
+          fill: false,
+          borderColor: "green",
+          borderWidth: 2,
+          pointBackgroundColor: "green",
+          backgroundColor: "green",
+        },
       ],
     };
     const options = {
@@ -44,8 +54,12 @@ const LineChart = () => {
     }
 
   return (
-    <div className="line-chart">
-      <Line data={data}  />
+    <div className="line-chart border text-center">
+      <Line data={data}  options={options}/>
+      <div className='mt-2' style={{fontWeight: "bold"}}>
+        <p>Num of check-outs , check-ins & reservations happend in last 7 days</p>
+      </div>
+
     </div>
   );
 };

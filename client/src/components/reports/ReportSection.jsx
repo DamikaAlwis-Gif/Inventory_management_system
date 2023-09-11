@@ -29,7 +29,7 @@ const ReportSection = () => {
     
   return (
     <div>
-      <h2 className="text-center">Reports</h2>
+      <h1 className="text-center">Reports</h1>
       <div className="container">
         <div className='mt-2'>
           <Link to = "/analytics">Analytics</Link>
