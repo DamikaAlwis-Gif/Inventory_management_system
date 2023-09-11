@@ -5,10 +5,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import TableMore from "./TableMore";
 
+
 const MoreDetailsPub = () => {
   const [details, setDetails] = useState({});
   const { id } = useParams();
   const [ok, setok] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const fetchAllDetailsByID = async (id) => {
@@ -18,6 +20,7 @@ const MoreDetailsPub = () => {
         if (res.data && res.data.length > 0) {
           setDetails(res.data[0]);
           //console.log(res.data[0]);
+          setLoaded(true);
         } else {
           setok(false);
         }
@@ -43,36 +46,46 @@ const MoreDetailsPub = () => {
   };
 
   return (
-    <div>
-      {ok ? (
-        <div>
-          
-          <h1 className="text-center">More Details</h1>
-          <div className="container">
-            <div className="row">
-              <div className="col-md mx-auto">
-
-              <button 
+    { loaded } && (
+      <div>
+        {ok ? (
+          <div>
+            <h1 className="text-center">More Details</h1>
+            <div className="container ">
+              <button
                 type="button"
-                className="btn btn btn-primary btn-sm "
-                onClick={(e) => handleReserve(e,id)}>
-                  Reserve
-                </button>
-                
-                <TableMore details={details} />    
+                className="btn btn btn-primary btn-sm"
+                onClick={(e) => handleReserve(e, id)}
+              >
+                Reserve
+              </button>
+              <div className="row mt-3 border border-2 rounded shadow pt-3">
+                <div className="col-md-3">
+                  <img
+                    src={
+                      details.img_url
+                        ? details.img_url
+                        : "https://via.placeholder.com/150"
+                    }
+                    alt="Resource Image"
+                    className="img-fluid mt-2 rounded border-4 mx-auto d-block"
+                  />
+                </div>
+                <div className="col-md ">
+                  <TableMore details={details} />
+                </div>
               </div>
             </div>
-            ;
           </div>
-        </div>
-      ) : (
-        <div className="container text-center p-5">
-          <p className="display-6 ">
-            The asset with resource id {id} does not exist!
-          </p>
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className="container text-center p-5">
+            <p className="display-6 ">
+              The asset with resource id {id} does not exist!
+            </p>
+          </div>
+        )}
+      </div>
+    )
   );
 };
 

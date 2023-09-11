@@ -3,6 +3,7 @@ import  { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios';
 import Piechart from './Piechart';
+import LineChart from './LineChart';
 
 
 const Analytics = () => {
@@ -140,21 +141,26 @@ const Analytics = () => {
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
       </div>
-      <div className="row">
-        <div className="col-md-4">
+      <div className="row my-4">
+        <div className="col-md-4 border">
           {availabilityLoaded && (
             <Piechart title="Availability of resources" data={dataA} />
           )}
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 border">
           {conditionLoaded && (
             <Piechart title="Condition of resources" data={dataC} />
           )}
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 border">
           {checkoutStatusLoaded && (
             <Piechart title="Check-out status" data={dataB} />
           )}
+        </div>
+      </div>
+      <div className='row mt-3'>
+        <div className='col-md-8'>
+          <LineChart />
         </div>
       </div>
     </div>

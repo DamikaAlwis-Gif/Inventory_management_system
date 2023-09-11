@@ -2,27 +2,7 @@ import express from "express";
 import db from "../dataBase/db.js";
 
 const router = express.Router();
-
-// router.get("/:selectedRadio/:date", (req, res) => {
-//     const selectedRadio = req.params.selectedRadio;
-//     const date = req.params.date;
-//     let startDate = "";
-//     const q ="";
-//     if(selectedRadio === "maintenance"){
-//         startDate = "start_date";
-//     }else if(selectedRadio === "check_in_check_out"){
-//         startDate = "check_out_date";
-//     }
-//     else{
-//         startDate = "start_date";
-//     }
-//    "SELECT * FROM (?) WHERE (?) >=  DATE(?) ;";
-//     db.query(q, [ startDate ,selectedRadio, date], (err, data) => {
-//         if (err) return res.json(err);
-//         else return res.json(data);
-//     });
-// });
-
+//
 router.get("/check-out-in/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {
     const resource_id = req.params.resource_id;
     const start_date = req.params.start_date;
@@ -85,7 +65,7 @@ router.get("/availability/:labs", (req, res) => {
             console.log(err);
         return res.json(err);
         } else {
-            console.log(data);
+            // console.log(data);
         return res.json(data);
         }
     });
@@ -100,7 +80,7 @@ router.get("/condition/:labs", (req, res) => {
       console.log(err);
       return res.json(err);
     } else {
-      console.log(data);
+      // console.log(data);
       return res.json(data);
     }
   });
@@ -115,7 +95,7 @@ router.get("/checkoutstatus/:labs", (req, res) => {
       console.log(err);
       return res.json(err);
     } else {
-      console.log(data);
+      // console.log(data);
       return res.json(data);
     }
   });

@@ -96,7 +96,9 @@ const MoreDetails = () => {
         <div>
           <h1 className="text-center">More Details</h1>
           <div className="container">
-            <div className="row">
+            <div
+              className="row"
+            >
               <div className="col-md mx-auto">
                 <button
                   type="button"
@@ -121,13 +123,13 @@ const MoreDetails = () => {
                   Reserve
                 </button>
 
-                <button 
-                type="button"
-                className="btn btn btn-warning btn-sm m-2"
-                onClick={(e) => handleMaintenance(e,id)}> Shedule Maintenance
-
-               
-
+                <button
+                  type="button"
+                  className="btn btn btn-warning btn-sm m-2"
+                  onClick={(e) => handleMaintenance(e, id)}
+                >
+                  {" "}
+                  Shedule Maintenance
                 </button>
 
                 <div className="row mt-3 border border-2 rounded shadow p-3">
@@ -138,7 +140,7 @@ const MoreDetails = () => {
                           ? details.img_url
                           : "https://via.placeholder.com/150"
                       }
-                      alt= "Resource Image"
+                      alt="Resource Image"
                       className="img-fluid rounded border-4 mx-auto d-block"
                     />
                   </div>
