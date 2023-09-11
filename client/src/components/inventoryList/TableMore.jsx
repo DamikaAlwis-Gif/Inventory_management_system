@@ -18,12 +18,15 @@ const TableMore = (props) => {
         </thead>
 
         <tbody className="table-group-divider">
-          {Object.entries(details).map(([key, value]) => (
+          {Object.entries(details).map(([key, value]) =>
+          { if (key === "img_url") return null;
+            return ( 
             <tr key={key}>
               <td>{formatText(key)}</td>
               <td>{value}</td>
             </tr>
-          ))}
+          );}
+           )}
         </tbody>
       </table>
     </>
