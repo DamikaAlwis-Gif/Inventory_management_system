@@ -40,7 +40,9 @@ router.post("/login", (req, res) => {
       console.log(data);
        // error in the database
     }
-    if (data && data.length > 0) {
+
+    if (data && data.length > 0) { 
+
       bcrypt.compare(
         req.body.password.toString(),
         data[0].password,

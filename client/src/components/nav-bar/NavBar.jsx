@@ -86,12 +86,13 @@ function NavBarNew() {
         <Link to="/resources" className="custom-dropdown-link">
           <div className="custom-link-box">Resources</div>
         </Link>
-        <Link to="/reservations" className="custom-dropdown-link">
+
+        <Link to="/adminReservations" className="custom-dropdown-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
 
         {["Technical Officer", "Admin"].includes(userRole) && (
-          <Link to="/maintenance" className="custom-dropdown-link">
+          <Link to="/adminMaintenance" className="custom-dropdown-link">
             <div className="custom-link-box">Maintenance</div>
           </Link>
         )}
@@ -149,11 +150,12 @@ function NavBarNew() {
         <Link to="/resources" className="custom-link">
           <div className="custom-link-box">Resources</div>
         </Link>
-        <Link to="/reservations" className="custom-link">
+        <Link to="/adminReservations" className="custom-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
         {["Technical Officer", "Admin"].includes(userRole) && (
-          <Link to="/maintenance" className="custom-link">
+          <Link to="/adminMaintenance" className="custom-link">
+
             <div className="custom-link-box">Maintenance</div>
           </Link>
         )}

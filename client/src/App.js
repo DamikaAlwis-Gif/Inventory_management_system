@@ -30,6 +30,8 @@ import Analytics from "./components/reports/Analytics";
 import Maintenance from "./components/inventoryList/Maintenance";
 import MaintenanceAdd from "./components/inventoryList/MaintenanceAdd";
 import MtClashHandle from "./components/inventoryList/MtClashHandle";
+import AdminReserView from "./components/inventoryList/AdminReserView";
+import AdminMaintenanceView from "./components/inventoryList/AdminMaintenanceView";
 
 
 function App() {
@@ -116,6 +118,9 @@ function App() {
               </ProtectedRoute>
             }
           ></Route>
+
+          <Route path="/adminReservations" element={<AdminReserView />}></Route>
+          <Route path="/adminMaintenance" element={<AdminMaintenanceView />}></Route>
 
           <Route
             path="/dashboard"
