@@ -52,7 +52,7 @@ const Account = () => {
                 style={{
                   fontWeight: "bold",
                   fontSize: "20px",
-                  backgroundColor: "#a7c5eb",
+                  backgroundColor: "#3498db",
                 }}
               >
                 Profile
@@ -61,14 +61,13 @@ const Account = () => {
                 className="card-body text-center "
                 style={{
                   fontSize: "15px",
-                  
                 }}
               >
                 <img
-                  src= {userImage}
+                  src={userImage}
                   alt="User Profile"
                   className="img-fluid rounded-circle mb-3"
-                  width= "175px"
+                  width="175px"
                 />
                 <h5 className="card-title">{user.name}</h5>
                 <p>Username: {user.user_name}</p>

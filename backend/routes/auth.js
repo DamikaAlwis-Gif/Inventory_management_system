@@ -1,7 +1,7 @@
 import express from "express";
 import db from "../dataBase/db.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt, { compareSync } from "bcrypt";
 
 const saltRounds = 10;
 const router = express.Router();
@@ -36,6 +36,7 @@ router.post("/login", (req, res) => {
   db.query(q, [req.body.user_name], (err, data) => {
     if (err) {
       res.json({ err: err });
+      console.log(err);
       console.log(data);
        // error in the database
     }
