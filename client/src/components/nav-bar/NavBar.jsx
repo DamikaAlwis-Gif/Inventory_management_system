@@ -6,8 +6,38 @@ import notificationIcon from './NotificationIcon.svg';
 import profileIcon from './ProfileIcon.svg';
 import logoutIcon from './LogoutIcon.svg';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 function NavBarNew() {
+  const [loading, setLoading] = useState(true);
+  const [auth, setAuth] = useState(false);// is the user authenticated
+  const [userRole , setrole] = useState("");// role of the user
+  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    const getAuth = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/auth");
+
+        console.log(response);
+        if (response.data.status === "ok") {
+          setAuth(true);
+          setrole(response.data.role);
+        } else {
+          setAuth(false);
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getAuth();
+  }, []);
+  
+
   /*
     User roles:  
       TechOfficer
@@ -15,9 +45,8 @@ function NavBarNew() {
       Staff
       Clerk
   */
-  const userRole = 'TechOfficer';
-
  
+
   const  navigate = useNavigate();
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -29,8 +58,10 @@ function NavBarNew() {
         console.log(error);
     }
   };
+  console.log(userRole === "Technical Officer");
 
   return (
+    auth && !loading &&
     <nav className="custom-navbar">
       <div className="custom-logo-name custom-nav-left-group">
         <div className="custom-logo">
@@ -58,36 +89,35 @@ function NavBarNew() {
         <Link to="/reservations" className="custom-dropdown-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
-        {userRole === "TechOfficer" && (
+
+        {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/maintenance" className="custom-dropdown-link">
             <div className="custom-link-box">Maintenance</div>
           </Link>
         )}
 
         {/*for TechOfficers to check-out an item. Inside, there will be a link leading to details of check-outs*/}
-        {userRole === "TechOfficer" && (
+        {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/check-out" className="custom-dropdown-link">
             <div className="custom-link-box">Check-out</div>
           </Link>
         )}
         {/*for Students and Staff to see their own check-outs*/}
-        {(userRole === "Student" || userRole === "Staff") && (
+        {["Student", "Academic Staff Member"].includes(userRole) && (
           <Link to="/check-outs" className="custom-dropdown-link">
             <div className="custom-link-box">Check-outs</div>
           </Link>
         )}
-
-        {userRole === "TechOfficer" && (
+        {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/check-in" className="custom-dropdown-link">
             <div className="custom-link-box">Check-in</div>
           </Link>
         )}
-        {(userRole === "TechOfficer" || userRole === "Clerk") && (
-          <Link to="/piechart" className="custom-dropdown-link">
+        {["Technical Officer", "Admin", "Office Clerk"].includes(userRole) && (
+          <Link to="/reports" className="custom-dropdown-link">
             <div className="custom-link-box">Analytics</div>
           </Link>
         )}
-
         <div className="custom-nav-links custom-nav-right-group">
           <Link to="/notifications" className="custom-dropdown-link">
             <div className="custom-link-box">
@@ -122,31 +152,33 @@ function NavBarNew() {
         <Link to="/reservations" className="custom-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
-        {userRole === "TechOfficer" && (
+        {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/maintenance" className="custom-link">
             <div className="custom-link-box">Maintenance</div>
           </Link>
         )}
 
         {/*for TechOfficers to check-out an item. Inside, there will be a link leading to details of check-outs*/}
-        {userRole === "TechOfficer" && (
+
+        {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/check-out" className="custom-link">
             <div className="custom-link-box">Check-out</div>
           </Link>
         )}
+
         {/*for Students and Staff to see their own check-outs*/}
-        {(userRole === "Student" || userRole === "Staff") && (
+        {["Student", "Academic Staff Member"].includes(userRole) && (
           <Link to="/check-outs" className="custom-link">
             <div className="custom-link-box">Check-outs</div>
           </Link>
         )}
 
-        {userRole === "TechOfficer" && (
+        {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/check-in" className="custom-link">
             <div className="custom-link-box">Check-in</div>
           </Link>
         )}
-        {(userRole === "TechOfficer" || userRole === "Clerk") && (
+        {["Technical Officer", "Admin", "Office Clerk"].includes(userRole) && (
           <Link to="/reports" className="custom-link">
             <div className="custom-link-box">Analytics</div>
           </Link>
@@ -171,7 +203,8 @@ function NavBarNew() {
         </Link>
       </div>
     </nav>
-  );
+  ); 
+
 }
 
 export default NavBarNew;
