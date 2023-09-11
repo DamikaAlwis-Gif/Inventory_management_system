@@ -123,6 +123,8 @@ const Login = () => {
                 name="user_name"
                 value={value.user_name}
                 onChange={(e) => handleChange(e)}
+                error={!!errors.user_name}
+                helperText={errors.user_name}
               />
             </Grid>
             <Grid item xs={12}>
@@ -135,6 +137,8 @@ const Login = () => {
                 name="password"
                 value={value.password}
                 onChange={(e) => handleChange(e)}
+                error={!!errors.password}
+                helperText={errors.password}
               />
             </Grid>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
