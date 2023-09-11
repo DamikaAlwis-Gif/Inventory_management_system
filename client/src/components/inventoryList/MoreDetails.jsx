@@ -5,9 +5,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import TableMore from "./TableMore";
 
+
 const MoreDetails = () => {
   const [details, setDetails] = useState({});
   const { id } = useParams();
+  const [loaded, setLoaded] = useState(false);
  // alert(id);
  // const id=2;
   const [ok, setok] = useState(true);
@@ -22,6 +24,7 @@ const MoreDetails = () => {
         if (res.data && res.data.length > 0) {
           setDetails(res.data[0]);
           console.log(res.data[0]);
+          setLoaded(true);
         } else {
           setok(false);
         }
@@ -89,11 +92,13 @@ const MoreDetails = () => {
 
   return (
     <div>
-      {ok ? (
+      {ok && loaded ? (
         <div>
           <h1 className="text-center">More Details</h1>
           <div className="container">
-            <div className="row">
+            <div
+              className="row"
+            >
               <div className="col-md mx-auto">
                 <button
                   type="button"
@@ -118,22 +123,24 @@ const MoreDetails = () => {
                   Reserve
                 </button>
 
-                <button 
-                type="button"
-                className="btn btn btn-warning btn-sm m-2"
-                onClick={(e) => handleMaintenance(e,id)}> Shedule Maintenance
-
-               
-
+                <button
+                  type="button"
+                  className="btn btn btn-warning btn-sm m-2"
+                  onClick={(e) => handleMaintenance(e, id)}
+                >
+                  {" "}
+                  Shedule Maintenance
                 </button>
 
-                <div className="row mt-3 border border-2 rounded shadow p-3">
+                <div className="row g-0 mt-3 border border-2 rounded shadow p-3">
                   <div className="col-md-4 ">
                     <img
                       src={
-                        "https://images.unsplash.com/photo-1587831990711-23ca6441447b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVza3RvcCUyMGNvbXB1dGVyfGVufDB8fDB8fHww&w=1000&q=80"
+                        details.img_url
+                          ? details.img_url
+                          : "https://via.placeholder.com/150"
                       }
-                      alt="Your Image"
+                      alt="Resource Image"
                       className="img-fluid rounded border-4 mx-auto d-block"
                     />
                   </div>

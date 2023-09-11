@@ -2,27 +2,7 @@ import express from "express";
 import db from "../dataBase/db.js";
 
 const router = express.Router();
-
-router.get("/:selectedRadio/:date", (req, res) => {
-    const selectedRadio = req.params.selectedRadio;
-    const date = req.params.date;
-    const startDate = "";
-    const q ="";
-    if(selectedRadio === "maintenance"){
-        startDate = "start_date";
-    }else if(selectedRadio === "check_in_check_out"){
-        startDate = "check_out_date";
-    }
-    else{
-        startDate = "start_date";
-    }
-   "SELECT * FROM (?) WHERE (?) >=  DATE(?) ;";
-    db.query(q, [ startDate ,selectedRadio, date], (err, data) => {
-        if (err) return res.json(err);
-        else return res.json(data);
-    });
-});
-
+//
 router.get("/check-out-in/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {
     const resource_id = req.params.resource_id;
     const start_date = req.params.start_date;
@@ -68,21 +48,58 @@ router.get("/check-out-in/:resource_id/:start_date/:end_date/:status/:lab/:labs"
         
         return res.json(err);}
       else {
-        
-        // if(data.length >0){
-        //     const details =data.map((item) => {return {
-        //         "check_in_out_id": item.check_in_out_id,
-        //        "resource_id": item.resource_id,
-        //        "name": item.name,
-        //        "user_id": item.user_id,
-        //        "lab_name": item.lab_name,
-        //        "status": item.status,
-        //        "check_out_datetime":
-        //     }})
-        // }
-        
+    
         return res.json(data);}
     });
+});
+router.get("/maintenance/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {});
+router.get("/reservation/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {});
+
+router.get("/availability/:labs", (req, res) => {
+    const labsParam = req.params.labs;
+    let labs = labsParam ? labsParam.split(",") : [];
+    const q =
+      "select availability , count(availability) as count  from resource where lab_name in (?) group by availability order by count desc;";
+    db.query(q, [labs], (err, data) => {
+        if (err) {
+            console.log(err);
+        return res.json(err);
+        } else {
+            // console.log(data);
+        return res.json(data);
+        }
+    });
+});
+router.get("/condition/:labs", (req, res) => {
+  const labsParam = req.params.labs;
+  let labs = labsParam ? labsParam.split(",") : [];
+  const q =
+    "select resource_condition , count(resource_condition) as count  from resource where lab_name in (?) group by resource_condition order by count desc;";
+  db.query(q, [labs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    } else {
+      // console.log(data);
+      return res.json(data);
+    }
+  });
+});
+router.get("/checkoutstatus/:labs", (req, res) => {
+  const labsParam = req.params.labs;
+  let labs = labsParam ? labsParam.split(",") : [];
+  const q =
+    "select status , count(status) as count  from check_in_out_view where lab_name in (?) group by status order by count desc;";
+  db.query(q, [labs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    } else {
+      // console.log(data);
+      return res.json(data);
+    }
+  });
+
 });
 
 

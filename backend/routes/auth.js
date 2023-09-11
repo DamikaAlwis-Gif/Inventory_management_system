@@ -36,6 +36,7 @@ router.post("/login", (req, res) => {
   db.query(q, [req.body.user_name], (err, data) => {
     if (err) {
       res.json({ err: err });
+      console.log(err);
       console.log(data);
        // error in the database
     }
@@ -71,7 +72,7 @@ router.post("/login", (req, res) => {
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.json({ err: "You are not authorized" }); // therre is no token
+    return res.json({ err: "There is no token" }); // therre is no token
   } else {
     jwt.verify(token, "jwtSecret", (err, decoded) => {
       if (err) {

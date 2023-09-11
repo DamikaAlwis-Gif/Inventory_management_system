@@ -23,9 +23,9 @@ const Resources = () => {
   axios.defaults.withCredentials = true;
 
   const [options, setoptions] = useState({
-    lab: "",
-    availability: "",
-    type: "",
+    lab: "All",
+    availability: "All",
+    type: "All",
   });
 
   const handleChange = (e) => {

@@ -39,6 +39,7 @@ const Table = (props) => {
               <td>{resource.resource_type}</td>
               <td>{resource.lab_name}</td>
               <td>{resource.availability}</td>
+              
             </tr>
           ))}
         </tbody>
