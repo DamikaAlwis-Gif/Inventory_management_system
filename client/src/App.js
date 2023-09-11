@@ -31,6 +31,8 @@ import Analytics from "./components/reports/Analytics";
 import Maintenance from "./components/inventoryList/Maintenance";
 import MaintenanceAdd from "./components/inventoryList/MaintenanceAdd";
 import MtClashHandle from "./components/inventoryList/MtClashHandle";
+import AdminReserView from "./components/inventoryList/AdminReserView";
+import AdminMaintenanceView from "./components/inventoryList/AdminMaintenanceView";
 
 
 function App() {
@@ -79,7 +81,9 @@ function App() {
           <Route path="/maintenance/:id" element={<Maintenance />}></Route>
           <Route path="/maintenanceAdd/:id" element={<MaintenanceAdd />}></Route>
           <Route path="/maintenanceClashes/:id/:data" element={<MtClashHandle />}></Route>
-
+            
+          <Route path="/adminReservations" element={<AdminReserView />}></Route>
+          <Route path="/adminMaintenance" element={<AdminMaintenanceView />}></Route>
 
           <Route
             path="/dashboard"
