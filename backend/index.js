@@ -8,6 +8,7 @@ const app = express();
 import resourceRouter from "./routes/resource.js";
 import authRouter from "./routes/auth.js";
 import checkoutRouter from "./routes/checkout.js";
+import checkinRouter from "./routes/checkin.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import reportRouter from "./routes/report.js"; 
@@ -29,4 +30,5 @@ app.get("/", (req, res) => {
 app.use("/resources", resourceRouter);
 app.use("/auth", authRouter);
 app.use("/checkout", checkoutRouter);
+app.use("/checkin", checkinRouter);
 app.use("/report", reportRouter);
