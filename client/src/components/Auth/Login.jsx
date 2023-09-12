@@ -138,7 +138,7 @@ const Login = () => {
               />
             </Grid>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-          <Button onClick={() => navigate("/dashboard")} type="button" variant="text" color="primary" sx={{
+          <Button onClick={() => navigate("/register")} type="button" variant="text" color="primary" sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',

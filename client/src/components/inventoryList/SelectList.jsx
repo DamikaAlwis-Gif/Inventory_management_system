@@ -2,7 +2,12 @@ import React from "react";
 
 const SelectList = (props) => {
   const {options , labs ,onChange, onSearch , types , searchvalue, handleSearchByType } = props;
-  const availability = [ "Available", "Not Available", "Checked Out", "Under Maintenance"];
+  const availability = [
+    "Available",
+    "Checked out",
+    "Under maintenance",
+    "Out of order",
+  ];
   return (
     <div>
       <form>
