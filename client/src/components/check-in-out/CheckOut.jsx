@@ -9,11 +9,9 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
 import axios from 'axios';
@@ -48,7 +46,7 @@ export default function CheckOut() {
       checkoutDatetime: formattedCheckoutDatetime,
       dueDatetime: formattedDueDatetime,
       retDatetime: formattedRetDatetime,
-      status: "checked-out",
+      status: "Checked-out",
       purpose: data.purpose
     }
     const formDataJSON = JSON.stringify(formData);
@@ -103,8 +101,7 @@ export default function CheckOut() {
   const navigate = useNavigate();
 
   return (
-// <Container>
-<Container
+    <Container
       maxWidth="md"
       disableGutters={true}
       sx={{
@@ -149,7 +146,9 @@ export default function CheckOut() {
             id="filled-basic"
             label="User ID"
             variant="outlined"
-            fullWidth type="text"
+            fullWidth
+            type="text"
+            autoComplete="off"
             {...register('userId', {required: "User ID is required."})}
             error={userIdError && errors.userId}
             helperText={userIdError && errors.userId?.message}
@@ -168,6 +167,7 @@ export default function CheckOut() {
             variant="outlined"
             fullWidth
             type="text"
+            autoComplete="off"
             {...register('resourceId', {required: "Resource ID is required.",
             pattern: {
               value: /^[0-9]+$/, // to allow only digits as input
@@ -227,6 +227,7 @@ export default function CheckOut() {
             maxRows={4}
             fullWidth
             type="text"
+            autoComplete="off"
             {...register('purpose', {required: "Purpose is required."})}
             error={!!errors.purpose}
             helperText={errors.purpose?.message}
@@ -245,32 +246,18 @@ export default function CheckOut() {
             height: '40px',
             textTransform: 'capitalize',            
           }}>Proceed</Button>
+          </Grid>
         </Grid>
-      </Grid>
-      {/* {displayMessage && (
-        <Grid item xs={12}
-        style={{
-          opacity: 1,
-          transition: 'opacity 0.5s ease-in-out',
-          marginBottom: '1rem',
-        }}>
-            <Alert severity={messageType} sx={{ display: 'flex', marginTop: '1rem' }}>
-              <AlertTitle>{messageType === "success" ? "Success!" : "Error!"}</AlertTitle>
+
+        <Snackbar open={open} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
+          <Alert severity={messageType} sx={{ width: '100%' }}>
             {displayMessage}
           </Alert>
-        </Grid>
-        )} */}
-
-      <Snackbar open={open} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
-        <Alert severity={messageType} sx={{ width: '100%' }}>
-          {displayMessage}
-        </Alert>
-      </Snackbar>
+        </Snackbar>
       
-    </form>
-    </FormProvider>
+      </form>
+      </FormProvider>
     {/* <DevTool control={control} />       */}
     </Container>
-    // </Container>
   )
 }
