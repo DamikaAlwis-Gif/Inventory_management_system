@@ -46,13 +46,14 @@ const Account = () => {
       <div className="container my-5">
         <div className="row">
           <div className="col-md-4  mx-auto">
-            <div className="card shadow ">
+            <div className="card shadow border-2">
               <div
                 className="card-header"
                 style={{
                   fontWeight: "bold",
                   fontSize: "20px",
-                  backgroundColor: "#3498db",
+                  backgroundColor: "#007BFF",
+                  color: "white", 
                 }}
               >
                 Profile

@@ -201,7 +201,12 @@ const Update = () => {
                 name={"availability"}
                 value={asset.availability}
                 title={"Availability"}
-                list={["Available", "Not Available", "Under Maintenace"]}
+                list={[
+                  "Available",
+                  "Checked out",
+                  "Under maintenance",
+                  "Out of order",
+                ]}
                 error={errors.availability}
               />
 
@@ -210,7 +215,7 @@ const Update = () => {
                 name={"resource_condition"}
                 value={asset.resource_condition}
                 title={"Condition"}
-                list={["Good", "Needs repair", "Out of order"]}
+                list={["Excellent", "Good", "Fair", "Poor", "Out of order"]}
                 error={errors.resource_condition}
               />
             </div>
