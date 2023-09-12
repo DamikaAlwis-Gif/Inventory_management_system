@@ -5,7 +5,7 @@ const Table = (props) => {
   const { resources : allResources , onClickMore,currentPage, pageSize  } = props;
   //  console.log(searchvalue);
   //  console.log(typeof(searchvalue));
-
+console.log(allResources);
   if (allResources.length === 0) {
     return (
       <div className="container text-center p-5">
@@ -13,7 +13,9 @@ const Table = (props) => {
       </div>
     );
   }
+  
   const resources = paginate(allResources,currentPage, pageSize );
+  console.log(resources);
   
   return (
     <div>

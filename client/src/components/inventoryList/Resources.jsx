@@ -121,6 +121,7 @@ const Resources = () => {
     setCurrentPage(page); 
     
   };
+  console.log(resources);
   return (
     <div>
       <h1 className="text-center">Resources</h1>
@@ -151,6 +152,7 @@ const Resources = () => {
           currentPage={currentPage}
           pageSize={pageSize}
         ></Table>
+
         <Pagination
           onPageChange={handlePageChange}
           pageSize={pageSize}
