@@ -89,7 +89,7 @@ router.get("/checkoutstatus/:labs", (req, res) => {
   const labsParam = req.params.labs;
   let labs = labsParam ? labsParam.split(",") : [];
   const q =
-    "select status , count(status) as count  from check_in_out_view where lab_name in (?) group by status order by count desc;";
+    "select status , count(status) as count  from check_in_out_view where lab_name in (?) and status != 'Checked-in' group by status order by count desc;";
   db.query(q, [labs], (err, data) => {
     if (err) {
       console.log(err);

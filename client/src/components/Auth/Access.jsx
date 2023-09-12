@@ -16,8 +16,8 @@ const Access = {
     "Office Clerk",
   ],
   add: ["Admin", "Technical Officer"],
-  adminmore: ["Admin", "Technical Officer", "Office Clerk"],
-  publicmore: ["Student", "Academic Staff Member"],
+  adminmore: ["Admin", "Technical Officer"],
+  publicmore: ["Student", "Academic Staff Member" , "Office Clerk"],
   update: ["Admin", "Technical Officer"],
   dashboard: [
     "Admin",

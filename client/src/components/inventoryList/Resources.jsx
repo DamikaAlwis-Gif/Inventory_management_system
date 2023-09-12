@@ -79,7 +79,8 @@ const Resources = () => {
   const handleMore = (e, id) => {
     //console.log("more cliked");
     e.preventDefault();
-    if (role === "Technical Officer") navigate(`/adminmore/${id}`);
+    if (role === "Technical Officer" || role === "Admin" )
+      navigate(`/adminmore/${id}`);
     else navigate(`/usermore/${id}`);
   };
 
