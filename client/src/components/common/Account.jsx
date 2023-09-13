@@ -1,8 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-
+import userImage from '../../Images/user.png'
 import axios from 'axios';
-import Navbar from '../Auth/NavBar';
 const Account = () => {
 
     axios.defaults.withCredentials = true;
@@ -21,6 +20,7 @@ const Account = () => {
      }
     getUserInfo(); 
     }, [])
+    
     useEffect(() => {
         
         const getUserInfo = async () => {
@@ -43,33 +43,45 @@ const Account = () => {
     console.log(accessLab);
   return (
     <div>
-      
       <div className="container my-5">
         <div className="row">
           <div className="col-md-4  mx-auto">
-            <div className="card  ">
-              <div className="card-header">Profile</div>
-              <div className="card-body text-center ">
+            <div className="card shadow ">
+              <div
+                className="card-header"
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                  backgroundColor: "#3498db",
+                }}
+              >
+                Profile
+              </div>
+              <div
+                className="card-body text-center "
+                style={{
+                  fontSize: "15px",
+                }}
+              >
                 <img
-                  src="https://via.placeholder.com/150"
+                  src={userImage}
                   alt="User Profile"
                   className="img-fluid rounded-circle mb-3"
+                  width="175px"
                 />
                 <h5 className="card-title">{user.name}</h5>
                 <p>Username: {user.user_name}</p>
                 <p>Email: {user.email}</p>
                 <p>Phone: {user.phone_number}</p>
                 <p>Role: {user.role}</p>
-                <p>
-                  Have access to :
-                  {accessLab.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </p>
-
-                {/* <a href="#" className="btn btn-primary">
-                Edit Profile
-              </a> */}
+                <div>
+                  <p>
+                    Have access to :
+                    {accessLab.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

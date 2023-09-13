@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Navbar from "../Auth/NavBar";
 import TableMore from "./TableMore";
+
 
 const MoreDetails = () => {
   const [details, setDetails] = useState({});
   const { id } = useParams();
+  const [loaded, setLoaded] = useState(false);
+ // alert(id);
+ // const id=2;
   const [ok, setok] = useState(true);
 
   
@@ -21,6 +24,7 @@ const MoreDetails = () => {
         if (res.data && res.data.length > 0) {
           setDetails(res.data[0]);
           console.log(res.data[0]);
+          setLoaded(true);
         } else {
           setok(false);
         }
@@ -60,16 +64,47 @@ const MoreDetails = () => {
       console.log(error);
     }
   };
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    navigate("/update/" + id);
+  };
+
+  const handleReserve = async (e,id) => {
+    try {
+      e.preventDefault();
+     // const res = await axios.delete("http://localhost:8800/resources/" + id);
+      console.log("Redirected to reservation data page!");
+      navigate(`/reserve/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleMaintenance = async (e,id) => {
+    try {
+      e.preventDefault();
+      console.log("Redirected to maintenance page!");
+      navigate(`/maintenance/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
-      {ok ? (
+      {ok && loaded ? (
         <div>
           <h1 className="text-center">More Details</h1>
           <div className="container">
-            <div className="row">
+            <div
+              className="row"
+            >
               <div className="col-md mx-auto">
-                <button type="button" className="btn btn-primary btn-sm ">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm "
+                  onClick={(e) => handleUpdate(e)}
+                >
                   Update
                 </button>
                 <button
@@ -79,13 +114,40 @@ const MoreDetails = () => {
                 >
                   Delete
                 </button>
-                <button className="btn btn btn-primary btn-sm ">
+
+                <button
+                  type="button"
+                  className="btn btn btn-primary btn-sm "
+                  onClick={(e) => handleReserve(e, id)}
+                >
                   Reserve
                 </button>
-                <button className="btn btn btn-warning btn-sm m-2"> Shedule Maintenance
+
+                <button
+                  type="button"
+                  className="btn btn btn-warning btn-sm m-2"
+                  onClick={(e) => handleMaintenance(e, id)}
+                >
+                  {" "}
+                  Shedule Maintenance
                 </button>
 
-                <TableMore details={details} />
+                <div className="row g-0 mt-3 border border-2 rounded shadow p-3">
+                  <div className="col-md-4 ">
+                    <img
+                      src={
+                        details.img_url
+                          ? details.img_url
+                          : "https://via.placeholder.com/150"
+                      }
+                      alt="Resource Image"
+                      className="img-fluid rounded border-4 mx-auto d-block"
+                    />
+                  </div>
+                  <div className="col-md ">
+                    <TableMore details={details} />
+                  </div>
+                </div>
               </div>
             </div>
             ;

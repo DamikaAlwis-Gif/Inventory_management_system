@@ -5,6 +5,7 @@ const db = mysql.createConnection({
   user: "root",
   password: "root",
   database: "inventorydbv2",
+  timezone: 'UTC'
 });
 
 export default db;

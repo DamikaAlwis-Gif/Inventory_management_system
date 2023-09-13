@@ -36,10 +36,11 @@ router.post("/login", (req, res) => {
   db.query(q, [req.body.user_name], (err, data) => {
     if (err) {
       res.json({ err: err });
+      console.log(err);
       console.log(data);
        // error in the database
     }
-    if (data.length > 0) {
+    if (data && data.length > 0) { 
       bcrypt.compare(
         req.body.password.toString(),
         data[0].password,
@@ -71,13 +72,14 @@ router.post("/login", (req, res) => {
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.json({ err: "You are not authorized" }); // therre is no token
+    return res.json({ err: "There is no token" }); // therre is no token
   } else {
     jwt.verify(token, "jwtSecret", (err, decoded) => {
       if (err) {
         return res.json({ err: "You are not authorized" }); // token is not valid
       } else {
         req.name = decoded.name;
+        req.role = decoded.role;
         next(); // proceed to the next middleware or route handler
       }
     }); // verify the token
