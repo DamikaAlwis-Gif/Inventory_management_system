@@ -1,4 +1,6 @@
-import React from "react";
+import React from "react"; 
+import Button from '@mui/material/Button';
+import SearchIcon from "@mui/icons-material/Search";
 
 const SelectList = (props) => {
   const {options , labs ,onChange, onSearch , types , searchvalue, handleSearchByType } = props;
@@ -73,26 +75,33 @@ const SelectList = (props) => {
                 name="availability"
                 onChange={(e) => onChange(e)}
               >
-                
                 <option value="All">All</option>
-                {availability.map((avail) => <option key={avail} value={avail}>{avail}</option> )}
+                {availability.map((avail) => (
+                  <option key={avail} value={avail}>
+                    {avail}
+                  </option>
+                ))}
               </select>
               <label htmlFor="availability">Availability</label>
             </div>
           </div>
 
           <div className="col">
-            <button
-              className="btn btn-primary btn-sm"
+            <Button
+              variant="contained"
+              size="small"
               onClick={(e) => onSearch(e)}
-              // disabled={
-              //   options.lab === "" ||
-              //   options.availability === "" ||
-              //   options.type === ""
-              // }
+              disabled={
+                options.lab === "" ||
+                options.availability === "" ||
+                options.type === ""
+              }
+              startIcon={<SearchIcon />}
+              sx={{borderRadius: '8px'}}
+              
             >
               Search
-            </button>
+            </Button>
           </div>
         </div>
       </form>

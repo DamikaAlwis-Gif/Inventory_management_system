@@ -16,6 +16,14 @@ const Analytics = () => {
   const [conditionLoaded, setConditionLoaded] = useState(false);
   const [checkoutStatusData, setCheckoutStatusData] = useState([]);
   const [checkoutStatusLoaded, setCheckoutStatusLoaded] = useState(false);
+  const [numCheckouts, setNumCheckouts] = useState([]);
+  const [numCheckoutsLoaded, setNumCheckoutsLoaded] = useState(false);
+  const [numCheckins, setNumCheckins] = useState([]);
+  const [numCheckinsLoaded, setNumCheckinsLoaded] = useState(false);
+  const [numReservations, setNumReservations] = useState([]);
+  const [numReservationsLoaded, setNumReservationsLoaded] = useState(false);
+  const [numMaintenances, setNumMaintenances] = useState([]);
+  const [numMaintenancesLoaded, setNumMaintenancesLoaded] = useState(false);
   const colors = [
     "#a7c5eb",
     "#b2d8b2",
@@ -76,6 +84,7 @@ const Analytics = () => {
       getConditionReport();
     }
   }, [accessLab]);
+
   useEffect(() => {
     const labs = accessLab.join(",");
     const getCheckOutStatus = async () => {
@@ -93,6 +102,86 @@ const Analytics = () => {
       getCheckOutStatus();
     }
   }, [accessLab]);
+
+   useEffect(() => { //get number of checkouts in a week
+    const labs = accessLab.join(",");
+    const getNumCheckouts = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8800/report/numcheckouts/${labs}`
+        );
+        console.log(res.data);
+        setNumCheckouts(res.data);
+        setNumCheckoutsLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (labsLoaded) {
+      getNumCheckouts();
+    }
+   },[accessLab]);
+
+   useEffect(() => {
+     //get number of checkins in a week
+     const labs = accessLab.join(",");
+     const getNumCheckins = async () => {
+       try {
+         const res = await axios.get(
+           `http://localhost:8800/report/numcheckins/${labs}`
+         );
+         console.log(res.data);
+         setNumCheckins(res.data);
+         setNumCheckinsLoaded(true);
+       } catch (error) {
+         console.log(error);
+       }
+     };
+     if (labsLoaded) {
+       getNumCheckins();
+     }
+   }, [accessLab]);
+   useEffect(() => {
+     //get number of reservations in upcoming week
+     const labs = accessLab.join(",");
+     const getNumReservations = async () => {
+       try {
+         const res = await axios.get(
+           `http://localhost:8800/report/numreservations/${labs}`
+         );
+         console.log(res.data);
+         setNumReservations(res.data);
+         setNumReservationsLoaded(true);
+       } catch (error) {
+         console.log(error);
+       }
+     };
+     if (labsLoaded) {
+       getNumReservations();
+     }
+   }, [accessLab]);
+
+   useEffect(() => {
+     //get number of maintenances in upcoming week
+     const labs = accessLab.join(",");
+     const getNumMaintenances = async () => {
+       try {
+         const res = await axios.get(
+           `http://localhost:8800/report/nummaintenances/${labs}`
+         );
+         setNumMaintenances(res.data);
+         setNumMaintenancesLoaded(true);
+       } catch (error) {
+         console.log(error);
+       }
+     };
+     if (labsLoaded) {
+       getNumMaintenances();
+      
+     }
+   }, [accessLab]);
+
+
 
   const dataA = {
     labels: availabilityData.map((item) => item.availability),
@@ -133,6 +222,60 @@ const Analytics = () => {
       },
     ],
   };
+  const labelsNumofCheckOuts = numCheckouts.map((item) => item.date);
+  const dataNumofCheckouts = {
+    labels: labelsNumofCheckOuts,
+    datasets: [
+      {
+        axis: "y",
+        label: "Check-outs",
+        data: numCheckouts.map((item) => item.count),
+        fill: false,
+        borderColor: "red",
+        borderWidth: 2,
+        pointBackgroundColor: "red",
+        backgroundColor: "red",
+      },
+     
+      {
+        axis: "y",
+        label: "Check-ins",
+        data: numCheckins.map((item) => item.count),
+        fill: false,
+        borderColor: "green",
+        borderWidth: 2,
+        pointBackgroundColor: "green",
+        backgroundColor: "green",
+      },
+    ],
+  };
+  const labelsNumofReservations = numReservations.map((item) => item.date);
+  const dataNumresrvations = {
+    labels: labelsNumofReservations,
+    datasets: [
+      {
+        axis: "y",
+        label: "Reservations",
+        data: numReservations.map((item) => item.count),
+        fill: false,
+        borderColor: "red",
+        borderWidth: 2,
+        pointBackgroundColor: "red",
+        backgroundColor: "red",
+      },
+
+      {
+        axis: "y",
+        label: "Maintenances",
+        data: numMaintenances.map((item) => item.count),
+        fill: false,
+        borderColor: "green",
+        borderWidth: 2,
+        pointBackgroundColor: "green",
+        backgroundColor: "green",
+      },
+    ],
+  };
 
 
   return (
@@ -141,26 +284,44 @@ const Analytics = () => {
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
       </div>
-      <div className="row my-4">
-        <div className="col-md-4 border">
+      <div className="row my-4  p-3">
+        <div className="col-md border shadow">
           {availabilityLoaded && (
             <Piechart title="Availability of resources" data={dataA} />
           )}
         </div>
-        <div className="col-md-4 border">
+        <div className="col-md mx-2 border shadow">
           {conditionLoaded && (
             <Piechart title="Condition of resources" data={dataC} />
           )}
         </div>
-        <div className="col-md-4 border">
+        <div className="col-md border shadow">
           {checkoutStatusLoaded && (
             <Piechart title="Check-out status" data={dataB} />
           )}
         </div>
       </div>
-      <div className='row '>
-        <div className='col-md-8'>
-          <LineChart />
+      <div className="row my-3 ">
+        <div className="col-md  shadow p-3 border ">
+          {numCheckoutsLoaded && numCheckinsLoaded && (
+            <LineChart
+              data={dataNumofCheckouts}
+              title={
+                "Num of check-outs , check-ins happend in last 7 days"
+              }
+            />
+          )}
+        </div>
+
+        <div className="col-md  mx-2 shadow p-3 border">
+          {numReservationsLoaded && numMaintenancesLoaded && (
+            <LineChart
+              data={dataNumresrvations}
+              title={
+                "Number of reservations and maintenances coming in the next 7 days"
+              }
+            />
+          )}
         </div>
       </div>
     </div>

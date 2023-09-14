@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../dataBase/db.js";
+import moment from "moment";
 
 const router = express.Router();
 //
@@ -101,7 +102,172 @@ router.get("/checkoutstatus/:labs", (req, res) => {
   });
 
 });
+const getDays = () => {
+  let days = [];
+  const today = moment().format("YYYY-MM-DD");
+  let sevenDaysAgo = moment().subtract(6, "days").format("YYYY-MM-DD");
+  console.log(sevenDaysAgo);
+  console.log(today);
+  while (sevenDaysAgo <= today) {
+    console.log(sevenDaysAgo);
+    days.push(moment(sevenDaysAgo).format("YYYY-MM-DD"));
+    sevenDaysAgo = moment(sevenDaysAgo).add(1, "days").format("YYYY-MM-DD");
+    console.log(sevenDaysAgo);
+  }
+  return days;
+}
+const getDaysAfter = () => {
+  let days = [];
+  let today = moment().format("YYYY-MM-DD");
+  let sevenDaysAfter = moment().add(6, "days").format("YYYY-MM-DD");
+ 
+  while (sevenDaysAfter >= today) {
+    
+    days.push(moment(today).format("YYYY-MM-DD"));
+    today = moment(today).add(1, "days").format("YYYY-MM-DD");
+    
+  }
+  return days;
+}
 
+router.get("/numcheckouts/:labs", (req, res) => {
+  const days = getDays();
+  const labsParam = req.params.labs;
+  let labs = labsParam ? labsParam.split(",") : [];
+  const q =
+    "select DATE(check_out_datetime) as date , count(*) as count from check_in_out_view where lab_name in (?) and check_out_datetime >= DATE_SUB( CURDATE() , INTERVAL 6 DAY) group by DATE(check_out_datetime) order by date asc;";
+  db.query(q, [labs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    } else {
+      
+      let temp = []
+     
+      let formatedData = data.map((item) => {
+        
+        return {
+          date: moment(item.date).format("YYYY-MM-DD"),
+          count: item.count,
+        };
+      })
+      
+      temp = days.map((day) => {
+        if (formatedData.find((item) => item.date === day)) {
+          return formatedData.find((item) => item.date === day);
+        } else {
+          return { date: day, count: 0 };
+        }
+      })
+    
+      return res.json(temp);
+    }
+  });
+});
+router.get("/numcheckins/:labs", (req, res) => {
+  const days = getDays();
+  const labsParam = req.params.labs;
+  let labs = labsParam ? labsParam.split(",") : [];
+  const q =
+    "select DATE(check_in_datetime) as date , count(check_in_datetime) as count from check_in_out_view where check_in_datetime >= DATE_SUB( CURDATE() , INTERVAL 6 DAY) and status = 'Checked-in' and lab_name in (?) group by DATE(check_in_datetime) order by date asc;";
+  db.query(q, [labs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    } else {
+      let temp = [];
+
+      let formatedData = data.map((item) => {
+        return {
+          date: moment(item.date).format("YYYY-MM-DD"),
+          count: item.count,
+        };
+      });
+
+      temp = days.map((day) => {
+        if (formatedData.find((item) => item.date === day)) {
+          return formatedData.find((item) => item.date === day);
+        } else {
+          return { date: day, count: 0 };
+        }
+      });
+      
+
+      return res.json(temp);
+    }
+  });
+
+});
+
+router.get("/numreservations/:labs", (req, res) => {
+  const days = getDaysAfter();
+  const labsParam = req.params.labs;
+  let labs = labsParam ? labsParam.split(",") : [];
+  const q =
+    "select DATE(start_date) as date , count(*) as count from reservation_view where start_date <= DATE_ADD( CURDATE() , INTERVAL 6 DAY)  and lab_name in (?) group by DATE(start_date) order by date asc;";
+  db.query(q, [labs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    } else {
+      let temp = [];
+
+      let formatedData = data.map((item) => {
+        return {
+          date: moment(item.date).format("YYYY-MM-DD"),
+          count: item.count,
+        };
+      });
+
+      temp = days.map((day) => {
+        if (formatedData.find((item) => item.date === day)) {
+          return formatedData.find((item) => item.date === day);
+        } else {
+          return { date: day, count: 0 };
+        }
+      });
+      console.log(temp);
+
+      return res.json(temp);
+    }
+  });
+
+});
+
+router.get("/nummaintenances/:labs", (req, res) => {
+  const days = getDaysAfter();
+  const labsParam = req.params.labs;
+  let labs = labsParam ? labsParam.split(",") : [];
+  const q =
+    "select DATE(start_date) as date , count(*) as count from maintenance_view where start_date <= DATE_ADD( CURDATE() , INTERVAL 6 DAY) and lab_name in (?) group by DATE(start_date) order by date asc;";
+  db.query(q, [labs], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.json(err);
+    } else {
+      let temp = [];
+
+      let formatedData = data.map((item) => {
+        return {
+          date: moment(item.date).format("YYYY-MM-DD"),
+          count: item.count,
+        };
+      });
+
+      temp = days.map((day) => {
+        if (formatedData.find((item) => item.date === day)) {
+          return formatedData.find((item) => item.date === day);
+        } else {
+          return { date: day, count: 0 };
+        }
+      });
+      console.log(temp);
+      console.log("maintenance");
+
+      return res.json(temp);
+    }
+  });
+});
 
 
 
