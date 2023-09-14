@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SelectLIst from "./SelectList";
-import Table from "./Table";
+import TableRessources from "./Table";
 import Pagination from "../common/Pagination";
-
+import AddIcon from "@mui/icons-material/Add";
+import Button from "@mui/material/Button";
 
 const Resources = () => {
   const [resources, setResources] = useState([]);// resources to be displayed
@@ -29,6 +30,7 @@ const Resources = () => {
   });
 
   const handleChange = (e) => {
+    e.preventDefault();
     setoptions((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   
@@ -46,8 +48,7 @@ const Resources = () => {
     };
     getUserInfo();
   }, []);
-  //console.log(labs);
-  // }, []);
+  
   useEffect(() => {
 
     labsLoaded && fetchAllResources();
@@ -117,11 +118,7 @@ const Resources = () => {
     );
     setResources(temp);
   };
-  const handlePageChange = (e,page) => {
-    e.preventDefault();
-    setCurrentPage(page); 
-    
-  };
+  
   console.log(resources);
   return (
     <div>
@@ -139,27 +136,26 @@ const Resources = () => {
         ></SelectLIst>
         {role === "Technical Officer" && (
           <div className="my-2">
-            <button
-              className="btn btn-sm btn-success"
-              onClick={(e) => handleAdd(e)}
-            >
-              Add asset
-            </button>
+            
+            <Button
+            onClick={(e) => handleAdd(e)}
+            variant="contained" size="small"
+            color="success" 
+            sx={{borderRadius: '8px'}}
+            startIcon={<AddIcon />}
+             >add</Button>
+
           </div>
         )}
-        <Table
+        <TableRessources
           resources={resources}
           onClickMore={handleMore}
           currentPage={currentPage}
           pageSize={pageSize}
-        ></Table>
+          
+        ></TableRessources>
 
-        <Pagination
-          onPageChange={handlePageChange}
-          pageSize={pageSize}
-          itemsCount={itemsCount}
-          currentPage={currentPage}
-        ></Pagination>
+        
       </div>
     </div>
   );

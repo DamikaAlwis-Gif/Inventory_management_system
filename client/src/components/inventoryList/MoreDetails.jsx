@@ -1,10 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams ,Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TableMore from "./TableMore";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import UpdateIcon from "@mui/icons-material/Update";
+import { Button } from "@mui/material";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
 
 const MoreDetails = () => {
   const [details, setDetails] = useState({});
@@ -96,43 +100,56 @@ const MoreDetails = () => {
         <div>
           <h1 className="text-center">More Details</h1>
           <div className="container">
-            <div
-              className="row"
-            >
+            <div className="my-2">
+              <Link to="/resources"> Resources</Link>
+            </div>
+            <div className="row">
               <div className="col-md mx-auto">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm "
+                <Button
                   onClick={(e) => handleUpdate(e)}
+                  variant="contained"
+                  // startIcon={<UpdateIcon />}
+                  size="small"
+                  style={{ marginRight: "10px" }}
+                  // sx={{ borderRadius: "15px" }}
                 >
                   Update
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger btn-sm m-2"
+                </Button>
+
+                <Button
                   onClick={(e) => handleDelete(e, id)}
+                  variant="contained"
+                  size="small"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                  style={{ marginRight: "10px" }}
+                  // sx={{ borderRadius: "15px" }}
                 >
                   Delete
-                </button>
+                </Button>
 
-                <button
-                  type="button"
-                  className="btn btn btn-primary btn-sm "
+                <Button
                   onClick={(e) => handleReserve(e, id)}
+                  variant="contained"
+                  size="small"
+                  // startIcon={<ScheduleIcon />}
+                  style={{ marginRight: "10px" }}
+                  // sx={{ borderRadius: "15px" }}
                 >
                   Reserve
-                </button>
+                </Button>
 
-                <button
-                  type="button"
-                  className="btn btn btn-warning btn-sm m-2"
+                <Button
                   onClick={(e) => handleMaintenance(e, id)}
+                  variant="contained"
+                  size="small"
+                  
+                  
                 >
-                  {" "}
-                  Shedule Maintenance
-                </button>
+                  Schedule Maintenance
+                </Button>
 
-                <div className="row g-0 mt-3 border border-2 rounded shadow p-3">
+                <div className="row g-0 mt-3 border border-2 rounded shadow p-3" >
                   <div className="col-md-4 ">
                     <img
                       src={
