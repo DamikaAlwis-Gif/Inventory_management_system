@@ -4,57 +4,154 @@ import moment from "moment";
 
 const router = express.Router();
 //
-router.get("/check-out-in/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {
+router.get("/check_in_check_out/:resource_id/:start_date/:end_date/:status/:lab/:labs",
+  (req, res) => {
     const resource_id = req.params.resource_id;
     const start_date = req.params.start_date;
-    const end_date = req.params.end_date; 
+    const end_date = req.params.end_date;
     const status = req.params.status;
     const lab = req.params.lab;
     const labsParam = req.params.labs;
     const labs = labsParam ? labsParam.split(",") : [];
 
     let q = "SELECT * FROM check_in_out_view WHERE ";
-    let value =[];
+    let value = [];
 
-    if(resource_id !== "All"){
-        q = q + "resource_id = ? AND ";
-        value.push(resource_id);
+    if (resource_id !== "All") {
+      q = q + "resource_id = ? AND ";
+      value.push(resource_id);
     }
-    
-    if(end_date !== "All"){
-        q = q + "DATE(check_out_datetime) <= ? AND ";
-        value.push(end_date);
+
+    if (end_date !== "All") {
+      q = q + "DATE(check_out_datetime) <= ? AND ";
+      value.push(end_date);
     }
-    if(status !== "All"){
-        q = q + "status = ? AND ";
-        value.push(status);
+    if (status !== "All") {
+      q = q + "status = ? AND ";
+      value.push(status);
     }
     if (start_date !== "All") {
       q = q + "DATE(check_out_datetime) >= ? AND ";
       value.push(start_date);
     }
-    if(lab !== "All"){
-        q = q + "lab_name = ? AND ";
-        value.push(lab);
+    if (lab !== "All") {
+      q = q + "lab_name = ? AND ";
+      value.push(lab);
     }
     if (labs.length > 0 && lab === "All") {
       q = q + "lab_name IN (?) AND ";
       value.push(labs);
     }
 
-    q = q + "true;"
-    
-    db.query(q, value ,(err, data) => {
+    q = q + "true;";
+
+    db.query(q, value, (err, data) => {
       if (err) {
-        
-        return res.json(err);}
-      else {
-    
-        return res.json(data);}
+        return res.json(err);
+      } else {
+        return res.json(data);
+      }
     });
+  }
+);
+router.get("/maintenance/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {
+  const resource_id = req.params.resource_id;
+  const start_date = req.params.start_date;
+  const end_date = req.params.end_date;
+  const status = req.params.status;
+  const lab = req.params.lab;
+  const labsParam = req.params.labs;
+  const labs = labsParam ? labsParam.split(",") : [];
+
+  let q = "SELECT * FROM maintenance_view WHERE ";
+  let value = [];
+
+  if (resource_id !== "All") {
+    q = q + "resource_id = ? AND ";
+    value.push(resource_id);
+  }
+
+  if (end_date !== "All") {
+    q = q + "DATE(start_date) <= ? AND ";
+    value.push(end_date);
+  }
+  if (status !== "All") {
+    q = q + "status = ? AND ";
+    value.push(status);
+  }
+  if (start_date !== "All") {
+    q = q + "DATE(start_date) >= ? AND ";
+    value.push(start_date);
+  }
+  if (lab !== "All") {
+    q = q + "lab_name = ? AND ";
+    value.push(lab);
+  }
+  if (labs.length > 0 && lab === "All") {
+    q = q + "lab_name IN (?) AND ";
+    value.push(labs);
+  }
+
+  q = q + "true;";
+
+  db.query(q, value, (err, data) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.json(data);
+    }
+  });
+  
 });
-router.get("/maintenance/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {});
-router.get("/reservation/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {});
+router.get("/reservation/:resource_id/:start_date/:end_date/:status/:lab/:labs", (req, res) => {
+  const resource_id = req.params.resource_id;
+  const start_date = req.params.start_date;
+  const end_date = req.params.end_date;
+  const status = req.params.status;
+  const lab = req.params.lab;
+  const labsParam = req.params.labs;
+  const labs = labsParam ? labsParam.split(",") : [];
+
+  let q = "SELECT * FROM reservation_view WHERE ";
+  let value = [];
+
+  if (resource_id !== "All") {
+    q = q + "resource_id = ? AND ";
+    value.push(resource_id);
+  }
+
+  if (end_date !== "All") {
+    q = q + "DATE(start_date) <= ? AND ";
+    value.push(end_date);
+  }
+  if (status !== "All") {
+    q = q + "status = ? AND ";
+    value.push(status);
+  }
+  if (start_date !== "All") {
+    q = q + "DATE(start_date) >= ? AND ";
+    value.push(start_date);
+  }
+  if (lab !== "All") {
+    q = q + "lab_name = ? AND ";
+    value.push(lab);
+  }
+  if (labs.length > 0 && lab === "All") {
+    q = q + "lab_name IN (?) AND ";
+    value.push(labs);
+  }
+
+  q = q + "true;";
+
+  db.query(q, value, (err, data) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.json(data);
+    }
+  });
+
+});
 
 router.get("/availability/:labs", (req, res) => {
     const labsParam = req.params.labs;
