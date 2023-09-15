@@ -57,15 +57,27 @@ const TableRessources = (props) => {
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell
-                      key={column.id}
-                      style={{
-                        backgroundColor: "#cfe2ff",
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                       
+                        padding: "10px",
                       }}
+                      key={column.id}
+                      
                     >
                       {column.label}
                     </TableCell>
                   ))}
-                  <TableCell style={{ backgroundColor: "#cfe2ff" }}>
+                  <TableCell
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                     
+                      padding: "10px",
+                    }}
+                  
+                  >
                     Actions
                   </TableCell>
                 </TableRow>
@@ -75,7 +87,7 @@ const TableRessources = (props) => {
                   resources
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((resource, i) => (
-                      <TableRow key={i} hover={true}>
+                      <TableRow key={i} hover={true} >
                         {columns.map((column) => (
                           <TableCell key={column.id} >
                             {column.id === "availability" ? (

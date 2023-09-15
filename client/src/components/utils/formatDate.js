@@ -1,6 +1,7 @@
 
 //2023-09-08T08:40:00.000Z
 export const formatDate = (datetime) =>{
+    
     if(datetime === null){
         return "----"
     }
