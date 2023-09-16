@@ -3,7 +3,8 @@ import { useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import Report from './Report'
-import { Paper } from '@mui/material';
+import { Button } from '@mui/material';
+
 
 const ReportSection = () => {
     const [selectedRadio, setSelectedRadio] = useState("check_in_check_out"); // Initialize with the ID of the initially checked radio button
@@ -55,7 +56,7 @@ const ReportSection = () => {
           const url =
             "http://localhost:8800/report/" +
             selectedRadio +
-            `/${resource_id_temp}/${start_date_temp}/${end_date_temp}/${status}/${lab}/${accessLab}`;
+            `/${resource_id_temp}/${start_date_temp}/${end_date_temp}/${status}/${lab}/${labs}`;
           console.log(url);
           // console.log(url);
           const res = await axios.get(url);
@@ -140,17 +141,17 @@ const ReportSection = () => {
 
     }, [selectedRadio]);
 
+    
 
     
   return (
     <div>
       <h1 className="text-center">Reports</h1>
       <div className="container">
-        <div className="mt-2">
+        <div >
           <Link to="/analytics">Analytics</Link>
         </div>
-        <div className="mt-4">
-          
+        <div className="mt-2">
           <div className="btn-group btn-group-sm " role="group">
             <input
               type="radio"
@@ -194,16 +195,15 @@ const ReportSection = () => {
               Maintenance
             </label>
           </div>
-         
-          <Report 
-          statusList = {statusList}
-          details = {details}
-          columns = {columns}
-          formDetails = {formDetails}
-          accessLab = {accessLab}
-          handleChange = {handleChange}
-          handleForm = {handleForm}
-
+          
+          <Report
+            statusList={statusList}
+            details={details}
+            columns={columns}
+            formDetails={formDetails}
+            accessLab={accessLab}
+            handleChange={handleChange}
+            handleForm={handleForm}
           ></Report>
         </div>
       </div>
