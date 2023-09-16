@@ -1,24 +1,56 @@
 import React from 'react'
 import { formatDate } from '../utils/formatDate';
-import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import IconButton from "@mui/material/IconButton";
+import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
+
 const TableReport = (props) => {
     const {details , columns} = props;
-    const dates = ["start_date", "end_date", "check_out_datetime", "due_datetime", "check_in_datetime", "completion_date"]
+    const dates = ["start_date", "end_date", "check_out_datetime", "due_datetime", "check_in_datetime", "completion_date"];
+
+    const downloadPDF = (e) => {
+      e.preventDefault();
+      const doc = new jsPDF();
+      let tableHeaders = columns.map((item) => item.label);
+      let tableContent = details.map((item) => {
+        let temp = columns.map((column) => {
+        
+          if (dates.includes(column.id)) {
+             return formatDate(item[column.id]);
+          }
+          return item[column.id].toString();
+        });
+        return temp
+      });
+      doc.autoTable({
+        styles: { fontSize: 8 },
+        margin: { top: 10 },
+        head: [tableHeaders],
+        body: tableContent,
+      });
+      doc.save("report.pdf");
+    };
+
 
 console.log(details);
   return (
-    <div className="mt-2">
-        
+    <div className="mt-2"> 
       <Paper elevation={5}> 
-      <TableContainer sx={{ maxHeight: 375 }}>
+      <IconButton onClick={(e) => downloadPDF(e)}>
+        <LocalPrintshopRoundedIcon />
+      </IconButton>
+      <TableContainer sx={{ maxHeight: 350 }}>
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow > 
-              {columns.map((column) => (
-                <TableCell key={column.id}>{column.label}</TableCell>
-              ))}
+            {columns.map((column) => {
+            return <TableCell key={column.id}>{column.label}</TableCell>;}
+                )}
             </TableRow>
           </TableHead>
+         
           <TableBody>
            {details && details.map((row) => {
               return (
