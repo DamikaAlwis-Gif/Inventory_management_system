@@ -130,6 +130,9 @@ const MoreDetails = () => {
                     Delete
                   </Button>
 
+
+                
+
                   <Button
                     onClick={(e) => handleReserve(e, id)}
                     variant="contained"
@@ -141,6 +144,7 @@ const MoreDetails = () => {
                     Reserve
                   </Button>
 
+
                   <Button
                     onClick={(e) => handleMaintenance(e, id)}
                     variant="contained"
@@ -148,6 +152,9 @@ const MoreDetails = () => {
                   >
                     Schedule Maintenance
                   </Button>
+
+                 
+
                 </Paper>
                 <Paper sx={{ padding: "5px", marginTop: "5px" }} elevation={4}>
                   <div className="row g-0 ">
