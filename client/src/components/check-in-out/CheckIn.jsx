@@ -1,37 +1,101 @@
 import * as React from 'react';
 import { NAVBAR_HEIGHT } from '../../constants';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import CustomDateTimePicker from './CustomDateTimePicker';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
+import axios from 'axios';
 
 
 export default function CheckIn() {
 
   const methods = useForm();
-  const { register, formState, control } = methods;
+  const { register, formState, control, reset } = methods;
   const { errors } = formState;
 
-  const [checkinDatetime, setCheckinDatetime] = useState(dayjs(new Date()));
+  const [checkinDatetime, setCheckinDatetime] = useState(dayjs());
 
-  const formattedDatetime = checkinDatetime.format('YYYY-MM-DD HH:mm:00');
+  const [displayMessage, setDisplayMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [open, setOpen] = useState(false);
+  const [userIdError, setUserIdError] = useState(true);
+
+  const formattedCheckinDatetime = checkinDatetime.format('YYYY-MM-DD HH:mm:00');
 
   const onSubmit = (data) => {
-    console.log('Proceed btn clicked');
-    console.log(data.userId, data.resourceId, formattedDatetime);
+    setDisplayMessage("");
+
+    const formData = {
+      userId: data.userId,
+      resourceId: data.resourceId,
+      checkinDatetime: formattedCheckinDatetime,
+      status: "Checked-in",
+    }
+    const formDataJSON = JSON.stringify(formData);
+    console.log(formDataJSON);
+
+    const url = 'http://localhost:8800/checkin';
+
+    axios.post (url, formDataJSON, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }) .then (response => {
+      console.log("Response: ", response.data);
+      
+      setDisplayMessage(
+        <span>
+          <strong>Resource ID: {data.resourceId}</strong> successfully checked-in by <strong>User ID: {data.userId}</strong> 
+        </span>);
+      setMessageType("success");
+      reset();
+
+    }) .catch (error => {
+      // if the item is already recorded as checked out
+      if (error.response.status === 409) {
+        setMessageType("error");
+      // if there is a scheduled maintenance or reservation shortly
+      } else if (error.response.status === 490) {
+        setMessageType("warning");
+      } else {
+        setMessageType("info")
+      }
+
+      if (error.response.data.message) {
+        setDisplayMessage(<span><strong>{error.response.data.message}</strong></span>);
+      } else {
+        setDisplayMessage("An error occurred.");
+      }
+    });
+    setOpen(true);
   };
+
+  useEffect(() => {
+    if (setOpen) {
+      const timeout = setTimeout(() => {
+        setOpen(false)
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [displayMessage]);
+
+  const navigate = useNavigate();
 
   return (
 <Container
       maxWidth="md"
+      disableGutters={true}
       sx={{
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
         width: '45%',
@@ -52,27 +116,50 @@ export default function CheckIn() {
         '@media (max-width:650px)': {width: '65%',},
         '@media (max-width:550px)': {width: '70%',},
         '@media (max-width:500px)': {width: '80%',},
-        '@media (max-width:450px)': {width: '90%',},
+        '@media (max-width:460px)': {width: '90%',},
+        '@media (max-width:420px)': {width: '95%',},
       }}
     >
     <FormProvider {...methods}>
     <form noValidate onSubmit={methods.handleSubmit(onSubmit)}>
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2}}>
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom style={{color: '#444444'}}>
-            Check-in
+          <Typography
+            variant="h6"
+            gutterBottom
+            style={{color: '#444444'}}>
+              Check-in
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <TextField id="userId" label="User ID" variant="outlined" fullWidth type="text" {...register('userId', {required: "User ID is required"})}
-          error={!!errors.userId}
-          helperText={errors.userId?.message}
+          <TextField
+            id="userId"
+            label="User ID"
+            variant="outlined"
+            fullWidth
+            type="text"
+            autoComplete="off"
+            {...register('userId', {required: "User ID is required"})}
+            error={userIdError && errors.userId}
+            helperText={userIdError && errors.userId?.message}
+
+            // set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {e.target.value = e.target.value.toUpperCase();
+              setUserIdError(false);
+              }}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField id="resourceId" label="Resource ID" variant="outlined" fullWidth type="text" {...register('resourceId', {required: "Resource ID is required"})}
-          error={!!errors.resourceId}
-          helperText={errors.resourceId?.message}
+          <TextField
+            id="resourceId"
+            label="Resource ID"
+            variant="outlined"
+            fullWidth
+            type="text"
+            autoComplete="off"
+            {...register('resourceId', {required: "Resource ID is required"})}
+            error={!!errors.resourceId}
+            helperText={errors.resourceId?.message}
           />
         </Grid>
         <Grid item xs={12}>
@@ -94,12 +181,12 @@ export default function CheckIn() {
 
         {/* Buttons */}
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
-          <Link to="/dashboard">
-          <Button type="button" variant="contained" color="error" sx={{
+
+          <Button onClick={() => navigate("/dashboard")} type="button" variant="contained" color="error" sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',            
-          }}>Cancel</Button></Link>
+          }}>Cancel</Button>
           <Button type="submit" variant="contained" color="primary" sx={{
             borderRadius: '20px',
             height: '40px',
@@ -107,6 +194,13 @@ export default function CheckIn() {
           }}>Proceed</Button>
         </Grid>
       </Grid>
+
+      <Snackbar open={open} anchorOrigin={{vertical:'bottom', horizontal:'center'}}>
+          <Alert severity={messageType} sx={{ width: '100%' }}>
+            {displayMessage}
+          </Alert>
+      </Snackbar>
+
     </form>
     </FormProvider>
     {/* <DevTool control={control} /> */}

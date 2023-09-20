@@ -13,8 +13,10 @@ const Piechart = (props) => {
   }
   return (
     <div>
+      <p className="text-center mt-1  " style={{ fontWeight: "bold" }}>
+        {title}
+      </p>
       <Pie data={data} options={options}></Pie>
-      <p className="text-center mt-1  " style={{fontWeight: "bold"}}>{title}</p>
     </div>
   );
 }

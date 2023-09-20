@@ -119,6 +119,7 @@ const Register = () => {
                     <option value="Academic Staff Member">
                       Academic Staff Member
                     </option>
+                    <option value="Office Clerk">Office Clerk</option>
                   </select>
                 </div>
                 <div className="form-group my-2">

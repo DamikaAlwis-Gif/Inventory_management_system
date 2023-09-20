@@ -1,4 +1,6 @@
+import { Table, TableBody, TableHead, TableCell, TableRow, TableContainer } from "@mui/material";
 import React from 'react'
+
 
 const TableMore = (props) => {
     const {details} = props;
@@ -9,26 +11,35 @@ const TableMore = (props) => {
 
   return (
     <>
-      <table className="table table-primary table-sm table-responsive">
-        <thead className="">
-          <tr>
-            <th>Attribute</th>
-            <th>Information</th>
-          </tr>
-        </thead>
-
-        <tbody className="table-group-divider">
-          {Object.entries(details).map(([key, value]) =>
-          { if (key === "img_url") return null;
-            return ( 
-            <tr key={key}>
-              <td>{formatText(key)}</td>
-              <td>{value}</td>
-            </tr>
-          );}
-           )}
-        </tbody>
-      </table>
+      <TableContainer sx={{ maxHeight: 400 }}>
+        <Table stickyHeader size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{ fontWeight: "bolder", backgroundColor: "#cfe2ff" }}
+              >
+                Atttribute
+              </TableCell>
+              <TableCell
+                sx={{ fontWeight: "bolder", backgroundColor: "#cfe2ff" }}
+              >
+                Information
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Object.entries(details).map(([key, value]) => {
+              if (key === "img_url") return null;
+              return (
+                <TableRow key={key}>
+                  <TableCell>{formatText(key)}</TableCell>
+                  <TableCell>{value}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 }
