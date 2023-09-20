@@ -87,9 +87,17 @@ function NavBarNew() {
           <div className="custom-link-box">Resources</div>
         </Link>
 
+        {["Technical Officer", "Admin"].includes(userRole) && (
         <Link to="/adminReservations" className="custom-dropdown-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
+        )}
+
+        {["Student", "Academic Staff Member"].includes(userRole) && (
+        <Link to="/privateReservations" className="custom-dropdown-link">
+          <div className="custom-link-box">My Reservations</div>
+        </Link>
+        )}
 
         {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/adminMaintenance" className="custom-dropdown-link">
@@ -150,9 +158,19 @@ function NavBarNew() {
         <Link to="/resources" className="custom-link">
           <div className="custom-link-box">Resources</div>
         </Link>
-        <Link to="/adminReservations" className="custom-link">
+        
+        {["Technical Officer", "Admin"].includes(userRole) && (
+        <Link to="/adminReservations" className="custom-dropdown-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
+        )}
+
+        {["Student", "Academic Staff Member"].includes(userRole) && (
+        <Link to="/privateReservations" className="custom-dropdown-link">
+          <div className="custom-link-box">My Reservations</div>
+        </Link>
+        )}
+
         {["Technical Officer", "Admin"].includes(userRole) && (
           <Link to="/adminMaintenance" className="custom-link">
 

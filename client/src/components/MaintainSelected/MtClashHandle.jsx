@@ -16,7 +16,7 @@ const MtClashHandle=()=>{
     useEffect(() => {
         const fetchClashData = async (id) => {
           try {
-            const res = await axios.post("http://localhost:8800/resources/maintenanceClash/",decodedData);
+            const res = await axios.post("http://localhost:8800/maintenance/maintenanceClash/",decodedData);
            
             if (res.data && res.data.length > 0) {
             setRows(res.data);
@@ -52,7 +52,7 @@ const MtClashHandle=()=>{
 
         const handleIsConfirmed = async () => {
             try {
-              const res = await axios.put("http://localhost:8800/resources/maintenanceDelUpdate");
+              const res = await axios.put("http://localhost:8800/maintenance/maintenanceDelUpdate");
               if (res.data === "Done") {
                 Swal.fire("Maintenance Added!", "Clashing reservations are deleted!", "success");
                 navigate(`/maintenance/${id}`);

@@ -23,16 +23,16 @@ import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import ReportSection from "./components/reports/ReportSection";
 import AdminDashboard from "./components/common/AdminDashboard";
-import Reserve from "./components/inventoryList/Reserve";
-
-// import AddReservDate from"./components/inventoryList/AddReservDate";
 import Analytics from "./components/reports/Analytics";
-import Maintenance from "./components/inventoryList/Maintenance";
-import MaintenanceAdd from "./components/inventoryList/MaintenanceAdd";
-import MtClashHandle from "./components/inventoryList/MtClashHandle";
-import AdminReserView from "./components/inventoryList/AdminReserView";
-import AdminMaintenanceView from "./components/inventoryList/AdminMaintenanceView";
 
+import AdminReserView from "./components/nav-reservations/AdminReserView";
+import ReservUsers from "./components/nav-reservations/UserReserView";
+import AdminMaintenanceView from "./components/nav-maitenance/AdminMaintenanceView";
+
+import Reserve from "./components/ReservSelected/Reserve";
+import Maintenance from "./components/MaintainSelected/Maintenance";
+import MaintenanceAdd from "./components/MaintainSelected/MaintenanceAdd"
+import MtClashHandle from "./components/MaintainSelected/MtClashHandle";
 
 function App() {
   
@@ -120,9 +120,11 @@ function App() {
           ></Route>
 
           <Route path="/adminReservations" element={<AdminReserView />}></Route>
+         
+          <Route path="/privateReservations" element={<ReservUsers/>}> </Route>
           <Route path="/adminMaintenance" element={<AdminMaintenanceView />}></Route>
 
-          <Route
+          <Route 
             path="/dashboard"
             element={
               <ProtectedRoute allowedRoles={Access.dashboard}>
