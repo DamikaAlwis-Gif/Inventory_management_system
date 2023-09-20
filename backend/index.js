@@ -11,6 +11,7 @@ import checkoutRouter from "./routes/checkout.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import reportRouter from "./routes/report.js"; 
+import reservRouter from "./routes/reservRouter.js";
 
 app.use(express.json());
 app.use(cors(
@@ -30,3 +31,4 @@ app.use("/resources", resourceRouter);
 app.use("/auth", authRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/report", reportRouter);
+app.use("/reservations", reservRouter);

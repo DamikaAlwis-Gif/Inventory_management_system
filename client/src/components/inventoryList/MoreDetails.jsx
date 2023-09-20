@@ -129,7 +129,7 @@ const MoreDetails = () => {
                   onClick={(e) => handleMaintenance(e, id)}
                 >
                   {" "}
-                  Shedule Maintenance
+                  Schedule Maintenance
                 </button>
 
                 <div className="row g-0 mt-3 border border-2 rounded shadow p-3">
