@@ -9,14 +9,14 @@ import AddReservDate from "./AddReservDate";
 
 const Reserve = () => {
     const { id } = useParams();
-    const [details, setDetails] = useState([]);
+    const [details, setDetails] = useState([]); 
     const [ok, setok] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAllDetailsByID = async (id) => {
           try {
-            const res = await axios.get("http://localhost:8800/resources/reservation/" + id);
+            const res = await axios.get("http://localhost:8800/reservations/reservation/" + id);
             // res.data checks not null or undefined
             // res.data.length checks length property of res.data is greater than 0.
             if (res.data && res.data.length > 0) {

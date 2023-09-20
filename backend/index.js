@@ -12,7 +12,8 @@ import checkinRouter from "./routes/checkin.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import reportRouter from "./routes/report.js"; 
-import reservRouter from "./routes/reservRouter.js";
+import reservRouter from "./routes/reserv.js";
+import maintenanceRouter from "./routes/maintenance.js";
 
 app.use(express.json());
 app.use(cors(
@@ -34,3 +35,4 @@ app.use("/checkout", checkoutRouter);
 app.use("/checkin", checkinRouter);
 app.use("/report", reportRouter);
 app.use("/reservations", reservRouter);
+app.use("/maintenance", maintenanceRouter);
