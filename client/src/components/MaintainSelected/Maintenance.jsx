@@ -5,8 +5,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import TableMaintenance from "./TableMaintenance";
-import TableReservDates from "./TableReservDates";
-import TableMore from "./TableMore";
 
 
 const Maintenance = () => {
@@ -23,12 +21,9 @@ const Maintenance = () => {
     useEffect(() => {
         const fetchMaintenaceData = async (id) => {
           try {
-            const res = await axios.get("http://localhost:8800/resources/maintenance/" + id);
-            // res.data checks not null or undefined
-            // res.data.length checks length property of res.data is greater than 0.
+            const res = await axios.get("http://localhost:8800/maintenance/resmaintenance/" + id);
             if (res.data && res.data.length > 0) {
               setDetails(res.data);
-             // console.log(res.data[0]);
             } else {
               setok(false);
             }
@@ -55,7 +50,6 @@ const Maintenance = () => {
       };
 
       const handleMark = (e, m_id) => {
-        //console.log("cliked on a row");
         e.preventDefault();
 
         Swal.fire({
@@ -82,7 +76,7 @@ const Maintenance = () => {
       const updateStatus = async (m_id) => {
         try {
          
-          const url = "http://localhost:8800/resources/updtmtschedule/"+ m_id;
+          const url = "http://localhost:8800/maintenance/updtmtschedule/"+ m_id;
           const res = await axios.get(url);
           Swal.fire("Updated!", "Maintenance is done", "success");         
           // console.log(res.data);

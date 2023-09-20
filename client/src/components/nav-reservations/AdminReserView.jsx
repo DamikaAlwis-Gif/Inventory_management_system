@@ -4,6 +4,26 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AdminReserView=()=>{
+  
+  const [details, setDetails] = useState([]);
+
+  useEffect(() => {
+    const fetchReservData = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/reservations/all/" );
+         if (res.data && res.data.length > 0) {
+          setDetails(res.data);
+        } else {
+          console.log("data error");
+        }
+      } catch (error) {
+        console.log(error);
+        
+      }
+    };
+    fetchReservData();
+  }, []);
+
     return(
         <div>
             <h1>Reservations</h1>
@@ -15,6 +35,7 @@ const AdminReserView=()=>{
               <th>Resource</th>
               <th>Start Date</th>
               <th>End Date</th>
+              <th>Status</th>
               <th>Purpose</th>
               <th>Type</th>
     
@@ -22,44 +43,24 @@ const AdminReserView=()=>{
             </tr>
           </thead>
           <tbody className="table-group-divider">
-            <tr>
-                <td>001</td>
-                <td>015</td>
-                <td>2023-09-15 07:00:00</td>
-                <td>2023-09-17 14:30:00</td>
-                <td>For practicals</td>
-                <td>borrowing</td>
-            </tr>
-            <tr>
-                <td>u002</td>
-                <td>020</td>
-                <td>2023-09-14 08:00:00</td>
-                <td>2023-09-15 09:30:00</td>
-                <td>For practicals</td>
-                <td>borrowing</td>
-            </tr>
-            <tr>
-                <td>u003</td>
-                <td>7</td>
-                <td>2023-09-15 15:00:00</td>
-                <td>2023-09-17 10:00:00</td>
-                <td>For practicals</td>
-                <td>borrowing</td>
-            </tr>
-            {/*
+           
+          
+            
             {details.map((mt) => (
               <tr  key={mt.reservation_id} 
               
               >
-               
+               <td>{mt.user_id}</td>
+               <td>{mt.resource_id}</td>
                 <td>{mt.start_date}</td>
                 <td>{mt.end_date}</td>
                 <td>{mt.status}</td>
                 <td>{mt.purpose}</td>
+                <td>{mt.reservation_type}</td>
                 
                 
               </tr>
-            ))}         */}
+            ))}         
           </tbody>
         </table>
       </div>

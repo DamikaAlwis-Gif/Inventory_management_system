@@ -1,48 +1,75 @@
 import React from 'react'
 import { formatDate } from '../utils/formatDate';
+import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import IconButton from "@mui/material/IconButton";
+import LocalPrintshopRoundedIcon from "@mui/icons-material/LocalPrintshopRounded";
+
 const TableReport = (props) => {
-    const {details} = props;
-    
-    if(details.length===0){
-        return (
+    const {details , columns} = props;
+    const dates = ["start_date", "end_date", "check_out_datetime", "due_datetime", "check_in_datetime", "completion_date"];
+
+    const downloadPDF = (e) => {
+      e.preventDefault();
+      const doc = new jsPDF();
+      let tableHeaders = columns.map((item) => item.label);
+      let tableContent = details.map((item) => {
+        let temp = columns.map((column) => {
         
-        <div className="container text-center p-5">
-        <p className="display-6 ">No records found!</p>
-        </div>)
-    }
+          if (dates.includes(column.id)) {
+             return formatDate(item[column.id]);
+          }
+          return item[column.id].toString();
+        });
+        return temp
+      });
+      doc.autoTable({
+        styles: { fontSize: 8 },
+        margin: { top: 10 },
+        head: [tableHeaders],
+        body: tableContent,
+      });
+      doc.save("report.pdf");
+    };
+
+
 console.log(details);
   return (
-    <div className="mt-2">
-        <table className="table table-primary ">
-          <thead>
-            <tr>
-              <th>Check-in-out ID</th>
-              <th>Resource ID</th>
-              <th>Resource Name</th>
-              <th>User ID</th>
-              <th>Lab name</th>
-              <th>Status</th>
-              <th>Check-out date time</th>
-              <th>Due date time</th>
-              <th>Check-in datetime</th>
-            </tr>
-          </thead>
-          <tbody>
-            {details.map((item) => (
-              <tr key={item.check_in_out_id}>
-                <td>{item.check_in_out_id}</td>
-                <td>{item.resource_id}</td>
-                <td>{item.name}</td>
-                <td>{item.user_id}</td>
-                <td>{item.lab_name}</td>
-                <td>{item.status}</td>
-                <td>{formatDate(item.check_out_datetime)}</td>
-                <td>{formatDate(item.due_datetime)}</td>
-                <td>{formatDate(item.check_in_datetime)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="mt-2"> 
+      <Paper elevation={5}> 
+      <IconButton onClick={(e) => downloadPDF(e)}>
+        <LocalPrintshopRoundedIcon />
+      </IconButton>
+      <TableContainer sx={{ maxHeight: 350 }}>
+        <Table stickyHeader size="small">
+          <TableHead>
+            <TableRow > 
+            {columns.map((column) => {
+            return <TableCell key={column.id}>{column.label}</TableCell>;}
+                )}
+            </TableRow>
+          </TableHead>
+         
+          <TableBody>
+           {details && details.map((row) => {
+              return (
+                <TableRow hover key={row[columns[0].id]}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id}>
+                        {dates.includes(column.id) ? formatDate(value) : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+           } )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      </Paper>  
       
       
     </div>
