@@ -4,10 +4,28 @@ import { useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import DashboardShortcut from './DashboardShortcut';
+// import DashboardShortcut from './DashboardShortcut';
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
+import "@fontsource/cinzel-decorative/400.css";
+import "@fontsource/noto-sans/400.css";
+
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
+
+let themeDashboardHeading = createTheme({
+  typography: {
+    fontFamily: [
+      "Cinzel Decorative",
+    ].join(','),
+},});
+themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
+
+let themeBody = createTheme({
+  typography: {
+    fontFamily: ['Noto Sans',].join(','),
+  },
+});
 
 export default function Dashboard() {
 
@@ -20,8 +38,6 @@ export default function Dashboard() {
   const [forMaintenance, setFormaintenance] = useState(63);
   const [maintenanceToday, setMaintenanceToday] = useState(9);
 
-
-  
   return (
     <Container
       maxWidth="lg"
@@ -58,8 +74,18 @@ export default function Dashboard() {
       }}
     >
 
+    <div>
+      <ThemeProvider theme={themeDashboardHeading}>
+        <Typography variant="h4" align='center' mb={3}>
+          Wisdom Education Laboratories
+        </Typography>
+      </ ThemeProvider>
+    </div>
+
+    <ThemeProvider theme={themeBody}>
+
       {/*Shortcuts*/}
-      <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
+      {/* <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
 
         <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
           <DashboardShortcut 
@@ -103,16 +129,14 @@ export default function Dashboard() {
             customLink="/reports"
           />
         </Grid>
-      </Grid>
-
-
+      </Grid> */}
 
       {/*Info Cards*/}
       <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2}>
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
+        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {availableNow}
               </Typography>
               &nbsp;
@@ -120,17 +144,17 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '15px', '@media (max-width:600px)': {marginTop:'0px'} }}>
                 available now
               </Typography>
             </span>}
           />
         </Grid>
 
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="error" customLabel={
+        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
+          <DashboardInfoCard customColor="secondary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {outofOrder}
               </Typography>
               &nbsp;
@@ -138,17 +162,17 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                out of order
+              <Typography variant="body1" sx={{ marginTop: '15px', '@media (max-width:600px)': {marginTop:'0px'} }}>
+                checked out
               </Typography>
             </span>}
           />
         </Grid>
 
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="warning" customLabel={
+        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
+          <DashboardInfoCard customColor="primary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {reserved}
               </Typography>
               &nbsp;
@@ -156,17 +180,17 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '15px', '@media (max-width:600px)': {marginTop:'0px'} }}>
                 under maintenance
               </Typography>
             </span>}
           />
         </Grid>
 
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
+        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {reservedForToday}
               </Typography>
               &nbsp;
@@ -174,24 +198,24 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                scheduled maintenance
+              <Typography variant="body1" sx={{ marginTop: '15px', '@media (max-width:600px)': {marginTop:'0px'} }}>
+                out of order
               </Typography>
             </span>}
           />
         </Grid>
 
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
+        {/* <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {checkedOut}
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
                 items
               </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
                 checked-out
               </Typography>
             </span>}
@@ -201,14 +225,14 @@ export default function Dashboard() {
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="error" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {overdue}
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
                 items
               </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
                 overdue
               </Typography>
             </span>}
@@ -218,14 +242,14 @@ export default function Dashboard() {
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="warning" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {forMaintenance}
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
                 items
               </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
                 for maintenance
               </Typography>
             </span>}
@@ -235,7 +259,7 @@ export default function Dashboard() {
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 {maintenanceToday}
               </Typography>
               &nbsp;
@@ -243,14 +267,15 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
                 maintenance today
               </Typography>
             </span>}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
       <DenseTable />
+      </ThemeProvider>
     </Container>
   );
 }
