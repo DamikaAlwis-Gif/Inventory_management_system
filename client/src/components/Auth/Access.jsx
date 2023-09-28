@@ -1,14 +1,16 @@
 const Access = {
-  adminDashboard: ["Admin", "Technical Officer"],
-  publicDashboard: ["Student", "Academic Staff Member", "Office Clerk"],
-  account: [
+  techDashboard: ["Admin", "Technical Officer"],
+  userDashboard: ["Student", "Academic Staff Member"],
+  clerkDashboard: ["Office Clerk"],
+  dashboard: [
     "Admin",
     "Technical Officer",
     "Student",
     "Academic Staff Member",
     "Office Clerk",
   ],
-  contact: [
+
+  resources: [
     "Admin",
     "Technical Officer",
     "Student",
@@ -19,7 +21,19 @@ const Access = {
   adminmore: ["Admin", "Technical Officer"],
   publicmore: ["Student", "Academic Staff Member" , "Office Clerk"],
   update: ["Admin", "Technical Officer"],
-  dashboard: [
+
+  checkin: ["Admin", "Technical Officer"],
+  checkout: ["Admin", "Technical Officer"],
+
+  reserve: ["Admin", "Technical Officer", "Student", "Academic Staff Member"],
+  maintenance: ["Admin", "Technical Officer"],
+  maintenanceAdd: ["Admin", "Technical Officer"],
+  mtClashHandle: ["Admin", "Technical Officer"],
+
+  analytics: ["Admin", "Technical Officer", "Office Clerk"],
+  reports: ["Admin", "Technical Officer", "Office Clerk"],
+  
+  account: [
     "Admin",
     "Technical Officer",
     "Student",
@@ -27,21 +41,12 @@ const Access = {
     "Office Clerk",
   ],
 
-  analytics: ["Admin", "Technical Officer", "Office Clerk"],
-  resources: [
+  contact: [
     "Admin",
     "Technical Officer",
     "Student",
     "Academic Staff Member",
     "Office Clerk",
   ],
-  reports: ["Admin", "Technical Officer", "Office Clerk"],
-  checkin: ["Admin", "Technical Officer"],
-  checkout: ["Admin", "Technical Officer"],
-  reserve: ["Admin", "Technical Officer", "Student", "Academic Staff Member"],
-  maintenance: ["Admin", "Technical Officer"],
-  maintenanceAdd: ["Admin", "Technical Officer"],
-  mtClashHandle: ["Admin", "Technical Officer"],
-  
 };
 export default Access;
