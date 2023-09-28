@@ -7,6 +7,24 @@ import DashboardShortcut from './DashboardShortcut';
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
+import "@fontsource/cinzel-decorative/400.css";
+import "@fontsource/noto-sans/400.css"; 
+
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
+
+let themeDashboardHeading = createTheme({
+  typography: {
+    fontFamily: [
+      "Cinzel Decorative",
+    ].join(','),
+},});
+themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
+
+let themeBody = createTheme({
+  typography: {
+    fontFamily: ['Noto Sans',].join(','),
+  },
+});
 
 export default function Dashboard() {
 
@@ -21,7 +39,7 @@ export default function Dashboard() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         // paddingBottom: `${NAVBAR_HEIGHT}px`,
 
         '@media (max-width:1400px)':{width: '70%',},
@@ -46,8 +64,21 @@ export default function Dashboard() {
       }}
     >
 
+    <div>
+      <ThemeProvider theme={themeDashboardHeading}>
+        <Typography variant="h4" align='center' mb={1}>
+          Welcome to
+        </Typography>
+        <Typography variant="h3" align='center' mb={6}>
+          Wisdom Education Laboratories
+        </Typography>
+      </ ThemeProvider>
+    </div>
+
+    <ThemeProvider theme={themeBody}>
+
       {/*Shortcuts*/}
-      <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
+      {/* <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
 
         <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
           <DashboardShortcut 
@@ -91,16 +122,16 @@ export default function Dashboard() {
             customLink="/resources"
           />
         </Grid>
-      </Grid>
+      </Grid> */}
 
 
 
       {/*Info Cards*/}
-      <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2}>
+      <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={6}>
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 121
               </Typography>
               &nbsp;
@@ -108,7 +139,7 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '30px' }}>
                 available now
               </Typography>
             </span>}
@@ -116,9 +147,9 @@ export default function Dashboard() {
         </Grid>
 
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="error" customLabel={
+          <DashboardInfoCard customColor="secondary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 07
               </Typography>
               &nbsp;
@@ -126,7 +157,7 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '30px' }}>
                 out of order
               </Typography>
             </span>}
@@ -134,9 +165,9 @@ export default function Dashboard() {
         </Grid>
 
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="warning" customLabel={
+          <DashboardInfoCard customColor="primary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 09
               </Typography>
               &nbsp;
@@ -144,7 +175,7 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '30px' }}>
                 reserved
               </Typography>
             </span>}
@@ -154,7 +185,7 @@ export default function Dashboard() {
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
+              <Typography variant="h2" style={{ display: 'inline' }}>
                 01
               </Typography>
               &nbsp;
@@ -162,14 +193,14 @@ export default function Dashboard() {
                 items
               </Typography>
 
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
+              <Typography variant="body1" sx={{ marginTop: '30px' }}>
                 reserved for today
               </Typography>
             </span>}
           />
         </Grid>
 
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
+        {/* <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h3" style={{ display: 'inline' }}>
@@ -236,9 +267,10 @@ export default function Dashboard() {
               </Typography>
             </span>}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
-      <DenseTable />
+      {/* <DenseTable /> */}
+      </ ThemeProvider>
     </Container>
   );
 }
