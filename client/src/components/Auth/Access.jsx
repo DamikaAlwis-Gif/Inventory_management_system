@@ -1,7 +1,4 @@
 const Access = {
-  techDashboard: ["Admin", "Technical Officer"],
-  userDashboard: ["Student", "Academic Staff Member"],
-  clerkDashboard: ["Office Clerk"],
   dashboard: [
     "Admin",
     "Technical Officer",
