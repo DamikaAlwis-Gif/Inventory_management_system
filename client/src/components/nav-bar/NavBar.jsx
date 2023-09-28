@@ -160,13 +160,13 @@ function NavBarNew() {
         </Link>
         
         {["Technical Officer", "Admin"].includes(userRole) && (
-        <Link to="/adminReservations" className="custom-dropdown-link">
+        <Link to="/adminReservations" className="custom-link">
           <div className="custom-link-box">Reservations</div>
         </Link>
         )}
 
         {["Student", "Academic Staff Member"].includes(userRole) && (
-        <Link to="/privateReservations" className="custom-dropdown-link">
+        <Link to="/privateReservations" className="custom-link">
           <div className="custom-link-box">My Reservations</div>
         </Link>
         )}
