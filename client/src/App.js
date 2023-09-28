@@ -11,7 +11,7 @@ import Add from "./components/inventoryList/Add";
 import MoreDetails from "./components/inventoryList/MoreDetails";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import DashBoard from "./components/common/DashBoard";
+import CustomDashboard from "./components/dashboard/CustomDashboard";
 import NavBar from "./components/nav-bar/NavBar";
 import ShowNavBar from "./components/nav-bar/ShowNavBar";
 import Account from "./components/common/Account";
@@ -23,11 +23,9 @@ import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import ReportSection from "./components/reports/ReportSection";
 import Analytics from "./components/reports/Analytics";
-
 import AdminReserView from "./components/nav-reservations/AdminReserView";
 import ReservUsers from "./components/nav-reservations/UserReserView";
 import AdminMaintenanceView from "./components/nav-maitenance/AdminMaintenanceView";
-
 import Reserve from "./components/ReservSelected/Reserve";
 import Maintenance from "./components/MaintainSelected/Maintenance";
 import MaintenanceAdd from "./components/MaintainSelected/MaintenanceAdd"
@@ -127,24 +125,8 @@ function App() {
           <Route 
             path="/dashboard"
             element={
-              <ProtectedRoute allowedRoles={Access.techDashboard}>
-                <DashBoard />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route 
-            path="/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={Access.userDashboard}>
-                <DashBoard />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route 
-            path="/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={Access.clerkDashboard}>
-                <DashBoard />
+              <ProtectedRoute allowedRoles={Access.dashboard}>
+                <CustomDashboard />
               </ProtectedRoute>
             }
           ></Route>
