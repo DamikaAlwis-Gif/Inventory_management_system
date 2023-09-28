@@ -22,7 +22,6 @@ import CheckOut from "./components/check-in-out/CheckOut";
 import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import ReportSection from "./components/reports/ReportSection";
-import AdminDashboard from "./components/common/AdminDashboard";
 import Analytics from "./components/reports/Analytics";
 
 import AdminReserView from "./components/nav-reservations/AdminReserView";
@@ -124,14 +123,32 @@ function App() {
           <Route path="/privateReservations" element={<ReservUsers/>}> </Route>
           <Route path="/adminMaintenance" element={<AdminMaintenanceView />}></Route>
 
+          // Dashboard routes
           <Route 
             path="/dashboard"
             element={
-              <ProtectedRoute allowedRoles={Access.dashboard}>
+              <ProtectedRoute allowedRoles={Access.techDashboard}>
                 <DashBoard />
               </ProtectedRoute>
             }
           ></Route>
+          <Route 
+            path="/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={Access.userDashboard}>
+                <DashBoard />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route 
+            path="/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={Access.clerkDashboard}>
+                <DashBoard />
+              </ProtectedRoute>
+            }
+          ></Route>
+
           <Route
             path="/account"
             element={
@@ -158,6 +175,7 @@ function App() {
             }
           ></Route>
 
+          // Check-out & Check-in routes
           <Route
             path="/check-in"
             element={
@@ -166,7 +184,6 @@ function App() {
               </ProtectedRoute>
             }
           ></Route>
-
           <Route
             path="/check-out"
             element={
@@ -181,15 +198,6 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={Access.reports}>
                 <ReportSection />
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admindashboard"
-            element={
-              <ProtectedRoute allowedRoles={Access.adminDashboard}>
-                <AdminDashboard />
               </ProtectedRoute>
             }
           ></Route>
