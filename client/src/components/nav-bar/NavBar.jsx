@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from"axios";
+import axios from 'axios';
 import './NavBar.css';
 import institutionLogo from './InstitutionLogo.svg';
 import notificationIcon from './NotificationIcon.svg';
@@ -11,8 +11,8 @@ import { useState } from 'react';
 
 function NavBarNew() {
   const [loading, setLoading] = useState(true);
-  const [auth, setAuth] = useState(false);// is the user authenticated
-  const [userRole , setrole] = useState("");// role of the user
+  const [auth, setAuth] = useState(false);
+  const [userRole , setrole] = useState("");
   axios.defaults.withCredentials = true;
   useEffect(() => {
     const getAuth = async () => {
@@ -37,16 +37,6 @@ function NavBarNew() {
     getAuth();
   }, []);
   
-
-  /*
-    User roles:  
-      TechOfficer
-      Student
-      Staff
-      Clerk
-  */
- 
-
   const  navigate = useNavigate();
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -114,7 +104,7 @@ function NavBarNew() {
         {/*for Students and Staff to see their own check-outs*/}
         {["Student", "Academic Staff Member"].includes(userRole) && (
           <Link to="/check-outs" className="custom-dropdown-link">
-            <div className="custom-link-box">Check-outs</div>
+            <div className="custom-link-box">My Check-outs</div>
           </Link>
         )}
         {["Technical Officer", "Admin"].includes(userRole) && (
@@ -189,7 +179,7 @@ function NavBarNew() {
         {/*for Students and Staff to see their own check-outs*/}
         {["Student", "Academic Staff Member"].includes(userRole) && (
           <Link to="/check-outs" className="custom-link">
-            <div className="custom-link-box">Check-outs</div>
+            <div className="custom-link-box">My Check-outs</div>
           </Link>
         )}
 
