@@ -50,7 +50,7 @@ const TableRessources = (props) => {
   
     return (
       <div>
-        <Paper elevation={5}>
+        <Paper elevation={4}>
           <TableContainer sx={{ maxHeight: 375 }}>
             <Table stickyHeader size="small">
               <TableHead>

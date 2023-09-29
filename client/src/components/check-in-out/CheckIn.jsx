@@ -12,6 +12,7 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
+import Paper from '@mui/material/Paper';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
 import axios from 'axios';
@@ -93,36 +94,41 @@ export default function CheckIn() {
   const navigate = useNavigate();
 
   return (
-<Container
+
+    <Container
       maxWidth="md"
       disableGutters={true}
       sx={{
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-        width: '45%',
+        width: '55%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: `${NAVBAR_HEIGHT}px`,
 
-        '@media (max-width:1700px)': {width: '25%',},
-        '@media (max-width:1550px)': {width: '30%',},
-        '@media (max-width:1350px)': {width: '35%',},
-        '@media (max-width:1150px)': {width: '40%',},
-        '@media (max-width:1000px)': {width: '45%',},
-        '@media (max-width:850px)': {width: '50%',},
-        '@media (max-width:750px)': {width: '55%',},
-        '@media (max-width:700px)': {width: '60%',},
-        '@media (max-width:650px)': {width: '65%',},
-        '@media (max-width:550px)': {width: '70%',},
-        '@media (max-width:500px)': {width: '80%',},
-        '@media (max-width:460px)': {width: '90%',},
-        '@media (max-width:420px)': {width: '95%',},
+        '@media (max-width:1700px)': {width: '40%',},
+        '@media (max-width:1550px)': {width: '45%',},
+        '@media (max-width:1300px)': {width: '50%',},
+        '@media (max-width:1150px)': {width: '55%',},
+        '@media (max-width:1000px)': {width: '65%',},
+        '@media (max-width:850px)': {width: '70%',},
+        '@media (max-width:750px)': {width: '80%',},
+        '@media (max-width:650px)': {width: '88%',},
+        '@media (max-width:500px)': {width: '90%',},
+        '@media (max-width:460px)': {width: '95%',},
+        '@media (max-width:420px)': {width: '98%',},
       }}
     >
+    <Paper 
+      elevation={4}
+      sx={{
+        padding: '8% 8% 8% 8%',
+        borderRadius: '30px'
+      }}>
     <FormProvider {...methods}>
     <form noValidate onSubmit={methods.handleSubmit(onSubmit)}>
-      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2}}>
+      <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2}}>
         <Grid item xs={12}>
           <Typography
             variant="h6"
@@ -178,9 +184,12 @@ export default function CheckIn() {
             customDisableFuture={true}
           />
         </Grid>
+        <Grid item xs={12}>
+        <Divider variant="middle" />
+        </Grid>
 
         {/* Buttons */}
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
 
           <Button onClick={() => navigate("/dashboard")} type="button" variant="contained" color="error" sx={{
             borderRadius: '20px',
@@ -204,6 +213,8 @@ export default function CheckIn() {
     </form>
     </FormProvider>
     {/* <DevTool control={control} /> */}
+    </Paper>
     </Container>
+
   )
 }

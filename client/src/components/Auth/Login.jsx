@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 import Typography from '@mui/material/Typography';
 
@@ -72,26 +73,28 @@ const Login = () => {
         '@media (max-width:1200px)': {width: '90%',},
         '@media (max-width:1100px)': {width: '95%',},
         '@media (max-width:1000px)': {width: '100%',},
-        '@media (max-width:900px)': {
-          width: '60%',
+        '@media (max-width:899.5px)': {
+          width: '55%',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'space-around',
         },
-        '@media (max-width:750px)': {
-          width: '70%',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-        },
-        '@media (max-width:500px)': {
-          width: '80%',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-        },
+        '@media (max-width:850px)': {width: '60%',},
+        '@media (max-width:800px)': {width: '65%',},
+        '@media (max-width:750px)': {width: '70%',},
+        '@media (max-width:700px)': {width: '75%',},
+        '@media (max-width:650px)': {width: '80%',},
+        '@media (max-width:600px)': {width: '85%',},
+        '@media (max-width:550px)': {width: '90%',},
+        '@media (max-width:500px)': {width: '80%',},
       }}
     >
+    <Paper 
+      elevation={4}
+      sx={{
+        padding: '8% 8% 8% 8%',
+        borderRadius: '30px'
+      }}>
     
       <Grid container alignItems="center" justifyContent="center" rowSpacing={3}>
         <Grid item container sx={12} md={7} alignItems="center" justifyContent="center">
@@ -157,6 +160,7 @@ const Login = () => {
         </form>
         </Grid>
       </Grid>
+      </Paper>
     </Container>
   );
 };
