@@ -60,10 +60,10 @@ export default function Dashboard() {
 
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
-        <Typography variant="h4" align='center' mb={1}>
+        <Typography variant="h4" align='center' mb={1} sx={{color: '#281E59'}}>
           Welcome to
         </Typography>
-        <Typography variant="h3" align='center' mb={6}>
+        <Typography variant="h3" align='center' mb={6} sx={{color: '#281E59'}}>
           Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>
