@@ -1,8 +1,11 @@
 import Chip from '@mui/material/Chip';
+import { useNavigate } from 'react-router-dom';
 
-export default function DashboardShortcut ({ customColor, customLabel }) {
-  const handleClick = () => {
-    // this is required to make the component change appearance when hovered and clicked on
+export default function DashboardShortcut ({ customColor, customLabel, customLink }) {
+  const navigate = useNavigate();
+
+  const handleClick = (customLink) => {
+    navigate(customLink);
   };
 
   return (
@@ -19,7 +22,7 @@ export default function DashboardShortcut ({ customColor, customLabel }) {
           },
         }}
         label={customLabel}
-        onClick={handleClick}
+        onClick={() => handleClick(customLink)}
       />
   );
 }

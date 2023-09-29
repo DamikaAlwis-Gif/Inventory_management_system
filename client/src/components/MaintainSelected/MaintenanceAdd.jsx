@@ -48,7 +48,7 @@ const handleChange = (e) => {
        
     try {
       const responce = await axios.post(
-        "http://localhost:8800/resources/maintenaceadd",
+        "http://localhost:8800/maintenance/maintenaceadd",
         info
       );
       if(responce.data=="Done"){

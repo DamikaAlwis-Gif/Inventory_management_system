@@ -18,21 +18,28 @@ const rows = [
   createData('Headphones JBL Wired', '12298', 'Network Lab', 'Maintenance', '18/09/2023'),
   createData('Heaphones Sony Wireless', '12267', 'Network Lab', 'Maintenance', '18/09/2023'),
   createData('Router Cisco', '10397', 'IoT Lab', 'Reservation', '19/09/2023'),
+  createData('Cable HDMI Baseus', '24112', 'IoT Lab', 'Reservation', '19/09/2023'),
+  createData('Desktop Computer', '00098', 'Comp. Lab 01', 'Reservation', '20/09/2023'),
 ];
 
 export default function DenseTable() {
   return (
     <>
-    <Typography variant="body1"><strong>Upcoming Events</strong></Typography>
-    <TableContainer component={Paper}>
+    {/* <Typography variant="body1"><strong>Upcoming Events</strong></Typography> */}
+    <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 5}}>
       <Table sm={{ minWidth: 600 }} size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Lab</TableCell>
-            <TableCell align="right">Activity</TableCell>
-            <TableCell align="right">Due</TableCell>
+            <TableCell colSpan={5} align="center">
+              <h6><strong>Upcoming Events</strong></h6>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><strong>Name</strong></TableCell>
+            <TableCell align="right"><strong>ID</strong></TableCell>
+            <TableCell align="right"><strong>Lab</strong></TableCell>
+            <TableCell align="right"><strong>Activity</strong></TableCell>
+            <TableCell align="right"><strong>Due</strong></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

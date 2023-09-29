@@ -15,8 +15,6 @@ const MoreDetails = () => {
   const [details, setDetails] = useState({});
   const { id } = useParams();
   const [loaded, setLoaded] = useState(false);
- // alert(id);
- // const id=2;
   const [ok, setok] = useState(true);
 
   
@@ -79,7 +77,7 @@ const MoreDetails = () => {
       e.preventDefault();
      // const res = await axios.delete("http://localhost:8800/resources/" + id);
       console.log("Redirected to reservation data page!");
-      navigate(`/reserve/${id}`);
+      navigate(`/Reserve/${id}`); 
     } catch (error) {
       console.log(error);
     }
@@ -130,6 +128,9 @@ const MoreDetails = () => {
                     Delete
                   </Button>
 
+
+                
+
                   <Button
                     onClick={(e) => handleReserve(e, id)}
                     variant="contained"
@@ -141,6 +142,7 @@ const MoreDetails = () => {
                     Reserve
                   </Button>
 
+
                   <Button
                     onClick={(e) => handleMaintenance(e, id)}
                     variant="contained"
@@ -148,6 +150,9 @@ const MoreDetails = () => {
                   >
                     Schedule Maintenance
                   </Button>
+
+                 
+
                 </Paper>
                 <Paper sx={{ padding: "5px", marginTop: "5px" }} elevation={4}>
                   <div className="row g-0 ">

@@ -6,15 +6,10 @@ import Swal from "sweetalert2";
 
 
 const AddReservDate= (props)=>{
-  const { id } = props;
-   // const { id } = useParams();
-    // const u_id=22;
-   const[u_id,set_uid]=useState(0);
-
-   
+  const { id } = props;   
    
     const[info,setAsset]= useState({
-        user_id: u_id, // get the user's id and set here---Implement this!
+        user_id: 0, // get the user's id and set here
         resource_id: id,
         start_dt: "",
         end_dt: "",
@@ -23,21 +18,7 @@ const AddReservDate= (props)=>{
         reservation_type: "Select a type",
     });
  
-    useEffect(() => {
-      const getUserInfo = async () => {
-        try {
-            const res = await axios.get("http://localhost:8800/auth/user");
-            console.log("usr:"+res.data[0]);
-            set_uid(res.data[0].user_id);
-           // console.log(res.data[0].user_id);
-            setAsset((prev) => ({ ...prev, user_id: res.data[0].user_id }));
   
-        } catch (error) {
-            console.log(error);
-        }
-     }
-     getUserInfo(); 
-      }, []);  
 
     const handleChange = (e) => {
         setAsset((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -70,7 +51,7 @@ const AddReservDate= (props)=>{
        
         try {
           const responce = await axios.post(
-            "http://localhost:8800/resources/reservedate",
+            "http://localhost:8800/reservations/reservedate",
             info
           );
           if(responce.data=="Done"){
@@ -93,7 +74,7 @@ const AddReservDate= (props)=>{
   const handleClear = (e) => {
     e.preventDefault();
     setAsset({
-      user_id: u_id, 
+      user_id: 0, 
       resource_id: id,
       start_dt: "",
       end_dt: "",
