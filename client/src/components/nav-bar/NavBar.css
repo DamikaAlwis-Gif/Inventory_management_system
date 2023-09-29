@@ -37,6 +37,7 @@
 
 .custom-name {
   color: #281E59;
+  /* color: #4a148c; */
   font-family: 'Cinzel Decorative', cursive;
   font-size: 23px;
   font-weight: 700;
@@ -82,7 +83,8 @@
   text-decoration: none;
   font-size: 16px;
   font-weight: 600;
-  color: #332673;
+  /* color: #332673; */
+  color: #1a237e;
   @media screen and (max-width: 1150px) {
     font-size: 15px;}
   @media screen and (max-width: 1050px) {
@@ -129,7 +131,8 @@
   background-color: transparent;
   font-size: 24px;
   font-weight: 600;
-  color: #332673;
+  /* color: #332673; */
+  color: #281E59;
   margin-right: 0px;
   margin-left: auto; /* Push to the right corner */
 @media screen and (max-width: 1050px) {
@@ -139,7 +142,9 @@
 
 .custom-dropdown-link {
   text-decoration: none;
-  color: #332673;
+  font-weight: 500;
+  /* color: #332673; */
+  color: #1a237e;
   display: block;
   padding: 0px 10px;
   border-bottom: 1px solid #d6d8ff;
@@ -147,14 +152,16 @@
 }
 
 .custom-dropdown-link:hover {
-  color: #281E59;
-  font-weight: 500;
-  background-color: #c4b8ff4b;
+  /* color: #281E59; */
+  font-weight: 600;
+  border-bottom: 1px solid #332673;
+  box-shadow: 0px 8px 12px -8px #332673;
+  /* background-color: #c4b8ff4b; */
 }
   
 .custom-dropdown-container .custom-dropdown-link .custom-link-box {
   display: inline-block;
-  padding: 0.6em 10px;
+  padding: 0.6em 9px;
   height: 100%;
 }
 
