@@ -70,6 +70,47 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.post("/login/mobile", (req, res) => {
+  const q = "SELECT * FROM user WHERE user_name = ?";
+  const user_name = req.body.username;
+  const password = req.body.password;
+
+  db.query(q, [user_name], (err, data) => {
+    if (err) {
+      res.json({ err: err });
+      console.log(err);
+      console.log(data);
+      // error in the database
+    }
+
+    if (data && data.length > 0) {
+      bcrypt.compare(
+        password.toString(),
+        data[0].password,
+        (error, response) => {
+          if (error) {
+            res.json({ err: "Password compare error" });
+          }
+          if (response) {
+            const role = data[0].role;
+            const name = data[0].name;
+            const user_id = data[0].user_id;
+            const token = jwt.sign({ role, name, user_id }, "jwtSecret", {
+              expiresIn: "1d",
+            }); // create a token
+            
+            res.json({ status: "ok", token: token }); // If the password is correct,
+          } else {
+            res.json({ err: "Wrong password" }); // If the password is incorrect,
+          }
+        }
+      );
+    } else {
+      res.json({ err: "User not found" });
+    }
+  });
+});
+
 
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
@@ -97,6 +138,7 @@ router.get("/logout", (req, res) => {
   res.clearCookie("token"); // clear the cookie
   res.json({ status: "ok" });
 });
+
 const getUser = (req, res, next) => {
   const token = req.cookies.token;
   if (token) {

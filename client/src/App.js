@@ -23,6 +23,12 @@ import Access from "./components/Auth/Access";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import ReportSection from "./components/reports/ReportSection";
 import Analytics from "./components/reports/Analytics";
+
+
+import ViewAccess from "./components/Auth/ViewAccess";
+import Users from "./components/Auth/Users";
+
+
 import AdminReserView from "./components/nav-reservations/AdminReserView";
 import ReservUsers from "./components/nav-reservations/UserReserView";
 import AdminMaintenanceView from "./components/nav-maitenance/AdminMaintenanceView";
@@ -31,11 +37,14 @@ import Maintenance from "./components/MaintainSelected/Maintenance";
 import MaintenanceAdd from "./components/MaintainSelected/MaintenanceAdd"
 import MtClashHandle from "./components/MaintainSelected/MtClashHandle";
 
+
 function App() {
   
   return (
+
     
     <div className="App" id="grad1">
+
       <BrowserRouter>
         <ShowNavBar>
           <NavBar />
@@ -117,9 +126,10 @@ function App() {
           ></Route>
 
           <Route path="/adminReservations" element={<AdminReserView />}></Route>
-         
+
           <Route path="/privateReservations" element={<ReservUsers/>}> </Route>
           <Route path="/adminMaintenance" element={<AdminMaintenanceView />}></Route>
+
 
           // Dashboard routes
           <Route 
@@ -187,13 +197,18 @@ function App() {
           <Route
             path="/analytics"
             element={
-              <ProtectedRoute allowedRoles ={Access.analytics}>
+              <ProtectedRoute allowedRoles={Access.analytics}>
                 <Analytics />
               </ProtectedRoute>
             }
           ></Route>
 
-          <Route path="*" element={<h1 className="display-5 text-center">Not Found</h1>}></Route>
+          <Route
+            path="*"
+            element={<h1 className="display-5 text-center">Not Found</h1>}
+          ></Route>
+          <Route path="/access" element={<ViewAccess />}></Route>
+          <Route path="/users" element={<Users />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
