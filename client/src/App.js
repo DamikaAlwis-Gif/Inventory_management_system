@@ -32,12 +32,13 @@ import MaintenanceAdd from "./components/inventoryList/MaintenanceAdd";
 import MtClashHandle from "./components/inventoryList/MtClashHandle";
 import AdminReserView from "./components/inventoryList/AdminReserView";
 import AdminMaintenanceView from "./components/inventoryList/AdminMaintenanceView";
+import ViewAccess from "./components/Auth/ViewAccess";
+import Users from "./components/Auth/Users";
 
 
 function App() {
   
   return (
-    
     <div className="App">
       <BrowserRouter>
         <ShowNavBar>
@@ -120,7 +121,10 @@ function App() {
           ></Route>
 
           <Route path="/adminReservations" element={<AdminReserView />}></Route>
-          <Route path="/adminMaintenance" element={<AdminMaintenanceView />}></Route>
+          <Route
+            path="/adminMaintenance"
+            element={<AdminMaintenanceView />}
+          ></Route>
 
           <Route
             path="/dashboard"
@@ -195,13 +199,18 @@ function App() {
           <Route
             path="/analytics"
             element={
-              <ProtectedRoute allowedRoles ={Access.analytics}>
+              <ProtectedRoute allowedRoles={Access.analytics}>
                 <Analytics />
               </ProtectedRoute>
             }
           ></Route>
 
-          <Route path="*" element={<h1 className="display-5 text-center">Not Found</h1>}></Route>
+          <Route
+            path="*"
+            element={<h1 className="display-5 text-center">Not Found</h1>}
+          ></Route>
+          <Route path="/access" element={<ViewAccess />}></Route>
+          <Route path="/users" element={<Users />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

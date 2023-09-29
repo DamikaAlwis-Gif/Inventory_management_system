@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import userImage from '../../Images/user.png'
 import axios from 'axios';
+import { Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
 const Account = () => {
 
     axios.defaults.withCredentials = true;
@@ -44,47 +46,56 @@ const Account = () => {
   return (
     <div>
       <div className="container my-5">
+        {user && user.role === "Admin" && (
+          <Link to="/access">Change access </Link>
+        )}
+        {user && user.role === "Admin" && (
+          <Link to="/users">Users </Link>
+        )}
+
         <div className="row">
           <div className="col-md-4  mx-auto">
-            <div className="card shadow border-2">
-              <div
-                className="card-header"
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  backgroundColor: "#007BFF",
-                  color: "white", 
-                }}
-              >
-                Profile
-              </div>
-              <div
-                className="card-body text-center "
-                style={{
-                  fontSize: "15px",
-                }}
-              >
-                <img
-                  src={userImage}
-                  alt="User Profile"
-                  className="img-fluid rounded-circle mb-3"
-                  width="175px"
-                />
-                <h5 className="card-title">{user.name}</h5>
-                <p>Username: {user.user_name}</p>
-                <p>Email: {user.email}</p>
-                <p>Phone: {user.phone_number}</p>
-                <p>Role: {user.role}</p>
-                <div>
-                  <p>
-                    Have access to :
-                    {accessLab.map((item) => (
-                      <li>{item}</li>
-                    ))}
-                  </p>
+            <Paper elevation={4}>
+              <div className="card">
+                <div
+                  className="card-header"
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                    backgroundColor: "#007BFF",
+                    color: "white",
+                  }}
+                >
+                  Profile
+                </div>
+                <div
+                  className="card-body text-center "
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  <img
+                    src={userImage}
+                    alt="User Profile"
+                    className="img-fluid rounded-circle mb-3"
+                    width="150px"
+                  />
+                  <h5 className="card-title">{user.name}</h5>
+                  <p>Username: {user.user_name}</p>
+                  <p>Email: {user.email}</p>
+                  <p>Phone: {user.phone_number}</p>
+                  <p>Role: {user.role}</p>
+                  <div>
+                    Have access to labs
+                    <p style={{ textAlign: "start", paddingLeft: "32%" }}>
+                      {accessLab.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Paper>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DashBoard from "../common/DashBoard";
 
 const ProtectedRoute = (props) => {
+  
   const [auth, setAuth] = useState(false);
   const [name, setname] = useState({});
   const [role, setrole] = useState({});
