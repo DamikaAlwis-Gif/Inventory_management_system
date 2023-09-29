@@ -35,30 +35,24 @@ export default function Dashboard() {
       sx={{
         minHeight: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
         overflowY: 'auto',
-        width: '975px',
+        width: '1050px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-around',
-        // paddingBottom: `${NAVBAR_HEIGHT}px`,
+        justifyContent: 'space-evenly',
 
-        '@media (max-width:1400px)':{width: '70%',},
-        '@media (max-width:1325px)':{width: '75%',},
-        '@media (max-width:1265px)':{width: '80%',},
-        '@media (max-width:1200px)':{width: '75%',},
-        '@media (max-width:1150px)':{width: '80%',},
-        '@media (max-width:1100px)':{width: '85%',},
-        '@media (max-width:1050px)':{width: '90%',},
+        '@media (max-width:1325px)':{width: '80%',},
+        '@media (max-width:1200px)':{width: '85%',},
+        '@media (max-width:1100px)':{width: '90%',},
         '@media (max-width:1010px)':{width: '94%',},
         '@media (max-width:975px)': {width: '97%',},
-        '@media (max-width:899px)': {width: '60%',},
-        '@media (max-width:850px)': {width: '65%',},
-        '@media (max-width:775px)': {width: '70%',},
-        '@media (max-width:725px)': {width: '75%',},
-        '@media (max-width:675px)': {width: '80%',},
-        '@media (max-width:600px)': {width: '85%',},
-        '@media (max-width:550px)': {width: '85%',},
-        '@media (max-width:525px)': {width: '90%',},
+        '@media (max-width:899px)': {width: '70%',},
+        '@media (max-width:850px)': {width: '75%',},
+        '@media (max-width:775px)': {width: '80%',},
+        '@media (max-width:725px)': {width: '85%',},
+        '@media (max-width:650px)': {width: '90%',},
+        '@media (max-width:550px)': {width: '95%',},
+        '@media (max-width:525px)': {width: '97%',},
         '@media (max-width:460px)': {width: '90%',},
         '@media (max-width:420px)': {width: '95%',},
       }}
@@ -158,7 +152,7 @@ export default function Dashboard() {
               </Typography>
 
               <Typography variant="body1" sx={{ marginTop: '30px' }}>
-                out of order
+                checked out
               </Typography>
             </span>}
           />
@@ -176,7 +170,7 @@ export default function Dashboard() {
               </Typography>
 
               <Typography variant="body1" sx={{ marginTop: '30px' }}>
-                reserved
+                under maintenance
               </Typography>
             </span>}
           />
@@ -194,7 +188,7 @@ export default function Dashboard() {
               </Typography>
 
               <Typography variant="body1" sx={{ marginTop: '30px' }}>
-                reserved for today
+                out of order
               </Typography>
             </span>}
           />
