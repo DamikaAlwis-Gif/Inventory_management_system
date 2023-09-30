@@ -133,8 +133,9 @@ const Add = () => {
         <div className="col-6  mx-auto shadow " style={{
           backgroundColor: "white",
           borderRadius: "30px",
+          padding: "1% 2%",
         }}>
-          <h1 className="my-3">Add a Asset</h1>
+          <h4 className="my-3">Add an Asset</h4>
 
           <form
             className=" g-3"
