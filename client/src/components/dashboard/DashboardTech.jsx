@@ -9,7 +9,6 @@ import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
 import "@fontsource/cinzel-decorative/400.css";
-import "@fontsource/noto-sans/400.css";
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
@@ -22,22 +21,12 @@ let themeDashboardHeading = createTheme({
 });
 themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
 
-let themeBody = createTheme({
-  typography: {
-    fontFamily: ['Noto Sans',].join(','),
-  },
-});
-
 export default function Dashboard() {
 
   const [availableNow, setAvailableNow] = useState(128);
-  const [outofOrder, setOutofOrder] = useState(34);
   const [checkedOut, setCheckedOut] = useState(11);
-  const [overdue, setOverdue] = useState(8);
-  const [reserved, setReserved] = useState(33);
-  const [reservedForToday, setReservedForToday] = useState(3);
-  const [forMaintenance, setFormaintenance] = useState(63);
-  const [maintenanceToday, setMaintenanceToday] = useState(9);
+  const [underMaintenance, setUnderMaintenance] = useState(25);
+  const [outofOrder, setOutofOrder] = useState(19);
 
   return (
     <Container
@@ -81,8 +70,6 @@ export default function Dashboard() {
         </Typography>
       </ ThemeProvider>
     </div>
-
-    <ThemeProvider theme={themeBody}>
 
       {/*Shortcuts*/}
       {/* <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
@@ -137,7 +124,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                {availableNow}
+                <strong>{availableNow}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -155,7 +142,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                {outofOrder}
+              <strong>{checkedOut}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -173,7 +160,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                {reserved}
+              <strong>{underMaintenance}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -191,7 +178,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                {reservedForToday}
+              <strong>{outofOrder}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -275,7 +262,6 @@ export default function Dashboard() {
         </Grid> */}
       </Grid>
       <DenseTable />
-      </ThemeProvider>
     </Container>
   );
 }
