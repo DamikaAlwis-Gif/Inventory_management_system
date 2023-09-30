@@ -122,9 +122,10 @@ const Update = () => {
           style={{
             backgroundColor: "white",
             borderRadius: "30px",
+            padding: "1% 2%",
           }}
         >
-          <h1 className="my-3">Update Asset</h1>
+          <h4 className="my-3">Update Asset Details</h4>
 
           <form>
             <div className="row">
