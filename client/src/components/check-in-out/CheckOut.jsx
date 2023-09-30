@@ -131,7 +131,7 @@ export default function CheckOut() {
     <Paper 
       elevation={4}
       sx={{
-        padding: '8% 8% 8% 8%',
+        padding: '4% 6% 4% 6%',
         borderRadius: '30px'
       }}>
 
@@ -140,7 +140,7 @@ export default function CheckOut() {
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2}}>
         <Grid item xs={12}>
           <Typography
-            variant="h6"
+            variant="h5"
             gutterBottom
             style={{color: '#444444'}}>
               Check-out
@@ -245,13 +245,15 @@ export default function CheckOut() {
       {/* Buttons */}
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
           <Button onClick={() => navigate("/dashboard")} type="button" variant="contained" color="error" sx={{
-            borderRadius: '20px',
-            height: '40px',
+            borderRadius: '22px',
+            height: '44px',
+            width: '84px',
             textTransform: 'capitalize',
           }}>Cancel</Button>
           <Button type="submit" variant="contained" color="primary"  sx={{
-            borderRadius: '20px',
-            height: '40px',
+            borderRadius: '22px',
+            height: '44px',
+            width: '84px',
             textTransform: 'capitalize',            
           }}>Proceed</Button>
           </Grid>
