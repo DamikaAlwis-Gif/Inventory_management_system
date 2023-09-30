@@ -130,7 +130,10 @@ const Add = () => {
   return (
     <div className="container-md">
       <div className="row my-5 ">
-        <div className="col-6 bg-primary-subtle mx-auto shadow rounded">
+        <div className="col-6  mx-auto shadow " style={{
+          backgroundColor: "white",
+          borderRadius: "30px",
+        }}>
           <h1 className="my-3">Add a Asset</h1>
 
           <form
