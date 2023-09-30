@@ -123,7 +123,7 @@ export default function CheckIn() {
     <Paper 
       elevation={4}
       sx={{
-        padding: '8% 8% 8% 8%',
+        padding: '8% 6% 8% 6%',
         borderRadius: '30px'
       }}>
     <FormProvider {...methods}>
@@ -131,7 +131,7 @@ export default function CheckIn() {
       <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2}}>
         <Grid item xs={12}>
           <Typography
-            variant="h6"
+            variant="h5"
             gutterBottom
             style={{color: '#444444'}}>
               Check-in
@@ -192,13 +192,15 @@ export default function CheckIn() {
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
 
           <Button onClick={() => navigate("/dashboard")} type="button" variant="contained" color="error" sx={{
-            borderRadius: '20px',
-            height: '40px',
+            borderRadius: '22px',
+            height: '44px',
+            width: '84px',
             textTransform: 'capitalize',            
           }}>Cancel</Button>
           <Button type="submit" variant="contained" color="primary" sx={{
-            borderRadius: '20px',
-            height: '40px',
+            borderRadius: '22px',
+            height: '44px',
+            width: '84px',
             textTransform: 'capitalize'
           }}>Proceed</Button>
         </Grid>

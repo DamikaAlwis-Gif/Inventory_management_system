@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SelectLIst from "./SelectList";
-import TableRessources from "./Table";
+import TableResources from "./Table";
 import Pagination from "../common/Pagination";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
+import Typography from '@mui/material/Typography';
 
 const Resources = () => {
   const [resources, setResources] = useState([]);// resources to be displayed
@@ -122,9 +123,15 @@ const Resources = () => {
   console.log(resources);
   return (
     <div>
-      <h1 className="text-center">Resources</h1>
-
       <div className="container">
+      <Typography
+            variant="h4"
+            gutterBottom
+            mb={4} 
+            align="center"
+            style={{color: '#444444', padding: "20px 0px 10px 0px"}}>
+              Resources
+      </Typography>
         <SelectLIst
           onChange={handleChange}
           onSearch={handleSearch}
@@ -133,8 +140,10 @@ const Resources = () => {
           types={types}
           searchvalue={searchvalue}
           handleSearchByType={handleSearchByType}
+          handleAdd={handleAdd}
+          role={role}
         ></SelectLIst>
-        {role === "Technical Officer" && (
+        {/* {role === "Technical Officer" && (
           <div className="my-2">
             
             <Button
@@ -144,16 +153,14 @@ const Resources = () => {
             sx={{borderRadius: '8px'}}
             startIcon={<AddIcon />}
              >add</Button>
-
           </div>
-        )}
-        <TableRessources
+        )} */}
+        <TableResources
           resources={resources}
           onClickMore={handleMore}
           currentPage={currentPage}
           pageSize={pageSize}
-          
-        ></TableRessources>
+        ></TableResources>
 
         
       </div>

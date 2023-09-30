@@ -8,7 +8,6 @@ import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
 import "@fontsource/cinzel-decorative/400.css";
-import "@fontsource/noto-sans/400.css"; 
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
@@ -19,12 +18,6 @@ let themeDashboardHeading = createTheme({
     ].join(','),
 },});
 themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
-
-let themeBody = createTheme({
-  typography: {
-    fontFamily: ['Noto Sans',].join(','),
-  },
-});
 
 export default function Dashboard() {
 
@@ -68,8 +61,6 @@ export default function Dashboard() {
         </Typography>
       </ ThemeProvider>
     </div>
-
-    <ThemeProvider theme={themeBody}>
 
       {/*Shortcuts*/}
       {/* <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
@@ -126,7 +117,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                121
+                <strong>121</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -144,7 +135,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                07
+                <strong>07</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -162,7 +153,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                09
+                <strong>09</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -180,7 +171,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                01
+                <strong>01</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -264,7 +255,6 @@ export default function Dashboard() {
         </Grid> */}
       </Grid>
       {/* <DenseTable /> */}
-      </ ThemeProvider>
     </Container>
   );
 }

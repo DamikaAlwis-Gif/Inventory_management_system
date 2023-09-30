@@ -25,8 +25,7 @@ const rows = [
 export default function DenseTable() {
   return (
     <>
-    {/* <Typography variant="body1"><strong>Upcoming Events</strong></Typography> */}
-    <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 5}}>
+    <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 4}}>
       <Table sm={{ minWidth: 600 }} size="small">
         <TableHead>
           <TableRow>
