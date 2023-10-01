@@ -104,7 +104,7 @@ export default function CheckIn() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         paddingBottom: `${NAVBAR_HEIGHT}px`,
 
         '@media (max-width:1700px)': {width: '40%',},
@@ -120,21 +120,30 @@ export default function CheckIn() {
         '@media (max-width:420px)': {width: '98%',},
       }}
     >
+    <Typography
+      variant="h4"
+      gutterBottom
+      mb={4} 
+      align="center"
+      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+        Check-in
+    </Typography>
     <Paper 
       elevation={4}
       sx={{
         padding: '8% 6% 8% 6%',
-        borderRadius: '30px'
+        borderRadius: '30px',
+        // backgroundColor: '#f3e5f5'
       }}>
     <FormProvider {...methods}>
     <form noValidate onSubmit={methods.handleSubmit(onSubmit)}>
       <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2}}>
         <Grid item xs={12}>
           <Typography
-            variant="h5"
+            variant="h6"
             gutterBottom
             style={{color: '#444444'}}>
-              Check-in
+              Check-in Details
           </Typography>
         </Grid>
         <Grid item xs={6}>
