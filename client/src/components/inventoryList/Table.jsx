@@ -55,7 +55,8 @@ const TableResources = (props) => {
           sx={{
             marginTop: 5,
             padding: '14px 0px 0px 0px',
-            borderRadius: '15px'
+            borderRadius: '15px',
+            backgroundColor: '#ffffff'
           }}>
           <TableContainer sx={{ maxHeight: 405, borderRadius: '15px'}}>
             <Table stickyHeader size="small">
