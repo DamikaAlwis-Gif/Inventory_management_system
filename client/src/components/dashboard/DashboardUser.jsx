@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { NAVBAR_HEIGHT } from '../../constants';
+import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-// import DashboardShortcut from './DashboardShortcut';
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
@@ -19,7 +19,18 @@ let themeDashboardHeading = createTheme({
 },});
 themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 export default function Dashboard() {
+
+  const [checkedOut, setCheckedOut] = useState(false);
+  const [daysUntilCheckIn, setDaysUntilCheckIn] = useState(false);
+  const [reserved, setReserved] = useState(false);
+  const [daysUntilReservation, setDaysUntilReservation] = useState(false);
 
   return (
     <Container
@@ -53,69 +64,23 @@ export default function Dashboard() {
 
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
-        <Typography variant="h4" align='center' mb={1} sx={{color: '#281E59'}}>
+        <Typography variant="h4" align='center' mb={1} sx={{color: '#f3e5f5'}}>
           Welcome to
         </Typography>
-        <Typography variant="h3" align='center' mb={6} sx={{color: '#281E59'}}>
+        <Typography variant="h3" align='center' mb={6} sx={{color: '#f3e5f5'}}>
           Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>
     </div>
 
-      {/*Shortcuts*/}
-      {/* <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
-
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>View&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Resources</strong></Typography>
-              </span>}
-            customLink="/resources"
-          />
-        </Grid>
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>Make a&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Reservation</strong></Typography>
-              </span>}
-          />
-        </Grid>
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>My&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Reservations</strong></Typography>
-              </span>}
-            customLink="/privateReservations"
-          />
-        </Grid>
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>My&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Check-outs</strong></Typography>
-              </span>}
-          />
-        </Grid>
-      </Grid> */}
-
+      <ThemeProvider theme={darkTheme}>
       {/*Info Cards*/}
       <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2}>
         <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                <strong>03</strong>
+                <strong>{checkedOut ? checkedOut : "__"}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -133,7 +98,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-              <strong>06</strong>
+              <strong>{daysUntilCheckIn ? daysUntilCheckIn : "__"}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -151,7 +116,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-              <strong>02</strong>
+              <strong>{reserved ? reserved : "__"}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -169,7 +134,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-              <strong>04</strong>
+              <strong>{daysUntilReservation ? daysUntilReservation : "__"}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -182,76 +147,8 @@ export default function Dashboard() {
             </span>}
           />
         </Grid>
-
-        {/* <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="primary" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-                16
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                checked-out
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="error" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-                03
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                overdue
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="warning" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-              17
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                for maintenance
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="secondary" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-                00
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                maintenance today
-              </Typography>
-            </span>}
-          />
-        </Grid> */}
       </Grid>
+      </ThemeProvider>
       <DenseTable />
     </Container>
   );
