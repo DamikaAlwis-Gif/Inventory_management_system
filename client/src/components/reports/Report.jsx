@@ -1,8 +1,18 @@
 import React from 'react'
 import TableReport from './TableReport';
-import { Paper } from '@mui/material';
+import Button from '@mui/material/Button';
+import SearchIcon from "@mui/icons-material/Search";
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 const Report = (props) => {
- 
   const {
     accessLab,
     statusList,
@@ -13,15 +23,13 @@ const Report = (props) => {
     handleForm
   } = props;
   
-  
   const { resource_id, start_date, end_date, status, lab } = formDetails;
-  
 
   return (
     <div className="row mt-3">
-      <div className="col ">
+      <div className="col">
         <Paper elevation={2}>
-          <div className="form-floating mb-3 ">
+          <div className="form-floating">
             <input
               type="date"
               className="form-control"
@@ -36,7 +44,7 @@ const Report = (props) => {
       </div>
       <div className="col ">
         <Paper elevation={2}>
-          <div className="form-floating mb-3">
+          <div className="form-floating">
             <input
               type="date"
               className="form-control"
@@ -51,7 +59,7 @@ const Report = (props) => {
       </div>
       <div className="col ">
         <Paper elevation={2}>
-          <div className="form-floating mb-3">
+          <div className="form-floating">
             <input
               type="number"
               className="form-control"
@@ -67,7 +75,7 @@ const Report = (props) => {
       </div>
       <div className="col ">
         <Paper elevation={2}>
-          <div className="form-floating mb-3">
+          <div className="form-floating">
             <select
               className="form-select"
               name="lab"
@@ -87,7 +95,7 @@ const Report = (props) => {
       </div>
       <div className="col ">
         <Paper elevation={2}>
-          <div className="form-floating mb-3">
+          <div className="form-floating">
             <select
               className="form-select"
               name="status"
@@ -104,19 +112,33 @@ const Report = (props) => {
           </div>{" "}
         </Paper>
       </div>
-      <div className="col">
-        <button
-          className="btn btn-primary btn-sm"
-          onClick={(e) => handleForm(e)}
-        >
-          Search
-        </button>
+      <div className="col" style={{ display: 'flex', alignItems: "center", justifyContent: 'flex-end'}}>
+      <ThemeProvider theme={darkTheme}>
+        <Button
+              variant="contained"
+              color="primary"
+              startIcon={<SearchIcon />}
+              size="large"
+              sx={{
+                borderRadius: '22px',
+                height: '44px',
+                width: '102px',
+                textTransform: 'capitalize',        
+              }}
+              onClick={(e) => handleForm(e)}
+            >Search</Button>
+      </ThemeProvider>
       </div>
       {details && details.length !== 0 ? (
         <TableReport details={details} columns={columns} />
       ) : (
         <div className="container text-center p-5">
-          <p className="display-6 ">No records found!</p>
+          <Typography
+            variant="h5"
+            align="center"
+            style={{color: '#f3e5f5', padding: "20px 0px 10px 0px"}}>
+              No records found!
+          </Typography>
         </div>
       )}
     </div>
