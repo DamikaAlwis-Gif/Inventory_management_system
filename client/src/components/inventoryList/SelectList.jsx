@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import SearchIcon from "@mui/icons-material/Search";
 import Paper from '@mui/material/Paper';
 import AddIcon from "@mui/icons-material/Add";
+import { createTheme, ThemeProvider } from '@mui/material';
 
 const SelectList = (props) => {
   const {options , labs ,onChange, onSearch , types , searchvalue, handleSearchByType, handleAdd, role } = props;
@@ -12,6 +13,12 @@ const SelectList = (props) => {
     "Under maintenance",
     "Out of order",
   ];
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   return (
     <div>
       <form>
@@ -97,6 +104,7 @@ const SelectList = (props) => {
             </Paper>
           </div>
 
+          <ThemeProvider theme={darkTheme}>
           <div className="col" style={{ display: 'flex', alignItems: "center", justifyContent: role === 'Technical Officer' ? 'space-between' : 'flex-end'}}>
             <Button
               variant="contained"
@@ -134,7 +142,8 @@ const SelectList = (props) => {
             >
               Add
             </Button>)}
-          </div>
+            </div>
+            </ThemeProvider>
         </div>
       </form>
     </div>
