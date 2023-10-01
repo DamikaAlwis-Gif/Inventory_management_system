@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 // import DashboardShortcut from './DashboardShortcut';
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
+import Paper from '@mui/material/Paper';
 
 import "@fontsource/cinzel-decorative/400.css";
 
@@ -20,6 +21,12 @@ let themeDashboardHeading = createTheme({
   },
 });
 themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 export default function Dashboard() {
 
@@ -57,67 +64,20 @@ export default function Dashboard() {
         '@media (max-width:420px)': {width: '95%',},
       }}
     >
-
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
         <Typography
-          variant="h4"
+          variant="h3"
           align='center'
           mb={3}
-          sx={{color: '#281E59'}}
+          sx={{color: '#f3e5f5'}}
         >
-          <strong>Wisdom Education Laboratories</strong>
+          Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>
     </div>
 
-      {/*Shortcuts*/}
-      {/* <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2} sx={{ paddingTop: 3}}>
-
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>Add&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>New Item</strong></Typography>
-              </span>}
-              customLink="/add"
-          />
-        </Grid>
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>Schedule&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Maintenance</strong></Typography>
-              </span>}
-          />
-        </Grid>
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>Make a&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Reservation</strong></Typography>
-              </span>}
-          />
-        </Grid>
-        <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
-          <DashboardShortcut 
-            customColor="default"
-            customLabel={
-              <span>
-                <Typography variant="body1" style={{ display: 'inline' }}>View&nbsp;</Typography>
-                <Typography variant="h6" style={{ display: 'inline' }}><strong>Reports</strong></Typography>
-              </span>}
-            customLink="/reports"
-          />
-        </Grid>
-      </Grid> */}
-
+      <ThemeProvider theme={darkTheme}>
       {/*Info Cards*/}
       <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={2}>
         <Grid item container xs={12} sm={6} md={3} justifyContent='center'>
@@ -191,76 +151,8 @@ export default function Dashboard() {
             </span>}
           />
         </Grid>
-
-        {/* <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="primary" customLabel={
-            <span>
-              <Typography variant="h2" style={{ display: 'inline' }}>
-                {checkedOut}
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
-                checked-out
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="error" customLabel={
-            <span>
-              <Typography variant="h2" style={{ display: 'inline' }}>
-                {overdue}
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
-                overdue
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="warning" customLabel={
-            <span>
-              <Typography variant="h2" style={{ display: 'inline' }}>
-                {forMaintenance}
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
-                for maintenance
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="secondary" customLabel={
-            <span>
-              <Typography variant="h2" style={{ display: 'inline' }}>
-                {maintenanceToday}
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-
-              <Typography variant="body1" sx={{ marginTop: '10px', '@media (max-width:600px)': {marginTop:'0px'} }}>
-                maintenance today
-              </Typography>
-            </span>}
-          />
-        </Grid> */}
       </Grid>
+      </ThemeProvider>
       <DenseTable />
     </Container>
   );

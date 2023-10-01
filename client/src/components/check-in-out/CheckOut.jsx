@@ -111,7 +111,7 @@ export default function CheckOut() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         paddingBottom: `${NAVBAR_HEIGHT}px`,
 
         '@media (max-width:1700px)': {width: '40%',},
@@ -127,12 +127,20 @@ export default function CheckOut() {
         '@media (max-width:420px)': {width: '98%',},
       }}
     >
-
+    <Typography
+      variant="h4"
+      gutterBottom
+      mb={4} 
+      align="center"
+      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+        Check-out
+    </Typography>
     <Paper 
       elevation={4}
       sx={{
         padding: '4% 6% 4% 6%',
-        borderRadius: '30px'
+        borderRadius: '30px',
+        // backgroundColor: '#f3e5f5'
       }}>
 
     <FormProvider {...methods}>
@@ -140,10 +148,10 @@ export default function CheckOut() {
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2}}>
         <Grid item xs={12}>
           <Typography
-            variant="h5"
+            variant="h6"
             gutterBottom
             style={{color: '#444444'}}>
-              Check-out
+              Check-out Details
           </Typography>
         </Grid>
         <Grid item xs={6}>

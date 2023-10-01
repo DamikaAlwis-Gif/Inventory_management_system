@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Typography from '@mui/material/Typography';
 
 const AdminReserView=()=>{
   
@@ -26,7 +27,15 @@ const AdminReserView=()=>{
 
     return(
         <div>
-            <h1>Reservations</h1>
+          <Typography
+            variant="h4"
+            gutterBottom
+            mb={4} 
+            align="center"
+            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+              Reservations
+          </Typography>
+
         <table className="table table-primary table-hover table-responsive  ">
           <thead className=" ">
             <tr>

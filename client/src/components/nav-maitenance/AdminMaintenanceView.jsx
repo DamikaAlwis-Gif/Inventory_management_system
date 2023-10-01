@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TableView from "./TableView";
+import Typography from '@mui/material/Typography';
 
 const AdminMaintenanceView=()=>{
   const [details, setDetails] = useState([]);
@@ -61,10 +62,16 @@ const AdminMaintenanceView=()=>{
     }
   };
 
-
     return(
       <div>
-      <h2 className="text-center"> Currently scheduled maintenance of all the items</h2>
+          <Typography
+            variant="h4"
+            gutterBottom
+            mb={4} 
+            align="center"
+            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+              Scheduled Maintenance
+          </Typography>
       <div className="container">
         <div className="row">
           <div className="col-md mx-auto">

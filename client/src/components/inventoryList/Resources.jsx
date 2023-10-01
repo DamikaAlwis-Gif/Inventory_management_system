@@ -129,7 +129,7 @@ const Resources = () => {
             gutterBottom
             mb={4} 
             align="center"
-            style={{color: '#444444', padding: "20px 0px 10px 0px"}}>
+            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
               Resources
       </Typography>
         <SelectLIst

@@ -8,3 +8,10 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+
+body {
+  background-image: url('./Images/Background.jpg'); /* Replace with the path to your image */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; /* Adjust this to fit your design */
+}

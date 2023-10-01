@@ -3,7 +3,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import Report from './Report'
-import { Button } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 
 const ReportSection = () => {
@@ -146,7 +146,14 @@ const ReportSection = () => {
     
   return (
     <div>
-      <h1 className="text-center">Reports</h1>
+      <Typography
+        variant="h4"
+        gutterBottom
+        mb={4} 
+        align="center"
+        style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+          Reports
+      </Typography>
       <div className="container">
         <div >
           <Link to="/analytics">Analytics</Link>

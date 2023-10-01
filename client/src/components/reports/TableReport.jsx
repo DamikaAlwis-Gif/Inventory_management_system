@@ -36,7 +36,7 @@ const TableReport = (props) => {
 
 console.log(details);
   return (
-    <div className="mt-2"> 
+    <div className="mt-5"> 
       <Paper elevation={5}> 
       <IconButton onClick={(e) => downloadPDF(e)}>
         <LocalPrintshopRoundedIcon />

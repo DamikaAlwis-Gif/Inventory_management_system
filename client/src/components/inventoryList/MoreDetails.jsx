@@ -4,12 +4,16 @@ import { useNavigate, useParams ,Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TableMore from "./TableMore";
-import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from "@mui/icons-material/Update";
-import { Button } from "@mui/material";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
+import Button from "@mui/material/Button";
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 const MoreDetails = () => {
   const [details, setDetails] = useState({});
@@ -17,7 +21,6 @@ const MoreDetails = () => {
   const [loaded, setLoaded] = useState(false);
   const [ok, setok] = useState(true);
 
-  
   useEffect(() => {
     const fetchAllDetailsByID = async (id) => {
       try {
@@ -97,64 +100,86 @@ const MoreDetails = () => {
     <div>
       {ok && loaded ? (
         <div>
-          <h1 className="text-center">More Details</h1>
+          <Typography
+            variant="h4"
+            gutterBottom
+            mb={4} 
+            align="center"
+            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+              More Details
+          </Typography>
           <div className="container">
-            <div className="my-2">
-              <Link to="/resources"> Resources</Link>
-            </div>
             <div className="row">
               <div className="col-md">
-                <Paper sx={{ padding: "5px" }} elevation={4} >
+              <div className="col g-0" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <ThemeProvider theme={darkTheme}>
+                  <Button
+                    onClick={() => navigate("/resources")}
+                    variant="contained"
+                    size="medium" 
+                    sx={{
+                      borderRadius: '18px',
+                      height: '36px',
+                      textTransform: 'capitalize',
+                      marginRight: "10px",
+                      backgroundColor: "#ce93d8"}}
+                  >
+                    {`<< Back to Resources`}
+                  </Button>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                   <Button
                     onClick={(e) => handleUpdate(e)}
                     variant="contained"
-                    
-                    size="small"
-                    style={{ marginRight: "10px", backgroundColor: "#4caf50" ,}}
-                    
+                    color="success"
+                    size="medium"
+                    sx={{
+                      borderRadius: '18px',
+                      height: '36px',
+                      textTransform: 'capitalize',
+                      marginRight: "10px"}}
                   >
                     Update
                   </Button>
-
                   <Button
                     onClick={(e) => handleDelete(e, id)}
                     variant="contained"
-                    size="small"
                     color="error"
-                    startIcon={<DeleteIcon />}
-                    style={{ marginRight: "10px" }}
-                    // sx={{ borderRadius: "15px" }}
+                    size="medium"
+                    sx={{
+                      borderRadius: '18px',
+                      height: '36px',
+                      textTransform: 'capitalize',
+                      marginRight: "10px"}}
                   >
                     Delete
                   </Button>
-
-
-                
-
                   <Button
                     onClick={(e) => handleReserve(e, id)}
                     variant="contained"
-                    size="small"
-                    // startIcon={<ScheduleIcon />}
-                    style={{ marginRight: "10px" }}
-                    // sx={{ borderRadius: "15px" }}
+                    size="medium"
+                    sx={{
+                      borderRadius: '18px',
+                      height: '36px',
+                      textTransform: 'capitalize',
+                      marginRight: "10px"}}
                   >
                     Reserve
                   </Button>
-
-
                   <Button
                     onClick={(e) => handleMaintenance(e, id)}
                     variant="contained"
-                    size="small"
+                    size="medium"
+                    sx={{
+                      borderRadius: '18px',
+                      height: '36px',
+                      textTransform: 'capitalize'}}
                   >
                     Schedule Maintenance
                   </Button>
-
-                 
-
-                </Paper>
-                <Paper sx={{ padding: "5px", marginTop: "5px" }} elevation={4}>
+                  </div>
+                </ThemeProvider>
+                </div>
+                <Paper sx={{ padding: "5px", marginTop: "30px" }} elevation={4}>
                   <div className="row g-0 ">
                     <div className="col-md-4 ">
                       <img
