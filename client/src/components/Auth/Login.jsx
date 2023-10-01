@@ -86,7 +86,7 @@ const Login = () => {
         '@media (max-width:650px)': {width: '80%',},
         '@media (max-width:600px)': {width: '85%',},
         '@media (max-width:550px)': {width: '90%',},
-        '@media (max-width:500px)': {width: '80%',},
+        '@media (max-width:500px)': {width: '99%',},
       }}
     >
     <Paper 
@@ -108,11 +108,11 @@ const Login = () => {
           <Grid container rowSpacing={4} justifyContent="center" alignItems="center" sx={{ maxWidth: '380px', minWidth: '260px'}}>
             <Grid item xs={12} sx={{marginTop: '1rem', marginBottom: '0.5rem'}}>
               <Typography
-                variant="h6"
+                variant="h5"
                 gutterBottom
                 align="center"
-                style={{color: '#444444'}}>
-                  Welcome to the Inventory MIS
+                style={{color: '#320240'}}>
+                  Log In to the Inventory MIS
               </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -145,12 +145,12 @@ const Login = () => {
               />
             </Grid>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-          <Button onClick={() => navigate("/register")} type="button" variant="text" color="primary" sx={{
+          <Button onClick={() => navigate("/register")} type="button" variant="text" color="secondary" sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',
           }}>Create Account</Button>
-          <Button type="submit" variant="contained" color="primary"  sx={{
+          <Button type="submit" variant="contained" color="secondary"  sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',            
