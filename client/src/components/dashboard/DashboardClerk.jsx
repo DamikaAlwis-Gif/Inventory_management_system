@@ -19,6 +19,12 @@ let themeDashboardHeading = createTheme({
 },});
 themeDashboardHeading = responsiveFontSizes(themeDashboardHeading);
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 export default function Dashboard() {
 
   return (
@@ -53,10 +59,10 @@ export default function Dashboard() {
 
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
-        <Typography variant="h4" align='center' mb={1} sx={{color: '#281E59'}}>
+        <Typography variant="h4" align='center' mb={1} sx={{color: '#f3e5f5'}}>
           Welcome to
         </Typography>
-        <Typography variant="h3" align='center' mb={6} sx={{color: '#281E59'}}>
+        <Typography variant="h3" align='center' mb={6} sx={{color: '#f3e5f5'}}>
           Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>
@@ -109,8 +115,7 @@ export default function Dashboard() {
         </Grid>
       </Grid> */}
 
-
-
+      <ThemeProvider theme={darkTheme}>
       {/*Info Cards*/}
       <Grid container rowSpacing={{ xs: 1, sm: 2, md: 2, lg: 3}} columnSpacing={{ xs: 1, sm: 2, md: 1, lg: 3}} mb={6}>
         <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
@@ -184,76 +189,8 @@ export default function Dashboard() {
             </span>}
           />
         </Grid>
-
-        {/* <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="primary" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-                16
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                checked-out
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="error" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-                03
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                overdue
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="warning" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-              17
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                for maintenance
-              </Typography>
-            </span>}
-          />
-        </Grid>
-
-        <Grid item container xs={6} sm={6} md={3} justifyContent='center'>
-          <DashboardInfoCard customColor="secondary" customLabel={
-            <span>
-              <Typography variant="h3" style={{ display: 'inline' }}>
-                00
-              </Typography>
-              &nbsp;
-              <Typography variant="subtitle1" style={{ display: 'inline' }}>
-                items
-              </Typography>
-
-              <Typography variant="body1" sx={{ marginTop: '15px' }}>
-                maintenance today
-              </Typography>
-            </span>}
-          />
-        </Grid> */}
       </Grid>
+      </ThemeProvider>
       {/* <DenseTable /> */}
     </Container>
   );
