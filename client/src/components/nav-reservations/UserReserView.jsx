@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Typography from '@mui/material/Typography';
 
 const UserReserView=()=>{
   const [details, setDetails] = useState([]);
@@ -30,7 +31,14 @@ const UserReserView=()=>{
 
     return(
       <div>
-      <h1>My Reservations</h1>
+          <Typography
+            variant="h4"
+            gutterBottom
+            mb={4} 
+            align="center"
+            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+              My Reservations
+          </Typography>
   <table className="table table-primary table-hover table-responsive  ">
     <thead className=" ">
       <tr>
