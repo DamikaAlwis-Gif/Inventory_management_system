@@ -4,7 +4,7 @@ import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
-const TableRessources = (props) => {
+const TableResources = (props) => {
   const { resources  , onClickMore } = props;
   const [page, setPage] = useState(0);
   const[rowsPerPage, setRowsPerPage] = useState(10);
@@ -50,8 +50,15 @@ const TableRessources = (props) => {
   
     return (
       <div>
-        <Paper elevation={5}>
-          <TableContainer sx={{ maxHeight: 375 }}>
+        <Paper
+          elevation={4}
+          sx={{
+            marginTop: 5,
+            padding: '14px 0px 0px 0px',
+            borderRadius: '15px',
+            backgroundColor: '#ffffff'
+          }}>
+          <TableContainer sx={{ maxHeight: 405, borderRadius: '15px'}}>
             <Table stickyHeader size="small">
               <TableHead>
                 <TableRow>
@@ -61,7 +68,7 @@ const TableRessources = (props) => {
                         fontSize: "16px",
                         fontWeight: "bold",
                        
-                        padding: "10px",
+                        padding: "0px 10px 10px 10px",
                       }}
                       key={column.id}
                       
@@ -74,9 +81,8 @@ const TableRessources = (props) => {
                       fontSize: "16px",
                       fontWeight: "bold",
                      
-                      padding: "10px",
+                      padding: "0px 10px 10px 10px",
                     }}
-                  
                   >
                     Actions
                   </TableCell>
@@ -129,4 +135,4 @@ const TableRessources = (props) => {
     );
 };
 
-export default TableRessources;
+export default TableResources;

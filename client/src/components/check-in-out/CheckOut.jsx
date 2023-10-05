@@ -12,6 +12,7 @@ import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
+import Paper from '@mui/material/Paper';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
 import axios from 'axios';
@@ -106,29 +107,41 @@ export default function CheckOut() {
       disableGutters={true}
       sx={{
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-        overflowY: 'auto',
-        width: '45%',
+        width: '55%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         paddingBottom: `${NAVBAR_HEIGHT}px`,
 
-        '@media (max-width:1700px)': {width: '25%',},
-        '@media (max-width:1550px)': {width: '30%',},
-        '@media (max-width:1350px)': {width: '35%',},
-        '@media (max-width:1150px)': {width: '40%',},
-        '@media (max-width:1000px)': {width: '45%',},
-        '@media (max-width:850px)': {width: '50%',},
-        '@media (max-width:750px)': {width: '55%',},
-        '@media (max-width:700px)': {width: '60%',},
-        '@media (max-width:650px)': {width: '65%',},
-        '@media (max-width:550px)': {width: '70%',},
-        '@media (max-width:500px)': {width: '80%',},
-        '@media (max-width:460px)': {width: '90%',},
-        '@media (max-width:420px)': {width: '95%',},
+        '@media (max-width:1700px)': {width: '40%',},
+        '@media (max-width:1550px)': {width: '45%',},
+        '@media (max-width:1300px)': {width: '50%',},
+        '@media (max-width:1150px)': {width: '55%',},
+        '@media (max-width:1000px)': {width: '65%',},
+        '@media (max-width:850px)': {width: '70%',},
+        '@media (max-width:750px)': {width: '80%',},
+        '@media (max-width:650px)': {width: '88%',},
+        '@media (max-width:500px)': {width: '90%',},
+        '@media (max-width:460px)': {width: '95%',},
+        '@media (max-width:420px)': {width: '98%',},
       }}
     >
+    <Typography
+      variant="h4"
+      gutterBottom
+      mb={4} 
+      align="center"
+      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+        Check-out
+    </Typography>
+    <Paper 
+      elevation={4}
+      sx={{
+        padding: '4% 6% 4% 6%',
+        borderRadius: '30px',
+        // backgroundColor: '#f3e5f5'
+      }}>
 
     <FormProvider {...methods}>
     <form noValidate onSubmit={methods.handleSubmit(onSubmit)}>
@@ -138,7 +151,7 @@ export default function CheckOut() {
             variant="h6"
             gutterBottom
             style={{color: '#444444'}}>
-              Check-out
+              Check-out Details
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -233,17 +246,22 @@ export default function CheckOut() {
             helperText={errors.purpose?.message}
           />
         </Grid>
+        <Grid item xs={12}>
+        <Divider variant="middle" />
+        </Grid>
 
       {/* Buttons */}
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
           <Button onClick={() => navigate("/dashboard")} type="button" variant="contained" color="error" sx={{
-            borderRadius: '20px',
-            height: '40px',
+            borderRadius: '22px',
+            height: '44px',
+            width: '84px',
             textTransform: 'capitalize',
           }}>Cancel</Button>
           <Button type="submit" variant="contained" color="primary"  sx={{
-            borderRadius: '20px',
-            height: '40px',
+            borderRadius: '22px',
+            height: '44px',
+            width: '84px',
             textTransform: 'capitalize',            
           }}>Proceed</Button>
           </Grid>
@@ -258,6 +276,7 @@ export default function CheckOut() {
       </form>
       </FormProvider>
     {/* <DevTool control={control} />       */}
+    </ Paper>
     </Container>
   )
 }

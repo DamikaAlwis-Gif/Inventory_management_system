@@ -4,6 +4,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import Piechart from './Piechart';
 import LineChart from './LineChart';
+import Typography from '@mui/material/Typography';
 
 
 const Analytics = () => {
@@ -280,7 +281,14 @@ const Analytics = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center">Analytics</h1>
+      <Typography
+        variant="h4"
+        gutterBottom
+        mb={4} 
+        align="center"
+        style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+          Analytics
+      </Typography>
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
       </div>

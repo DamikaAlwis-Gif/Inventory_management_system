@@ -11,7 +11,7 @@ const TableMore = (props) => {
 
   return (
     <>
-      <TableContainer sx={{ maxHeight: 400 }}>
+      <TableContainer sx={{ maxHeight: 500 }}>
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow>

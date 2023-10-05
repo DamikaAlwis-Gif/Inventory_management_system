@@ -2,38 +2,47 @@ import React from "react";
 import Button from '@mui/material/Button';
 import SearchIcon from "@mui/icons-material/Search";
 import Paper from '@mui/material/Paper';
+import AddIcon from "@mui/icons-material/Add";
+import { createTheme, ThemeProvider } from '@mui/material';
 
 const SelectList = (props) => {
-  const {options , labs ,onChange, onSearch , types , searchvalue, handleSearchByType } = props;
+  const {options , labs ,onChange, onSearch , types , searchvalue, handleSearchByType, handleAdd, role } = props;
   const availability = [
     "Available",
     "Checked out",
     "Under maintenance",
     "Out of order",
   ];
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   return (
     <div>
       <form>
         <div className="row">
           <div className="col-md">
             <Paper elevation={2}>
-              <div className="form-floating mb-3 ">
+              <div className="form-floating">
                 <input
                   id="searchvalue"
                   type="text"
-                  className="form-control"
+                  className="form-control" 
                   value={searchvalue}
                   onChange={(e) => handleSearchByType(e)}
-                  placeholder="Type something to search"
+                  placeholder="Type to search..."
+                  autoComplete="off"
                 />
-                <label htmlFor="searchvalue">Type something to search</label>
+                <label htmlFor="searchvalue">Type to search...</label>
               </div>
             </Paper>
           </div>
 
           <div className="col">
             <Paper elevation={2}>
-              <div className="form-floating mb-3">
+              <div className="form-floating">
                 <select
                   id="lab"
                   className="form-select"
@@ -54,7 +63,7 @@ const SelectList = (props) => {
           </div>
           <div className="col">
             <Paper elevation={2}>
-              <div className="form-floating mb-3">
+              <div className="form-floating">
                 <select
                   id="type"
                   className="form-select"
@@ -75,7 +84,7 @@ const SelectList = (props) => {
           </div>
           <div className="col">
             <Paper elevation={2}>
-              <div className="form-floating mb-3">
+              <div className="form-floating">
                 <select
                   id="availability"
                   className="form-select"
@@ -95,22 +104,46 @@ const SelectList = (props) => {
             </Paper>
           </div>
 
-          <div className="col">
+          <ThemeProvider theme={darkTheme}>
+          <div className="col" style={{ display: 'flex', alignItems: "center", justifyContent: role === 'Technical Officer' ? 'space-between' : 'flex-end'}}>
             <Button
               variant="contained"
-              size="small"
+              color="primary"
+              startIcon={<SearchIcon />}
+              size="large"
+              sx={{
+                borderRadius: '22px',
+                height: '44px',
+                width: '102px',
+                textTransform: 'capitalize',        
+              }}
               onClick={(e) => onSearch(e)}
               disabled={
                 options.lab === "" ||
                 options.availability === "" ||
                 options.type === ""
               }
-              startIcon={<SearchIcon />}
-              sx={{ borderRadius: "8px" }}
             >
               Search
             </Button>
-          </div>
+            {role === "Technical Officer" && (
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<AddIcon />}
+              size="large"
+              sx={{
+                borderRadius: '22px',
+                height: '44px',
+                width: '102px',
+                textTransform: 'capitalize',      
+              }}
+              onClick={(e) => handleAdd(e)}
+            >
+              Add
+            </Button>)}
+            </div>
+            </ThemeProvider>
         </div>
       </form>
     </div>
