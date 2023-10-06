@@ -4,7 +4,9 @@ import { useState } from 'react'
 import axios from 'axios';
 import Piechart from './Piechart';
 import LineChart from './LineChart';
+
 import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 
 
 const Analytics = () => {
@@ -292,25 +294,34 @@ const Analytics = () => {
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
       </div>
+
+      <Paper
+          elevation={4}
+          sx={{
+            marginTop: 1,
+            padding: '14px 0px 0px 0px',
+            borderRadius: 4,
+            backgroundColor: '#ffffff'
+          }}>
       <div className="row my-4  p-3">
-        <div className="col-md border shadow">
+        <div className="col-md">
           {availabilityLoaded && (
             <Piechart title="Availability of resources" data={dataA} />
           )}
         </div>
-        <div className="col-md mx-2 border shadow">
+        <div className="col-md mx-2">
           {conditionLoaded && (
             <Piechart title="Condition of resources" data={dataC} />
           )}
         </div>
-        <div className="col-md border shadow">
+        <div className="col-md">
           {checkoutStatusLoaded && (
             <Piechart title="Check-out status" data={dataB} />
           )}
         </div>
       </div>
       <div className="row my-3 ">
-        <div className="col-md  shadow p-3 border ">
+        <div className="col-md">
           {numCheckoutsLoaded && numCheckinsLoaded && (
             <LineChart
               data={dataNumofCheckouts}
@@ -321,7 +332,7 @@ const Analytics = () => {
           )}
         </div>
 
-        <div className="col-md  mx-2 shadow p-3 border">
+        <div className="col-md mx-2">
           {numReservationsLoaded && numMaintenancesLoaded && (
             <LineChart
               data={dataNumresrvations}
@@ -332,6 +343,7 @@ const Analytics = () => {
           )}
         </div>
       </div>
+      </Paper>
     </div>
   );
 }
