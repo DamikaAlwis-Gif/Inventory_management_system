@@ -62,8 +62,8 @@ const Account = () => {
                   style={{
                     fontWeight: "bold",
                     fontSize: "20px",
-                    backgroundColor: "#007BFF",
-                    color: "white",
+                    backgroundColor: "#cfcfcf",
+                    color: "black",
                   }}
                 >
                   Profile
