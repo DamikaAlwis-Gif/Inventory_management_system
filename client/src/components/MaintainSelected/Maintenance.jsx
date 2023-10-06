@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 import TableMaintenance from "./TableMaintenance";
 
+import Typography from '@mui/material/Typography';
 
 const Maintenance = () => {
 
@@ -35,11 +36,6 @@ const Maintenance = () => {
         fetchMaintenaceData(id);
       }, []);
 
-
-      
-
-
-  
       const handleAddNew = async (e) => {
         try {
           e.preventDefault();
@@ -92,7 +88,14 @@ return(
     <div>
     {ok ? (
       <div>
-        <h2 className="text-center"> Currently scheduled maintenance of the selected item:</h2>
+      <Typography
+        variant="h4"
+        gutterBottom
+        mb={4} 
+        align="center"
+        style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+          Currently Scheduled Maintenance of the Selected Item
+      </Typography>
         <div className="container">
           <div className="row">
             <div className="col-md mx-auto">
@@ -112,11 +115,11 @@ return(
       </div>
     ) : (
       <div className="container text-center p-5">
-        <p className="display-6 ">
+        <p className="display-6" style={{color: "white"}}>
           No scheduled maintenances yet for the item with Resorce_id {id}!
         </p>
         <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
-              </button>
+        </button>
       </div>
     )}
   </div>

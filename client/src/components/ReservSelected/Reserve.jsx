@@ -6,6 +6,7 @@ import axios from "axios";
 import TableReservDates from "./TableReservDates";
 import AddReservDate from "./AddReservDate";
 
+import Typography from '@mui/material/Typography';
 
 const Reserve = () => {
     const { id } = useParams();
@@ -39,7 +40,14 @@ return(
     <div>
       {ok ? (
         <div>
-          <h3 className="text-center"> Unavailable times of the selected item:</h3>
+        <Typography
+          variant="h4"
+          gutterBottom
+          mb={4} 
+          align="center"
+          style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+            Currently Scheduled Maintenance of the Selected Item
+        </Typography>
           <div className="container">
             <div className="row">
               <div className="col-md mx-auto">
@@ -53,7 +61,7 @@ return(
         </div>
       ) : (
         <div className="container text-center p-5">
-          <h3>
+          <h3 style={{color: "white"}}>
             No scheduled maintenances or reservations yet for the item with Resorce_id {id}!
           </h3>
         
