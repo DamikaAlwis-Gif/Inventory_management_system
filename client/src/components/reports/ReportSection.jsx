@@ -169,7 +169,7 @@ const ReportSection = () => {
               checked={selectedRadio === "reservation"}
               onChange={handleRadioChange}
             />
-            <label className="btn btn-outline-primary" htmlFor="reservation">
+            <label className="btn btn-outline-light" htmlFor="reservation">
               Reservation
             </label>
 
@@ -183,10 +183,10 @@ const ReportSection = () => {
               onChange={handleRadioChange}
             />
             <label
-              className="btn btn-outline-primary"
+              className="btn btn-outline-light"
               htmlFor="check_in_check_out"
             >
-              Check-in/ Check-out
+              Check-in/Check-out
             </label>
 
             <input
@@ -198,7 +198,7 @@ const ReportSection = () => {
               checked={selectedRadio === "maintenance"}
               onChange={handleRadioChange}
             />
-            <label className="btn btn-outline-primary" htmlFor="maintenance">
+            <label className="btn btn-outline-light" htmlFor="maintenance">
               Maintenance
             </label>
           </div>
