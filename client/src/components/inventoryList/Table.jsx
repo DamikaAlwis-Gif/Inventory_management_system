@@ -1,8 +1,17 @@
 import React from "react";
-import { Paper,TableContainer,Table, TableHead, TableRow, TableCell, TableBody, Button ,TablePagination} from "@mui/material";
-import { useState } from "react";
+
+import Paper from '@mui/material/Paper';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import TablePagination from '@mui/material/TablePagination';
 import IconButton from "@mui/material/IconButton";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
+
+import { useState } from "react";
 
 const TableResources = (props) => {
   const { resources  , onClickMore } = props;
@@ -10,8 +19,8 @@ const TableResources = (props) => {
   const[rowsPerPage, setRowsPerPage] = useState(10);
   if (resources.length === 0) {
     return (
-      <div className="container text-center p-5">
-        <p className="display-6 ">No resources found!</p>
+      <div className="container text-center p-5" style={{color: "white", marginTop: 80}}>
+        <p className="display-6">No resources found!</p>
       </div>
     );
   }
@@ -55,10 +64,10 @@ const TableResources = (props) => {
           sx={{
             marginTop: 5,
             padding: '14px 0px 0px 0px',
-            borderRadius: '15px',
+            borderRadius: 4,
             backgroundColor: '#ffffff'
           }}>
-          <TableContainer sx={{ maxHeight: 405, borderRadius: '15px'}}>
+          <TableContainer sx={{ maxHeight: 405, borderRadius: 4}}>
             <Table stickyHeader size="small">
               <TableHead>
                 <TableRow>

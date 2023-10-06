@@ -3,12 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TableView from "./TableView";
+
 import Typography from '@mui/material/Typography';
 
 const AdminMaintenanceView=()=>{
   const [details, setDetails] = useState([]);
-
-
 
   useEffect(() => {
     const fetchMaintenanceData = async () => {
@@ -21,7 +20,6 @@ const AdminMaintenanceView=()=>{
         }
       } catch (error) {
         console.log(error);
-        
       }
     };
     fetchMaintenanceData();
@@ -46,7 +44,6 @@ const AdminMaintenanceView=()=>{
           window.location.reload();
         }
       });
-
   };
 
   const updateStatus = async (m_id) => {
@@ -63,7 +60,7 @@ const AdminMaintenanceView=()=>{
   };
 
     return(
-      <div>
+      <div className="container">
           <Typography
             variant="h4"
             gutterBottom
@@ -80,7 +77,6 @@ const AdminMaintenanceView=()=>{
            
           </div>
         </div>
-        ;
       </div>
     </div>
             

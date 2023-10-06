@@ -4,9 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SelectLIst from "./SelectList";
 import TableResources from "./Table";
-import Pagination from "../common/Pagination";
-import AddIcon from "@mui/icons-material/Add";
-import Button from "@mui/material/Button";
+
 import Typography from '@mui/material/Typography';
 
 const Resources = () => {
@@ -161,8 +159,6 @@ const Resources = () => {
           currentPage={currentPage}
           pageSize={pageSize}
         ></TableResources>
-
-        
       </div>
     </div>
   );
