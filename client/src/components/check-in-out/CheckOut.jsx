@@ -102,11 +102,20 @@ export default function CheckOut() {
   const navigate = useNavigate();
 
   return (
+    <>
+    <Typography
+      variant="h4"
+      gutterBottom
+      mb={0} 
+      align="center"
+      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
+        Check-out
+    </Typography>
     <Container
       maxWidth="md"
       disableGutters={true}
       sx={{
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
+        height: `calc(100vh - ${NAVBAR_HEIGHT}px - 71px)`,
         width: '55%',
         display: 'flex',
         flexDirection: 'column',
@@ -127,14 +136,6 @@ export default function CheckOut() {
         '@media (max-width:420px)': {width: '98%',},
       }}
     >
-    <Typography
-      variant="h4"
-      gutterBottom
-      mb={4} 
-      align="center"
-      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-        Check-out
-    </Typography>
     <Paper 
       elevation={4}
       sx={{
@@ -278,5 +279,6 @@ export default function CheckOut() {
     {/* <DevTool control={control} />       */}
     </ Paper>
     </Container>
+    </>
   )
 }
