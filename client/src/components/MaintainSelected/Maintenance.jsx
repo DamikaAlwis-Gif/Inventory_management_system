@@ -118,7 +118,7 @@ return(
         <p className="display-6" style={{color: "white"}}>
           No scheduled maintenances yet for the item with Resorce_id {id}!
         </p>
-        <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add    New Maintenance
+        <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
         </button>
       </div>
     )}
