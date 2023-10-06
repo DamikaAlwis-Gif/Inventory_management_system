@@ -20,7 +20,7 @@ const saltRounds = 10;
     db.query(q, [user_id,name,role, user_name, email, hash,phone_number], (err, data) => {
       if (err){
         console.log(err);
-        return res.json({ status: "error", error: err });
+        return res.json({ status: "error"});
       } 
       else {
         return res.json({ status: "ok" });
