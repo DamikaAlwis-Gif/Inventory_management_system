@@ -1,6 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
 const TableView = (props) => {
   const { details,onClickMore } = props;
 
@@ -11,30 +20,26 @@ const TableView = (props) => {
     setIsChecked(!isChecked);
   };
 
-  
-
-
-
   return (
 <>
     <div>
-      <label>
+      <label style={{color: '#ffffff'}}>
         <input
           type="radio"
           value="true"
           checked={isChecked === true}
           onChange={handleRadioChange}
         />
-        Show Undone &nbsp; &nbsp;
+        &nbsp; Show Undone &nbsp; &nbsp;
       </label>
-      <label>
+      <label style={{color: '#ffffff'}}>
         <input
           type="radio"
           value="false"
           checked={isChecked === false}
           onChange={handleRadioChange}
         />
-        Show completed
+        &nbsp; Show completed
       </label>
      <br/>
      <br/>
@@ -70,7 +75,7 @@ const TableView = (props) => {
           ))}
         </tbody>
       </table>
-      <p>Click on rows to change the maintenance status</p>
+      <h6 style={{color: "white"}}>Click on rows to change the maintenance status</h6>
     </div>
     
     ):(
