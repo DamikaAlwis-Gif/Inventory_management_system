@@ -10,11 +10,7 @@ const TableMaintenance = (props) => {
     // Toggle the value of isChecked when the radio button changes
     setIsChecked(!isChecked);
   };
-
   
-
-
-
   return (
 <>
     <div>
