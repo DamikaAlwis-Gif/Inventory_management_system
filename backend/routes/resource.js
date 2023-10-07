@@ -15,7 +15,7 @@ resourceRouter.get("/:labs", (req, res) => {
 
    
 
-    if (err) return res.json(err);
+    if (err) return res.json({err:err});
     else {
       
       const typeList = [];

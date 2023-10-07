@@ -82,9 +82,7 @@ export const validateProperty = ({ name, value }) => {
   } else if (name === "is_portable") {
     if (value.trim() === "") return "Is portable is required";
    } 
-//else if (name === "img_url") {
-//     if (value.trim() === "") return " is required";
-//   } 
+
 
     else if (name === "last_maintenance_date") {
     if (value.trim() === "") return "Last maintenance date is required";
