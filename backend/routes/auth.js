@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
 
 router.post("/login/mobile", (req, res) => {
   const q = "SELECT * FROM user WHERE user_name = ?";
-  const user_name = req.body.username;
+  const user_name = req.body.username.trim();
   const password = req.body.password;
 
   db.query(q, [user_name], (err, data) => {
@@ -163,6 +163,31 @@ router.get("/user", getUser,(req, res) => {// get the details of logged in user
      });
     
 });
+router.get("/userbyid/:id", (req, res) => {
+  // get the details of logged in user
+  const user_id = req.params.id;
+  const q =
+    "SELECT user_id, name, role, user_name, email, phone_number FROM user WHERE user_id = ? ;";
+  db.query(q, [user_id], (err, data) => {
+    if (err) return res.json(err);
+    else return res.json(data);
+  });
+});
+router.get("/labsbyid/:id", (req,res) =>{
+  const user_id = req.params.id;
+  const q = "SELECT name FROM lab JOIN access using(lab_id)  where user_id = ?;";
+  db.query(q,[user_id], (err, data) =>{
+    if(err) return res.json({err:err});
+    else {
+      
+      const labs = data.map((item) => item.name);
+      return res.json({labs:labs});
+
+    }
+  })
+
+});
+
 router.get("/access", getUser,(req, res) => {// get he labs that the user has access to
     const user_id = req.user_id;
     const q = "SELECT name FROM lab JOIN access using(lab_id) where user_id = ?;";
