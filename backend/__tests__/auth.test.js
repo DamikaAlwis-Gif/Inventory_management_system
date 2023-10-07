@@ -1,4 +1,4 @@
-import { fetchUserFromLabAccess, fetchUserListFromLabAccess, getNameRoleWithDb, loginWithdb, registerUsrWithDb } from '../src/auth-controller.js';
+import { fetchUserFromLabAccess, fetchUserListFromLabAccess, fetchUsrWithDb, getNameRoleWithDb, loginWithdb, registerUsrWithDb } from '../src/auth-controller.js';
 import db from "../dataBase/db.js";
 import {jest} from '@jest/globals';
 
@@ -173,6 +173,42 @@ describe('getNameRoleWithDb', () => {
   });
 
 });
+describe('fetchUsrWithDb', () => {
+  it('should return lab that user has access to', async () =>{
+    // Mock request and response objects
+    const req = {
+        name: 'Test User',
+        user_name: 'testuser',
+        password: 'password123',
+        email: 'test@example.com',
+        user_id: '123',
+        phone_number: '1234567890',
+        role: 'user',
+      
+    };
+    const res = {
+      json: jest.fn(), // Create a mock function to capture the response data
+    };
+
+    db.query=jest.fn().mockImplementationOnce((query, values, callback) => {
+      callback(null,[{user_id:'u1',name:'testname'}]); // Simulate succesful db query
+    }).mockImplementationOnce((query, values, callback) => {
+      callback(new Error('DB error'),null); // Simulate unsuccesful db query
+    });
+
+    await fetchUsrWithDb(req,res);
+    expect(res.json).toHaveBeenCalledWith([{user_id:'u1',name:'testname'}]);
+
+    res.json.mockReset();
+    await fetchUsrWithDb(req,res);
+    expect(res.json).toHaveBeenCalledWith(Error('DB error'));
+
+  });
+
+});
+
+
+
 
 describe('fetchUserFromLabAccess', () => {
   it('should return lab that user has access to', async () =>{
