@@ -3,7 +3,68 @@ import db from "../dataBase/db.js";
 
 const checkoutRouter = express.Router();
 
+const queryUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    const validateUserSql = 'SELECT count(*) AS countUser FROM user WHERE user_id = ?';
+    db.query(validateUserSql, [userId], (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
 
+const queryResource = (resourceId) => {
+  return new Promise((resolve, reject) => {
+    const validateResourceSql = 'SELECT count(*) AS countResource FROM resource WHERE resource_id = ?';
+    db.query(validateResourceSql, [resourceId], (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+checkoutRouter.get('/validate/:userId/:resourceId', async (req, res) => {
+  // console.log(req.params);
+
+  try {
+    const userId = req.params.userId;
+    const resourceId = req.params.resourceId;
+    // console.log(userId, resourceId);
+
+    let response = {
+      validUser: false,
+      validResource: false,
+      userAccess: true
+    };
+
+    console.log(response);
+
+    const userResult = await queryUser(userId);
+    if (userResult && userResult[0] && userResult[0].countUser > 0) {
+      response.validUser = true;
+      console.log(response);
+    }
+
+    const resourceResult = await queryResource(resourceId);
+    if (resourceResult && resourceResult[0] && resourceResult[0].countResource > 0) {
+      response.validResource = true;
+      console.log(response);
+    }
+
+    res.status(200).json(response);
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 checkoutRouter.post('/', async (req, res) => {
   try {

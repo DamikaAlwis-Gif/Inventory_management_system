@@ -159,10 +159,11 @@ export default function CheckIn() {
             error={userIdError && errors.userId}
             helperText={userIdError && errors.userId?.message}
 
-            // set the alphabetical characters in the User ID to Uppercase automatically
-            onChange={(e) => {e.target.value = e.target.value.toUpperCase();
-              setUserIdError(false);
-              }}
+            // disallow whitespaces and set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[\s]/g, '').toUpperCase();
+              setUserIdError(e.target.value === '');
+            }}
           />
         </Grid>
         <Grid item xs={6}>
@@ -176,6 +177,12 @@ export default function CheckIn() {
             {...register('resourceId', {required: "Resource ID is required"})}
             error={!!errors.resourceId}
             helperText={errors.resourceId?.message}
+
+            // disallow whitespaces and set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[\s]/g, '').toUpperCase();
+              setUserIdError(e.target.value === '');
+            }}
           />
         </Grid>
         <Grid item xs={12}>
