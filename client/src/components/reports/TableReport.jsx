@@ -36,12 +36,12 @@ const TableReport = (props) => {
 
 console.log(details);
   return (
-    <div className="mt-5"> 
+    <div className="mt-2"> 
       <Paper elevation={5}> 
       <IconButton onClick={(e) => downloadPDF(e)}>
         <LocalPrintshopRoundedIcon />
       </IconButton>
-      <TableContainer sx={{ maxHeight: 350 }}>
+      <TableContainer sx={{ maxHeight: 300 }}>
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow > 

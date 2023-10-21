@@ -173,6 +173,7 @@ router.get("/userbyid/:id", (req, res) => {
     else return res.json(data);
   });
 });
+
 router.get("/labsbyid/:id", (req,res) =>{
   const user_id = req.params.id;
   const q = "SELECT name FROM lab JOIN access using(lab_id)  where user_id = ?;";
