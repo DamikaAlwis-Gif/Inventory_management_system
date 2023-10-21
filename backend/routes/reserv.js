@@ -19,6 +19,23 @@ const getUser = (req, res, next) => {
     });
   }
 };
+// get reservations of user with id in mobile app
+reservRouter.get("/myReservations/:id", (req, res) => {
+  const u_id=req.params.id;
+  const q =
+    "SELECT resource_id,name, start_date, end_date FROM reservation join resource using (resource_id) where user_id= ? and status= 'Due';";
+  db.query(q, [u_id],(err, data) => {
+    if (err) return res.json(err);
+    else {     
+      return res.json({
+        data: data
+      
+      });
+     
+    } 
+
+  });
+});
 
 reservRouter.get("/all", (req, res) => {
    
