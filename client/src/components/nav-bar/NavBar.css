@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   /* background-color: #f3e5f5; */
-  border-bottom: 1px solid #33267327;
+  border-bottom: 1px solid #47426383;
   /* box-shadow: 0 4px 6px #f6f6ff; */
   padding: 10px 4vw;
   width: auto !important;
@@ -132,7 +132,7 @@
   font-size: 24px;
   font-weight: 600;
   /* color: #332673; */
-  color: #281E59;
+  color: #f3e5f5;
   margin-right: 0px;
   margin-left: auto; /* Push to the right corner */
 @media screen and (max-width: 1050px) {
@@ -144,9 +144,9 @@
   text-decoration: none;
   font-weight: 500;
   /* color: #332673; */
-  color: #1a237e;
+  color: #070d4d;
   display: block;
-  padding: 0px 10px;
+  padding: 0px 8px;
   border-bottom: 1px solid #d6d8ff;
   transition: background-color 0.3s ease;
 }
@@ -161,8 +161,9 @@
   
 .custom-dropdown-container .custom-dropdown-link .custom-link-box {
   display: inline-block;
-  padding: 0.6em 9px;
+  padding: 0.5em 9px;
   height: 100%;
+  width: 10em;
 }
 
   .custom-dropdown-button:focus + .custom-dropdown-container,
