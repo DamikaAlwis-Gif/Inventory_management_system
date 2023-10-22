@@ -29,7 +29,7 @@ const AdminMaintenanceView=()=>{
     e.preventDefault();
 
     Swal.fire({
-        title: "Are you sure to change status?",
+        title: "Are you sure you want to change status?",
         text: " ",
         icon: "warning",
         showCancelButton: true,
@@ -69,6 +69,7 @@ const AdminMaintenanceView=()=>{
             style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
               Scheduled Maintenance
           </Typography>
+
       <div className="container">
         <div className="row">
           <div className="col-md mx-auto">
