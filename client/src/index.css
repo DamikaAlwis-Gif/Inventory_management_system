@@ -1,17 +1,16 @@
 #root {
   min-height: 100vh; /* Minimum height is 100% of viewport height */
   width: 100vw; /* Width is 100% of viewport width */
+
 }
+
+/* #201d30 */
+/* #241c31 */
+/* #342E45 */
 
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-image: url('./Images/Background.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background-color: #201d30;
 }
