@@ -5,6 +5,7 @@
 
 import express from "express";
 const app = express();
+import dashboardRouter from "./routes/dashboard.js";
 import resourceRouter from "./routes/resource.js";
 import authRouter from "./routes/auth.js";
 import checkoutRouter from "./routes/checkout.js";
@@ -20,13 +21,12 @@ import maintenanceRouter from "./routes/maintenance.js";
 
 
 app.use(express.json());
-app.use(
-  cors({
-    credentials: true,
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+app.use(cors(
+  {credentials: true,
+  origin: 'http://localhost:3000',
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}
+));
 app.listen(8800, () => {
   console.log("Connected to backend!");
 });
@@ -35,6 +35,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.json("Hello this is backend");
 });
+app.use("/dashboard", dashboardRouter);
 app.use("/resources", resourceRouter);
 app.use("/auth", authRouter);
 app.use("/checkout", checkoutRouter);
