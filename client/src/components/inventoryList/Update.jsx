@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import FormItem from "./FormItem";
 import FormItemSelect from "./FormItemSelect";
 import { validate, validateProperty } from "../Validation/AddValidation";
+import {base_url} from '../../config';
 
 const Update = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const Update = () => {
   useEffect(() => {
     const getLabs = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/auth/access");
+        const res = await axios.get(`${base_url}/auth/access`);
         
         const list = res.data.map((item) => 
           item.name
@@ -31,15 +32,13 @@ const Update = () => {
     getLabs();
   }, []);
 
-  
-
   useEffect(() => {
     getResourceInfo(id);
   }, []);
 
   const getResourceInfo = async (id) => {
     try {
-      const res = await axios.get("http://localhost:8800/resources/update/" + id);
+      const res = await axios.get(`${base_url}/resources/update/` + id);
       //console.log(res.data);
       const data = res.data[0];
       setAsset({...data, last_maintenance_date: data.last_maintenance_date.split("T")[0]});
@@ -93,7 +92,7 @@ const Update = () => {
   const handleIsConfirmed = async () => {
     try {
       const responce = await axios.put(
-        "http://localhost:8800/resources/update/" + id,asset );
+        `${base_url}/resources/update/` + id,asset );
 
         if (responce.data.status === "ok") {
           Swal.fire("Updated!", "The asset has been updated.", "success");

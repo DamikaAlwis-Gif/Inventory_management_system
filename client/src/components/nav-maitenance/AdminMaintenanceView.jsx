@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TableView from "./TableView";
+import {base_url} from '../../config';
+
 import Typography from '@mui/material/Typography';
 
 const AdminMaintenanceView=()=>{
   const [details, setDetails] = useState([]);
 
-
-
   useEffect(() => {
     const fetchMaintenanceData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/maintenance/all/" );
+        const res = await axios.get(`${base_url}/maintenance/all/` );
          if (res.data && res.data.length > 0) {
           setDetails(res.data);
         } else {
@@ -21,7 +21,6 @@ const AdminMaintenanceView=()=>{
         }
       } catch (error) {
         console.log(error);
-        
       }
     };
     fetchMaintenanceData();
@@ -31,7 +30,7 @@ const AdminMaintenanceView=()=>{
     e.preventDefault();
 
     Swal.fire({
-        title: "Are you sure to change status?",
+        title: "Are you sure you want to change status?",
         text: " ",
         icon: "warning",
         showCancelButton: true,
@@ -46,13 +45,12 @@ const AdminMaintenanceView=()=>{
           window.location.reload();
         }
       });
-
   };
 
   const updateStatus = async (m_id) => {
     try {
      
-      const url = "http://localhost:8800/resources/updtmtschedule/"+ m_id;
+      const url = `${base_url}/resources/updtmtschedule/`+ m_id;
       const res = await axios.get(url);
       Swal.fire("Updated!", "Maintenance is done", "success");         
       // console.log(res.data);
@@ -63,15 +61,17 @@ const AdminMaintenanceView=()=>{
   };
 
     return(
-      <div>
+      <div className="container">
           <Typography
-            variant="h4"
+            variant="h5"
             gutterBottom
-            mb={4} 
+            mb={3}
+            mt={4}
             align="center"
-            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-              Scheduled Maintenance
+            style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+              <strong>Scheduled Maintenance</strong>
           </Typography>
+
       <div className="container">
         <div className="row">
           <div className="col-md mx-auto">
@@ -80,7 +80,6 @@ const AdminMaintenanceView=()=>{
            
           </div>
         </div>
-        ;
       </div>
     </div>
             

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { NAVBAR_HEIGHT } from '../../constants';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -8,7 +10,6 @@ import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
 import "@fontsource/cinzel-decorative/400.css";
-
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
 let themeDashboardHeading = createTheme({
@@ -31,6 +32,34 @@ export default function Dashboard() {
   const [daysUntilCheckIn, setDaysUntilCheckIn] = useState(false);
   const [reserved, setReserved] = useState(false);
   const [daysUntilReservation, setDaysUntilReservation] = useState(false);
+
+  useEffect(() => {
+
+    // const getVerification = async () => {
+    //   const response = await axios.get("http://localhost:8800/dashboard/verify");
+    //   console.log(response);
+    // }
+
+    // getVerification();
+
+    const getPersonalStatistics = async () => {
+      try {
+        const statistics = await axios.get("http://localhost:8800/dashboard")
+
+        console.log(statistics.data);
+        statistics.data.available && setCheckedOut(statistics.data.available);
+        statistics.data.checkedOut && setDaysUntilCheckIn(statistics.data.checkedOut);
+        statistics.data.maintenance && setReserved(statistics.data.maintenance);
+        statistics.data.outofOrder && setDaysUntilReservation(statistics.data.outofOrder);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getPersonalStatistics();
+
+  }, [])
 
   return (
     <Container
@@ -64,10 +93,10 @@ export default function Dashboard() {
 
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
-        <Typography variant="h4" align='center' mb={1} sx={{color: '#f3e5f5'}}>
+        <Typography variant="h4" align='center' mb={1} sx={{color: '#201d30'}}>
           Welcome to
         </Typography>
-        <Typography variant="h3" align='center' mb={6} sx={{color: '#f3e5f5'}}>
+        <Typography variant="h3" align='center' mb={6} sx={{color: '#201d30'}}>
           Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>
@@ -80,7 +109,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                <strong>{checkedOut ? checkedOut : "__"}</strong>
+                <strong>{checkedOut}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -98,7 +127,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-              <strong>{daysUntilCheckIn ? daysUntilCheckIn : "__"}</strong>
+              <strong>{daysUntilCheckIn ? daysUntilCheckIn : "n/a"}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -116,7 +145,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-              <strong>{reserved ? reserved : "__"}</strong>
+              <strong>{reserved}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -134,7 +163,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-              <strong>{daysUntilReservation ? daysUntilReservation : "__"}</strong>
+              <strong>{daysUntilReservation ? daysUntilReservation : "n/a"}</strong>
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>

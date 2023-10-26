@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material';
+import {base_url} from '../../config';
 
 const darkTheme = createTheme({
   palette: {
@@ -24,7 +25,7 @@ const MoreDetails = () => {
   useEffect(() => {
     const fetchAllDetailsByID = async (id) => {
       try {
-        const res = await axios.get("http://localhost:8800/resources/adminmore/" + id);
+        const res = await axios.get(`${base_url}/resources/adminmore/` + id);
         // res.data checks not null or undefined
         // res.data.length checks length property of res.data is greater than 0.
         if (res.data && res.data.length > 0) {
@@ -63,7 +64,7 @@ const MoreDetails = () => {
 
   const handleIsConfirmed = async (id) => {
     try {
-      const res = await axios.delete("http://localhost:8800/resources/" + id);
+      const res = await axios.delete(`${base_url}/resources/` + id);
       console.log("Resourse is deleted!");
       navigate("/resources");
     } catch (error) {
@@ -78,7 +79,7 @@ const MoreDetails = () => {
   const handleReserve = async (e,id) => {
     try {
       e.preventDefault();
-     // const res = await axios.delete("http://localhost:8800/resources/" + id);
+     // const res = await axios.delete(`${base_url}/resources/` + id);
       console.log("Redirected to reservation data page!");
       navigate(`/Reserve/${id}`); 
     } catch (error) {
@@ -101,12 +102,13 @@ const MoreDetails = () => {
       {ok && loaded ? (
         <div>
           <Typography
-            variant="h4"
+            variant="h5"
             gutterBottom
-            mb={4} 
+            mb={3}
+            mt={4}
             align="center"
-            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-              More Details
+            style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+              <strong>More Details</strong>
           </Typography>
           <div className="container">
             <div className="row">

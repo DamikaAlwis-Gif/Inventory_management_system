@@ -4,7 +4,10 @@ import { useState } from 'react'
 import axios from 'axios';
 import Piechart from './Piechart';
 import LineChart from './LineChart';
+
 import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import {base_url} from '../../config';
 
 
 const Analytics = () => {
@@ -37,7 +40,7 @@ const Analytics = () => {
   useEffect(() => {
     const getLabs = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/auth/access");
+        const res = await axios.get(`${base_url}/auth/access`);
 
         const list = res.data.map((item) => item.name);
         setAccessLab(list);
@@ -54,7 +57,7 @@ const Analytics = () => {
     const getAvailabilityReport = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/availability/${labs}`
+          `${base_url}/report/availability/${labs}`
         );
         setAvailabilityData(res.data);
         setAvailabilityLoaded(true);
@@ -73,7 +76,7 @@ const Analytics = () => {
     const getConditionReport = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/condition/${labs}`
+          `${base_url}/report/condition/${labs}`
         );
         setConditionData(res.data);
         setConditionLoaded(true);
@@ -91,7 +94,7 @@ const Analytics = () => {
     const getCheckOutStatus = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/checkoutstatus/${labs}`
+          `${base_url}/report/checkoutstatus/${labs}`
         );
         setCheckoutStatusData(res.data);
         setCheckoutStatusLoaded(true);
@@ -109,7 +112,7 @@ const Analytics = () => {
     const getNumCheckouts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/numcheckouts/${labs}`
+          `${base_url}/report/numcheckouts/${labs}`
         );
         console.log(res.data);
         setNumCheckouts(res.data);
@@ -129,7 +132,7 @@ const Analytics = () => {
      const getNumCheckins = async () => {
        try {
          const res = await axios.get(
-           `http://localhost:8800/report/numcheckins/${labs}`
+           `${base_url}/report/numcheckins/${labs}`
          );
          console.log(res.data);
          setNumCheckins(res.data);
@@ -148,7 +151,7 @@ const Analytics = () => {
      const getNumReservations = async () => {
        try {
          const res = await axios.get(
-           `http://localhost:8800/report/numreservations/${labs}`
+           `${base_url}/report/numreservations/${labs}`
          );
          console.log(res.data);
          setNumReservations(res.data);
@@ -168,7 +171,7 @@ const Analytics = () => {
      const getNumMaintenances = async () => {
        try {
          const res = await axios.get(
-           `http://localhost:8800/report/nummaintenances/${labs}`
+           `${base_url}/report/nummaintenances/${labs}`
          );
          setNumMaintenances(res.data);
          setNumMaintenancesLoaded(true);
@@ -292,25 +295,34 @@ const Analytics = () => {
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
       </div>
+
+      <Paper
+          elevation={4}
+          sx={{
+            marginTop: 1,
+            padding: '14px 0px 0px 0px',
+            borderRadius: 4,
+            backgroundColor: '#ffffff'
+          }}>
       <div className="row my-4  p-3">
-        <div className="col-md border shadow">
+        <div className="col-md">
           {availabilityLoaded && (
             <Piechart title="Availability of resources" data={dataA} />
           )}
         </div>
-        <div className="col-md mx-2 border shadow">
+        <div className="col-md mx-2">
           {conditionLoaded && (
             <Piechart title="Condition of resources" data={dataC} />
           )}
         </div>
-        <div className="col-md border shadow">
+        <div className="col-md">
           {checkoutStatusLoaded && (
             <Piechart title="Check-out status" data={dataB} />
           )}
         </div>
       </div>
       <div className="row my-3 ">
-        <div className="col-md  shadow p-3 border ">
+        <div className="col-md">
           {numCheckoutsLoaded && numCheckinsLoaded && (
             <LineChart
               data={dataNumofCheckouts}
@@ -321,7 +333,7 @@ const Analytics = () => {
           )}
         </div>
 
-        <div className="col-md  mx-2 shadow p-3 border">
+        <div className="col-md mx-2">
           {numReservationsLoaded && numMaintenancesLoaded && (
             <LineChart
               data={dataNumresrvations}
@@ -332,6 +344,7 @@ const Analytics = () => {
           )}
         </div>
       </div>
+      </Paper>
     </div>
   );
 }

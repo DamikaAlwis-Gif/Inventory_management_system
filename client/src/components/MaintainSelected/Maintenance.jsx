@@ -3,9 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {base_url} from '../../config';
 
 import TableMaintenance from "./TableMaintenance";
 
+import Typography from '@mui/material/Typography';
 
 const Maintenance = () => {
 
@@ -21,7 +23,7 @@ const Maintenance = () => {
     useEffect(() => {
         const fetchMaintenaceData = async (id) => {
           try {
-            const res = await axios.get("http://localhost:8800/maintenance/resmaintenance/" + id);
+            const res = await axios.get(`${base_url}/maintenance/resmaintenance/` + id);
             if (res.data && res.data.length > 0) {
               setDetails(res.data);
             } else {
@@ -35,11 +37,6 @@ const Maintenance = () => {
         fetchMaintenaceData(id);
       }, []);
 
-
-      
-
-
-  
       const handleAddNew = async (e) => {
         try {
           e.preventDefault();
@@ -76,7 +73,7 @@ const Maintenance = () => {
       const updateStatus = async (m_id) => {
         try {
          
-          const url = "http://localhost:8800/maintenance/updtmtschedule/"+ m_id;
+          const url = `${base_url}/maintenance/updtmtschedule/`+ m_id;
           const res = await axios.get(url);
           Swal.fire("Updated!", "Maintenance is done", "success");         
           // console.log(res.data);
@@ -92,7 +89,15 @@ return(
     <div>
     {ok ? (
       <div>
-        <h2 className="text-center"> Currently scheduled maintenance of the selected item:</h2>
+      <Typography
+        variant="h5"
+        gutterBottom
+        mb={3}
+        mt={4}
+        align="center"
+        style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+          <strong>Currently Scheduled Maintenance of the Selected Item</strong>
+      </Typography>
         <div className="container">
           <div className="row">
             <div className="col-md mx-auto">
@@ -100,23 +105,19 @@ return(
               <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
               </button>
 
-
-              
-             
               <TableMaintenance details={details} onClickMore={handleMark}></TableMaintenance>
              
             </div>
           </div>
-          ;
         </div>
       </div>
     ) : (
       <div className="container text-center p-5">
-        <p className="display-6 ">
+        <p className="display-6" style={{color: '#252652'}}>
           No scheduled maintenances yet for the item with Resorce_id {id}!
         </p>
         <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
-              </button>
+        </button>
       </div>
     )}
   </div>

@@ -17,6 +17,9 @@ export const validate = (asset) => {
     last_maintenance_date,
     maintenance_interval,
   } = asset;
+  const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
+  
 
   if (name.trim() === "") {
     errors.name = "Name is required";
@@ -48,9 +51,12 @@ export const validate = (asset) => {
   if (is_portable.trim() === "") {
     errors.is_portable = "Is portable is required";
   }
-  // else if (img_url.trim() === "") {
-  //   errors.img_url = "Image url is required";
-  // }
+ if (img_url.trim() !== "") {
+    
+    if (!urlRegex.test(img_url)) {
+      errors.img_url = "Invalid URL";
+    }
+ }
   if (last_maintenance_date.trim() === "") {
     errors.last_maintenance_date = "Last maintenance date is required";
   }
@@ -61,6 +67,7 @@ export const validate = (asset) => {
 };
 
 export const validateProperty = ({ name, value }) => {
+  const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
   if (name === "name") {
     if (value.trim() === "") return "Username is required";
   } else if (name === "resource_type") {
@@ -81,16 +88,20 @@ export const validateProperty = ({ name, value }) => {
     if (value.trim() === "") return "Condition is required";
   } else if (name === "is_portable") {
     if (value.trim() === "") return "Is portable is required";
-   } 
-//else if (name === "img_url") {
-//     if (value.trim() === "") return " is required";
-//   } 
-
+   }
+    else if (name === "img_url") {
+      if (value.trim() !== "") {
+        if (!urlRegex.test(value)) {
+          return "Invalid URL";
+        }
+      }
+    }
+    
     else if (name === "last_maintenance_date") {
-    if (value.trim() === "") return "Last maintenance date is required";
-  } else if (name === "maintenance_interval") {
-    if (value.trim() === "") return "Maintenance interval is required";
-  } else return null;
+     if (value.trim() === "") return "Last maintenance date is required";
+   } else if (name === "maintenance_interval") {
+     if (value.trim() === "") return "Maintenance interval is required";
+   } else return null;
 };
 
 

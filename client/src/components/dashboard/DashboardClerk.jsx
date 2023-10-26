@@ -1,14 +1,19 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+
 import { NAVBAR_HEIGHT } from '../../constants';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import DashboardShortcut from './DashboardShortcut';
+
 import DashboardInfoCard from './DashboardInfoCard';
-import DenseTable from './TableDense';
+
+import axios from 'axios';
+
+import {base_url} from '../../config';
 
 import "@fontsource/cinzel-decorative/400.css";
-
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
 let themeDashboardHeading = createTheme({
@@ -26,6 +31,40 @@ const darkTheme = createTheme({
 });
 
 export default function Dashboard() {
+
+  const [availableNow, setAvailableNow] = useState(0);
+  const [checkedOut, setCheckedOut] = useState(0);
+  const [underMaintenance, setUnderMaintenance] = useState(0);
+  const [outofOrder, setOutofOrder] = useState(0);
+
+  useEffect(() => {
+
+    // const getVerification = async () => {
+    //   const response = await axios.get("${base_url}/dashboard/verify");
+    //   console.log(response);
+    // }
+
+    // getVerification();
+
+    const getStatistics = async () => {
+      try {
+        const statistics = await axios.get(`${base_url}/dashboard`)
+
+        console.log(statistics.data);
+        statistics.data.available && setAvailableNow(statistics.data.available);
+        statistics.data.checkedOut && setCheckedOut(statistics.data.checkedOut);
+        statistics.data.maintenance && setUnderMaintenance(statistics.data.maintenance);
+        statistics.data.outofOrder && setOutofOrder(statistics.data.outofOrder);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getStatistics();
+
+  }, [])
+
 
   return (
     <Container
@@ -59,10 +98,10 @@ export default function Dashboard() {
 
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
-        <Typography variant="h4" align='center' mb={1} sx={{color: '#f3e5f5'}}>
+        <Typography variant="h4" align='center' mb={1} sx={{color: '#201d30'}}>
           Welcome to
         </Typography>
-        <Typography variant="h3" align='center' mb={6} sx={{color: '#f3e5f5'}}>
+        <Typography variant="h3" align='center' mb={6} sx={{color: '#201d30'}}>
           Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>
@@ -122,7 +161,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                <strong>121</strong>
+                <strong>{availableNow}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -140,7 +179,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                <strong>07</strong>
+                <strong>{checkedOut}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -158,7 +197,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="primary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                <strong>09</strong>
+                <strong>{underMaintenance}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>
@@ -176,7 +215,7 @@ export default function Dashboard() {
           <DashboardInfoCard customColor="secondary" customLabel={
             <span>
               <Typography variant="h2" style={{ display: 'inline' }}>
-                <strong>01</strong>
+                <strong>{outofOrder}</strong>
               </Typography>
               &nbsp;
               <Typography variant="subtitle1" style={{ display: 'inline' }}>

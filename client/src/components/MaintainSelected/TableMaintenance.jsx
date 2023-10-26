@@ -10,31 +10,27 @@ const TableMaintenance = (props) => {
     // Toggle the value of isChecked when the radio button changes
     setIsChecked(!isChecked);
   };
-
   
-
-
-
   return (
 <>
     <div>
-      <label>
+      <label style={{color: "black"}}>
         <input
           type="radio"
           value="true"
           checked={isChecked === true}
           onChange={handleRadioChange}
         />
-        Show Undone &nbsp; &nbsp;
+        &nbsp; Incomplete &nbsp; &nbsp;
       </label>
-      <label>
+      <label style={{color: "black"}}>
         <input
           type="radio"
           value="false"
           checked={isChecked === false}
           onChange={handleRadioChange}
         />
-        Show completed
+        &nbsp; Complete
       </label>
      <br/>
      <br/>
@@ -68,7 +64,7 @@ const TableMaintenance = (props) => {
           ))}
         </tbody>
       </table>
-      <p>Click on rows to change the maintenance status</p>
+      <p style={{color: "black"}}>Click on rows to change the maintenance status</p>
     </div>
     
     ):(

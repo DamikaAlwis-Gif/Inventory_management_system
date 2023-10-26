@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material';
+import {base_url} from '../../config';
 
 const darkTheme = createTheme({
   palette: {
@@ -20,18 +21,19 @@ const MoreDetailsPub = () => {
   const { id } = useParams();
   const [ok, setok] = useState(true);
   const [loaded, setLoaded] = useState(false);
+  const [placeHolder, setPlaceHolder] = useState("");// placeholder for image
 
   useEffect(() => {
-    const fetchAllDetailsByID = async (id) => {
+    const fetchAllDetailsByID = async (id) => { // fetch all details of a resource by id
       try {
-        const res = await axios.get("http://localhost:8800/resources/usermore/" + id);
+        const res = await axios.get(`${base_url}/resources/usermore/` + id);
         
         if (res.data && res.data.length > 0) {
           setDetails(res.data[0]);
           //console.log(res.data[0]);
           setLoaded(true);
         } else {
-          setok(false);
+          setok(false);// if resource does not exist
         }
       } catch (error) {
         console.log(error);
@@ -42,10 +44,12 @@ const MoreDetailsPub = () => {
 
   const navigate = useNavigate();
   
-  const handleReserve = async (e,id) => {
+  const handleReserve = async (e,id) => {// handle reserve button click
     try {
       e.preventDefault();
-     // const res = await axios.delete("http://localhost:8800/resources/" + id);
+
+     // const res = await axios.delete(`${base_url}/resources/` + id);
+
       console.log("Redirected to reservation data page!");
       navigate(`/reserve/${id}`);
     } catch (error) {
@@ -54,23 +58,27 @@ const MoreDetailsPub = () => {
   };
 
   return (
-    { loaded } && (
+    loaded && (// if details is loaded then render the following
       <div>
-        {ok ? (
+        {ok ? ( // if resource exists
+
           <div>
             <Typography
-              variant="h4"
+              variant="h5"
               gutterBottom
-              mb={4} 
+              mb={3}
+              mt={4}
               align="center"
-              style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-                More Details
+              style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+                <strong>More Details</strong>
             </Typography>
+
             <div className="container">
             <div className="row">
               <div className="col-md">
               <div className="col g-0" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <ThemeProvider theme={darkTheme}>
+                  
                   <Button
                     onClick={() => navigate("/resources")}
                     variant="contained"
@@ -84,6 +92,7 @@ const MoreDetailsPub = () => {
                   >
                     {`<< Back to Resources`}
                   </Button>
+
                   <Button
                     onClick={(e) => handleReserve(e, id)}
                     variant="contained"
@@ -96,25 +105,30 @@ const MoreDetailsPub = () => {
                   >
                     Reserve
                   </Button>
+
                 </ThemeProvider>
                 </div>
                 <Paper sx={{ padding: "5px", marginTop: "100px" }} elevation={4}>
                   <div className="row g-0 ">
                     <div className="col-md-4 ">
+                      
+                      {/* image */}
                       <img
                         src={
                           details.img_url
                             ? details.img_url
                             : "https://via.placeholder.com/150"
                         }
+
                         alt="Resource Image"
                         className="img-fluid rounded border-4 mx-auto d-block"
                       />
                     </div>
                     <div className="col-md ">
+                      {/* more details table */}
                       <TableMore details={details} />
                     </div>
-                  </div>{" "}
+                  </div>
                 </Paper>
               </div>
             </div>
@@ -122,6 +136,7 @@ const MoreDetailsPub = () => {
           </div>
         </div>
         ) : (
+          // if resource does not exist
           <div className="container text-center p-5">
             <p className="display-6 ">
               The asset with resource id {id} does not exist!

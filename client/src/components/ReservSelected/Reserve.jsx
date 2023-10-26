@@ -5,7 +5,8 @@ import axios from "axios";
 
 import TableReservDates from "./TableReservDates";
 import AddReservDate from "./AddReservDate";
-
+import {base_url} from '../../config';
+import Typography from '@mui/material/Typography';
 
 const Reserve = () => {
     const { id } = useParams();
@@ -16,7 +17,7 @@ const Reserve = () => {
     useEffect(() => {
         const fetchAllDetailsByID = async (id) => {
           try {
-            const res = await axios.get("http://localhost:8800/reservations/reservation/" + id);
+            const res = await axios.get(`${base_url}/reservations/reservation/` + id);
             // res.data checks not null or undefined
             // res.data.length checks length property of res.data is greater than 0.
             if (res.data && res.data.length > 0) {
@@ -39,7 +40,15 @@ return(
     <div>
       {ok ? (
         <div>
-          <h3 className="text-center"> Unavailable times of the selected item:</h3>
+        <Typography
+          variant="h5"
+          gutterBottom
+          mb={3}
+          mt={4}
+          align="center"
+          style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+            <strong>Currently Scheduled Maintenance of the Selected Item</strong>
+        </Typography>
           <div className="container">
             <div className="row">
               <div className="col-md mx-auto">
@@ -53,8 +62,8 @@ return(
         </div>
       ) : (
         <div className="container text-center p-5">
-          <h3>
-            No scheduled maintenances or reservations yet for the item with Resorce_id {id}!
+          <h3 style={{color: "#252652"}}>
+            No scheduled maintenances or reservations yet for the item with Resource_id {id}!
           </h3>
         
         </div>

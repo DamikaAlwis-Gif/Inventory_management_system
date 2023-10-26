@@ -8,6 +8,7 @@ import logoutIcon from './LogoutIcon.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import {base_url} from '../../config';
 
 function NavBarNew() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ function NavBarNew() {
   useEffect(() => {
     const getAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/auth");
+        const response = await axios.get(`${base_url}/auth`);
 
         console.log(response);
         if (response.data.status === "ok") {
@@ -41,7 +42,7 @@ function NavBarNew() {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get("http://localhost:8800/auth/logout");
+      const res = await axios.get(`${base_url}/auth/logout`);
       if(res.data.status === "ok"){
         navigate("/");}
     } catch (error) {
@@ -117,27 +118,16 @@ function NavBarNew() {
             <div className="custom-link-box">Analytics</div>
           </Link>
         )}
-        <div className="custom-nav-links custom-nav-right-group">
-          <Link to="/notifications" className="custom-dropdown-link">
-            <div className="custom-link-box">
-              <img src={notificationIcon} alt="Notifications" />
-            </div>
-          </Link>
-          <Link to="/account" className="custom-dropdown-link">
-            <div className="custom-link-box">
-              <img src={profileIcon} alt="Profile" />
-            </div>
-          </Link>
-          <Link
-            to="/"
-            className="custom-dropdown-link"
-            onClick={(e) => handleLogout(e)}
-          >
-            <div className="custom-link-box">
-              <img src={logoutIcon} alt="Logout" />
-            </div>
-          </Link>
-        </div>
+        <Link to="/notifications" className="custom-dropdown-link">
+          <div className="custom-link-box">Notifications</div>
+        </Link>
+        <Link to="/account" className="custom-dropdown-link">
+          <div className="custom-link-box">Profile</div>
+        </Link>
+        <Link to="/" className="custom-dropdown-link"
+          onClick={(e) => handleLogout(e)}>
+          <div className="custom-link-box" style={{color: "darkred"}}>Log out</div>
+        </Link>
       </div>
 
       {/* when the navbar is expanded */}

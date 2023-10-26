@@ -1,9 +1,15 @@
 import * as React from 'react';
-import { NAVBAR_HEIGHT } from '../../constants';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
+// import { DevTool } from '@hookform/devtools';
+import axios from 'axios';
+
+import { NAVBAR_HEIGHT } from '../../constants';
+
 import dayjs from 'dayjs';
 import CustomDateTimePicker from './CustomDateTimePicker';
+
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -13,10 +19,8 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import Paper from '@mui/material/Paper';
-import { useForm, FormProvider } from 'react-hook-form';
-// import { DevTool } from '@hookform/devtools';
-import axios from 'axios';
 
+import {base_url} from '../../config';
 export default function CheckOut() {
 
   const methods = useForm();
@@ -32,6 +36,7 @@ export default function CheckOut() {
   const [messageType, setMessageType] = useState("");
   const [open, setOpen] = useState(false);
   const [userIdError, setUserIdError] = useState(true);
+  const [validateSuccess, setValidateSuccess] = useState(false);
 
   const formattedCheckoutDatetime = checkoutDatetime.format('YYYY-MM-DD HH:mm:00');
   const formattedDueDatetime = dueDatetime && dueDatetime.format('YYYY-MM-DD HH:mm:00');
@@ -40,53 +45,94 @@ export default function CheckOut() {
 
   const onSubmit = (data) => {
     setDisplayMessage("");
+    const userId = data.userId;
+    const resourceId = data.resourceId;
 
-    const formData = {
-      userId: data.userId,
-      resourceId: data.resourceId,
-      checkoutDatetime: formattedCheckoutDatetime,
-      dueDatetime: formattedDueDatetime,
-      retDatetime: formattedRetDatetime,
-      status: "Checked-out",
-      purpose: data.purpose
-    }
-    const formDataJSON = JSON.stringify(formData);
-    console.log(formDataJSON);
+    const urlValidate = `${base_url}/checkout/validate/${userId}/${resourceId}`;
 
-    const url = 'http://localhost:8800/checkout';
-
-    axios.post (url, formDataJSON, {
+    axios.get(urlValidate, {
       headers: {
         'Content-Type': 'application/json'
       }
     }) .then (response => {
-      console.log("Response: ", response.data);
-      
-      setDisplayMessage(
-        <span>
-          <strong>Resource ID: {data.resourceId}</strong> successfully checked-out to <strong>User ID: {data.userId}</strong> 
-        </span>);
-      setMessageType("success");
-      reset();
+      const validUser = response.data.validUser;
+      const validResource = response.data.validResource;
+      const userAccess = response.data.userAccess;
 
+      if (! validUser) {
+        setMessageType('error');
+        setDisplayMessage("User id is invalid. Please check again.");
+      } else if (! validResource) {
+        setMessageType('error');
+        setDisplayMessage("Resource id is invalid. Please check again.");
+      } else if (! userAccess) {
+        setMessageType('error');
+        setDisplayMessage("The user does not have access to this resource.");
+      } else {
+        setValidateSuccess(true)
+
+        const formData = {
+          userId: data.userId,
+          resourceId: data.resourceId,
+          checkoutDatetime: formattedCheckoutDatetime,
+          dueDatetime: formattedDueDatetime,
+          retDatetime: formattedRetDatetime,
+          status: "Checked-out",
+          purpose: data.purpose
+        }
+        const formDataJSON = JSON.stringify(formData);
+        // console.log(formDataJSON);
+
+        const urlPost = '${base_url}/checkout';
+
+        axios.post (urlPost, formDataJSON, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }) .then (response => {
+          console.log("Response: ", response.data);
+          
+          setDisplayMessage(
+            <span>
+              <strong>Resource ID: {data.resourceId}</strong> successfully checked-out to <strong>User ID: {data.userId}</strong> 
+            </span>);
+          setMessageType("success");
+          reset();
+    
+        }) .catch (error => {
+    
+          if (error.response) {
+            // if the item is already recorded as checked out
+            if (error.response.status === 409) {
+              setMessageType("error");
+
+            // if there is a scheduled maintenance or reservation shortly
+            } else if (error.response.status === 490) {
+              setMessageType("warning");
+
+            // for any other reasons
+            } else {
+              setMessageType("info")
+            }
+    
+            if (error.response.data.message) {
+              setDisplayMessage(<span><strong>{error.response.data.message}</strong></span>);
+            } else {
+              setDisplayMessage("An error occurred.");
+            }
+          } else {
+            // network errors or unexpected response formats
+            console.error("Network error or unexpected response:", error);
+            setMessageType("error");
+            setDisplayMessage("Network error or unexpected response.");
+          }
+        });
+      }
     }) .catch (error => {
-      // if the item is already recorded as checked out
-      if (error.response.status === 409) {
-        setMessageType("error");
-      // if there is a scheduled maintenance or reservation shortly
-      } else if (error.response.status === 490) {
-        setMessageType("warning");
-      } else {
-        setMessageType("info")
-      }
-
-      if (error.response.data.message) {
-        setDisplayMessage(<span><strong>{error.response.data.message}</strong></span>);
-      } else {
-        setDisplayMessage("An error occurred.");
-      }
-    });
-    setOpen(true);
+      setMessageType("error");
+      setDisplayMessage("An error occurred during the validation process.");
+    })
+    setOpen(true);  
   };
 
   useEffect(() => {
@@ -105,15 +151,11 @@ export default function CheckOut() {
     <Container
       maxWidth="md"
       disableGutters={true}
+
       sx={{
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-        width: '55%',
-        display: 'flex',
-        flexDirection: 'column',
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        paddingBottom: `${NAVBAR_HEIGHT}px`,
-
         '@media (max-width:1700px)': {width: '40%',},
         '@media (max-width:1550px)': {width: '45%',},
         '@media (max-width:1300px)': {width: '50%',},
@@ -124,23 +166,22 @@ export default function CheckOut() {
         '@media (max-width:650px)': {width: '88%',},
         '@media (max-width:500px)': {width: '90%',},
         '@media (max-width:460px)': {width: '95%',},
-        '@media (max-width:420px)': {width: '98%',},
-      }}
-    >
+      }}>
     <Typography
-      variant="h4"
+      variant="h5"
       gutterBottom
-      mb={4} 
+      mb={3}
+      mt={4}
       align="center"
-      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-        Check-out
+      style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+        <strong>Check-out</strong>
     </Typography>
+    
     <Paper 
       elevation={4}
       sx={{
         padding: '4% 6% 4% 6%',
         borderRadius: '30px',
-        // backgroundColor: '#f3e5f5'
       }}>
 
     <FormProvider {...methods}>
@@ -166,9 +207,10 @@ export default function CheckOut() {
             error={userIdError && errors.userId}
             helperText={userIdError && errors.userId?.message}
 
-            // set the alphabetical characters in the User ID to Uppercase automatically
-            onChange={(e) => {e.target.value = e.target.value.toUpperCase();
-            setUserIdError(false);
+            // disallow whitespaces and set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[\s]/g, '').toUpperCase();
+              setUserIdError(e.target.value === '');
             }}
           />
 
@@ -194,7 +236,14 @@ export default function CheckOut() {
             //   }
             })}
             error={!!errors.resourceId}
-            helperText={errors.resourceId?.message}/>
+            helperText={errors.resourceId?.message}
+            
+            // disallow whitespaces and set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[\s]/g, '').toUpperCase();
+              setUserIdError(e.target.value === '');
+            }}
+          />
         </Grid>
         <Grid item xs={12}>
         <Divider variant="middle" />

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import FormItem from "./FormItem";
 import FormItemSelect from "./FormItemSelect";
 import { validate, validateProperty } from "../Validation/AddValidation";
+import {base_url} from '../../config';
 
 const Add = () => {
 
@@ -14,7 +15,7 @@ const Add = () => {
   useEffect(() => {
     const getLabs = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/auth/access");
+        const res = await axios.get(`${base_url}/auth/access`);
         const list = res.data.map((item) =>  item.name);
        setLabs(list);
       } catch (error) {
@@ -91,7 +92,7 @@ const Add = () => {
 
   const handleIsConfirmed = async () => {
     try {
-      const response = await axios.post("http://localhost:8800/resources",asset);
+      const response = await axios.post(`${base_url}/resources`,asset);
       console.log(response.data);
       if(response.data.status === "ok"){
         Swal.fire("Saved!", "New asset has been saved.", "success");

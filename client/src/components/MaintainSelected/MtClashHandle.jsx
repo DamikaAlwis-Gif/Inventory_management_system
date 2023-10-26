@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import TableMtClashHandle from "./TableMtClashHandle";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {base_url} from '../../config';
 
 const MtClashHandle=()=>{
     const {id, data } = useParams();
@@ -16,7 +17,7 @@ const MtClashHandle=()=>{
     useEffect(() => {
         const fetchClashData = async (id) => {
           try {
-            const res = await axios.post("http://localhost:8800/maintenance/maintenanceClash/",decodedData);
+            const res = await axios.post(`${base_url}/maintenance/maintenanceClash/`,decodedData);
            
             if (res.data && res.data.length > 0) {
             setRows(res.data);
@@ -52,7 +53,7 @@ const MtClashHandle=()=>{
 
         const handleIsConfirmed = async () => {
             try {
-              const res = await axios.put("http://localhost:8800/maintenance/maintenanceDelUpdate");
+              const res = await axios.put(`${base_url}/maintenance/maintenanceDelUpdate`);
               if (res.data === "Done") {
                 Swal.fire("Maintenance Added!", "Clashing reservations are deleted!", "success");
                 navigate(`/maintenance/${id}`);

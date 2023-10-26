@@ -19,7 +19,7 @@ const LineChart = (props) => {
     }
 
   return (
-    <div className="line-chart border text-center">
+    <div className="line-chart text-center">
       <div className="mt-2" style={{ fontWeight: "bold" }}>
         <p>
          {title}

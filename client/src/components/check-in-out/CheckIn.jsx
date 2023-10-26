@@ -1,9 +1,15 @@
 import * as React from 'react';
-import { NAVBAR_HEIGHT } from '../../constants';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
+// import { DevTool } from '@hookform/devtools';
+import axios from 'axios';
+
+import { NAVBAR_HEIGHT } from '../../constants';
+
 import dayjs from 'dayjs';
 import CustomDateTimePicker from './CustomDateTimePicker';
+
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -13,10 +19,8 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import Paper from '@mui/material/Paper';
-import { useForm, FormProvider } from 'react-hook-form';
-// import { DevTool } from '@hookform/devtools';
-import axios from 'axios';
 
+import {base_url} from '../../config';
 
 export default function CheckIn() {
 
@@ -45,7 +49,7 @@ export default function CheckIn() {
     const formDataJSON = JSON.stringify(formData);
     console.log(formDataJSON);
 
-    const url = 'http://localhost:8800/checkin';
+    const url = `${base_url}/checkin`;
 
     axios.post (url, formDataJSON, {
       headers: {
@@ -94,19 +98,14 @@ export default function CheckIn() {
   const navigate = useNavigate();
 
   return (
-
     <Container
       maxWidth="md"
       disableGutters={true}
+
       sx={{
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-        width: '55%',
-        display: 'flex',
-        flexDirection: 'column',
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        paddingBottom: `${NAVBAR_HEIGHT}px`,
-
         '@media (max-width:1700px)': {width: '40%',},
         '@media (max-width:1550px)': {width: '45%',},
         '@media (max-width:1300px)': {width: '50%',},
@@ -117,23 +116,22 @@ export default function CheckIn() {
         '@media (max-width:650px)': {width: '88%',},
         '@media (max-width:500px)': {width: '90%',},
         '@media (max-width:460px)': {width: '95%',},
-        '@media (max-width:420px)': {width: '98%',},
-      }}
-    >
+      }}>
     <Typography
-      variant="h4"
+      variant="h5"
       gutterBottom
-      mb={4} 
+      mb={3}
+      mt={4}
       align="center"
-      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-        Check-in
+      style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+        <strong>Check-in</strong>
     </Typography>
+
     <Paper 
-      elevation={4}
+      elevation={5}
       sx={{
         padding: '8% 6% 8% 6%',
         borderRadius: '30px',
-        // backgroundColor: '#f3e5f5'
       }}>
     <FormProvider {...methods}>
     <form noValidate onSubmit={methods.handleSubmit(onSubmit)}>
@@ -158,10 +156,11 @@ export default function CheckIn() {
             error={userIdError && errors.userId}
             helperText={userIdError && errors.userId?.message}
 
-            // set the alphabetical characters in the User ID to Uppercase automatically
-            onChange={(e) => {e.target.value = e.target.value.toUpperCase();
-              setUserIdError(false);
-              }}
+            // disallow whitespaces and set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[\s]/g, '').toUpperCase();
+              setUserIdError(e.target.value === '');
+            }}
           />
         </Grid>
         <Grid item xs={6}>
@@ -175,6 +174,12 @@ export default function CheckIn() {
             {...register('resourceId', {required: "Resource ID is required"})}
             error={!!errors.resourceId}
             helperText={errors.resourceId?.message}
+
+            // disallow whitespaces and set the alphabetical characters in the User ID to Uppercase automatically
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(/[\s]/g, '').toUpperCase();
+              setUserIdError(e.target.value === '');
+            }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -226,6 +231,5 @@ export default function CheckIn() {
     {/* <DevTool control={control} /> */}
     </Paper>
     </Container>
-
   )
 }

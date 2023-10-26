@@ -12,7 +12,10 @@ router.post("/register",registerUsrWithDb);
 
 router.post("/login",loginWithdb);
 
+
 router.post("/login/mobile",getVerifiedWithDb);
+
+
 
 
 const verifyUser = (req, res, next) => {
@@ -55,7 +58,9 @@ const getUser = (req, res, next) => {
     });
   }
 };
+
 router.get("/user", getUser, fetchUsrWithDb);
+
 
 router.get("/access", getUser,fetchUserFromLabAccess);
 
