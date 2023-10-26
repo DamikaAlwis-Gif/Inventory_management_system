@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {base_url} from '../../config';
 
 import TableMaintenance from "./TableMaintenance";
 
@@ -22,7 +23,7 @@ const Maintenance = () => {
     useEffect(() => {
         const fetchMaintenaceData = async (id) => {
           try {
-            const res = await axios.get("http://localhost:8800/maintenance/resmaintenance/" + id);
+            const res = await axios.get(`${base_url}/maintenance/resmaintenance/` + id);
             if (res.data && res.data.length > 0) {
               setDetails(res.data);
             } else {
@@ -72,7 +73,7 @@ const Maintenance = () => {
       const updateStatus = async (m_id) => {
         try {
          
-          const url = "http://localhost:8800/maintenance/updtmtschedule/"+ m_id;
+          const url = `${base_url}/maintenance/updtmtschedule/`+ m_id;
           const res = await axios.get(url);
           Swal.fire("Updated!", "Maintenance is done", "success");         
           // console.log(res.data);

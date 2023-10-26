@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import {base_url} from '../../config';
 
 
 const AddReservDate= (props)=>{
@@ -51,7 +52,7 @@ const AddReservDate= (props)=>{
        
         try {
           const responce = await axios.post(
-            "http://localhost:8800/reservations/reservedate",
+            `${base_url}/reservations/reservedate`,
             info
           );
           if(responce.data=="Done"){
