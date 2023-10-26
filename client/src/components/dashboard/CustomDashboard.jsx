@@ -5,6 +5,7 @@ import ClerkDashboard from "./DashboardClerk";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import {base_url} from '../../config';
+import Loading from "../Loading/Loading";
 
 export default function CustomDashboard () {
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,9 @@ export default function CustomDashboard () {
     getAuth();
   }, []);
 
+  if(!userRole){
+    return <Loading/>
+  }
   if (["Admin", "Technical Officer"].includes(userRole))
     return (<TechDashboard />)
   if (["Student", "Academic Staff Member"].includes(userRole))

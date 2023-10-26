@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
-
+import {base_url} from '../../config';
 import axios from 'axios';
 
 import "@fontsource/cinzel-decorative/400.css";
@@ -41,7 +41,7 @@ export default function Dashboard() {
   useEffect(() => {
 
     // const getVerification = async () => {
-    //   const response = await axios.get("http://localhost:8800/dashboard/verify");
+    //   const response = await axios.get("${base_url}/dashboard/verify");
     //   console.log(response);
     // }
 
@@ -49,7 +49,7 @@ export default function Dashboard() {
 
     const getStatistics = async () => {
       try {
-        const statistics = await axios.get("http://localhost:8800/dashboard")
+        const statistics = await axios.get(`${base_url}/dashboard`)
         console.log(statistics.data);
         statistics.data.available && setAvailableNow(statistics.data.available);
         statistics.data.checkedOut && setCheckedOut(statistics.data.checkedOut);

@@ -7,7 +7,6 @@ import DashboardShortcut from './DashboardShortcut';
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
 
-
 export default function Dashboard() {
 
   return (
