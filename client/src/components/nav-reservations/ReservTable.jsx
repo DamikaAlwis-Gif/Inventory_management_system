@@ -8,8 +8,6 @@ const ReservTable = (props) => {
   return(
     <div>
         <table>
-        
-       
         </table>
     </div>
 

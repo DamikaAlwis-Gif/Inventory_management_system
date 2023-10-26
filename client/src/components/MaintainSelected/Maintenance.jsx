@@ -90,12 +90,13 @@ return(
     {ok ? (
       <div>
       <Typography
-        variant="h4"
+        variant="h5"
         gutterBottom
-        mb={4} 
+        mb={3}
+        mt={4}
         align="center"
-        style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-          Currently Scheduled Maintenance of the Selected Item
+        style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+          <strong>Currently Scheduled Maintenance of the Selected Item</strong>
       </Typography>
         <div className="container">
           <div className="row">
@@ -104,19 +105,15 @@ return(
               <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance
               </button>
 
-
-              
-             
               <TableMaintenance details={details} onClickMore={handleMark}></TableMaintenance>
              
             </div>
           </div>
-          ;
         </div>
       </div>
     ) : (
       <div className="container text-center p-5">
-        <p className="display-6" style={{color: "white"}}>
+        <p className="display-6" style={{color: '#252652'}}>
           No scheduled maintenances yet for the item with Resorce_id {id}!
         </p>
         <button className="btn btn btn-success btn-sm m-2" onClick={(e) => handleAddNew(e)}> Add New Maintenance

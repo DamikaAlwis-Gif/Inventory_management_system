@@ -9,11 +9,12 @@ import Typography from '@mui/material/Typography';
 
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
-import {base_url} from '../../config';
+
 import axios from 'axios';
 
-import "@fontsource/cinzel-decorative/400.css";
+import {base_url} from '../../config';
 
+import "@fontsource/cinzel-decorative/400.css";
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
 let themeDashboardHeading = createTheme({
@@ -101,7 +102,7 @@ export default function Dashboard() {
           variant="h3"
           align='center'
           mb={3}
-          sx={{color: '#f3e5f5'}}
+          sx={{color: '#252652'}}
         >
           Wisdom Education Laboratories
         </Typography>

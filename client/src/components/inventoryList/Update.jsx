@@ -32,8 +32,6 @@ const Update = () => {
     getLabs();
   }, []);
 
-  
-
   useEffect(() => {
     getResourceInfo(id);
   }, []);

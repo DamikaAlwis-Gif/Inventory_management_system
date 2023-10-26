@@ -87,7 +87,7 @@ const Account = () => {
                   <p>Phone: {user.phone_number}</p>
                   <p>Role: {user.role}</p>
                   <div>
-                    Have access to labs
+                    Laboratories with access:
                     <p style={{ textAlign: "start", paddingLeft: "32%" }}>
                       {accessLab.map((item) => (
                         <li>{item}</li>
