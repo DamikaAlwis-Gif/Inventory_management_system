@@ -48,12 +48,17 @@ export default function Dashboard() {
     // getVerification();
 
     const getStatistics = async () => {
-      const statistics = await axios.get("http://localhost:8800/dashboard")
-      console.log(statistics.data);
-      statistics.data.available && setAvailableNow(statistics.data.available);
-      statistics.data.checkedOut && setCheckedOut(statistics.data.checkedOut);
-      statistics.data.maintenance && setUnderMaintenance(statistics.data.maintenance);
-      statistics.data.outofOrder && setOutofOrder(statistics.data.outofOrder);
+      try {
+        const statistics = await axios.get("http://localhost:8800/dashboard")
+        console.log(statistics.data);
+        statistics.data.available && setAvailableNow(statistics.data.available);
+        statistics.data.checkedOut && setCheckedOut(statistics.data.checkedOut);
+        statistics.data.maintenance && setUnderMaintenance(statistics.data.maintenance);
+        statistics.data.outofOrder && setOutofOrder(statistics.data.outofOrder);
+      
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     getStatistics();
