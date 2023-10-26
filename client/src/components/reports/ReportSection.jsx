@@ -147,12 +147,13 @@ const ReportSection = () => {
   return (
     <div>
       <Typography
-        variant="h4"
+        variant="h5"
         gutterBottom
-        mb={4} 
+        mb={3}
+        mt={4}
         align="center"
-        style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-          Reports
+        style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+          <strong>Reports</strong>
       </Typography>
       <div className="container">
         <div >
@@ -169,7 +170,7 @@ const ReportSection = () => {
               checked={selectedRadio === "reservation"}
               onChange={handleRadioChange}
             />
-            <label className="btn btn-outline-light" htmlFor="reservation">
+            <label className="btn btn-outline-dark" htmlFor="reservation">
               Reservation
             </label>
 
@@ -183,7 +184,7 @@ const ReportSection = () => {
               onChange={handleRadioChange}
             />
             <label
-              className="btn btn-outline-light"
+              className="btn btn-outline-dark"
               htmlFor="check_in_check_out"
             >
               Check-in/Check-out
@@ -198,7 +199,7 @@ const ReportSection = () => {
               checked={selectedRadio === "maintenance"}
               onChange={handleRadioChange}
             />
-            <label className="btn btn-outline-light" htmlFor="maintenance">
+            <label className="btn btn-outline-dark" htmlFor="maintenance">
               Maintenance
             </label>
           </div>

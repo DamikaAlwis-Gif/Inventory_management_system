@@ -42,12 +42,13 @@ const UserReserView=()=>{
 
       <div className="container">
         <Typography
-          variant="h4"
+          variant="h5"
           gutterBottom
-          mb={4} 
+          mb={3}
+          mt={4}
           align="center"
-          style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-            My Reservations
+          style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+              <strong>My Reservations</strong>
         </Typography>
 
         <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 4 }}>

@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 
 function createData(name, id, lab, activity, due) {
   return { name, id, lab, activity, due };
@@ -25,7 +24,7 @@ const rows = [
 export default function DenseTable() {
   return (
     <>
-    <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 4 }}>
+    <TableContainer component={Paper} sx={{ boxShadow: 2, borderRadius: 4 }}>
       <Table sm={{ minWidth: 600 }} size="small">
         <TableHead>
           <TableRow>

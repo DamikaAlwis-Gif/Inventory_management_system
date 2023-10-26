@@ -11,9 +11,9 @@ import DashboardInfoCard from './DashboardInfoCard';
 
 import axios from 'axios';
 
-import "@fontsource/cinzel-decorative/400.css";
 import {base_url} from '../../config';
 
+import "@fontsource/cinzel-decorative/400.css";
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
 let themeDashboardHeading = createTheme({
@@ -98,10 +98,10 @@ export default function Dashboard() {
 
     <div>
       <ThemeProvider theme={themeDashboardHeading}>
-        <Typography variant="h4" align='center' mb={1} sx={{color: '#f3e5f5'}}>
+        <Typography variant="h4" align='center' mb={1} sx={{color: '#201d30'}}>
           Welcome to
         </Typography>
-        <Typography variant="h3" align='center' mb={6} sx={{color: '#f3e5f5'}}>
+        <Typography variant="h3" align='center' mb={6} sx={{color: '#201d30'}}>
           Wisdom Education Laboratories
         </Typography>
       </ ThemeProvider>

@@ -14,23 +14,23 @@ const TableMaintenance = (props) => {
   return (
 <>
     <div>
-      <label style={{color: "white"}}>
+      <label style={{color: "black"}}>
         <input
           type="radio"
           value="true"
           checked={isChecked === true}
           onChange={handleRadioChange}
         />
-        &nbsp; Show Undone &nbsp; &nbsp;
+        &nbsp; Incomplete &nbsp; &nbsp;
       </label>
-      <label style={{color: "white"}}>
+      <label style={{color: "black"}}>
         <input
           type="radio"
           value="false"
           checked={isChecked === false}
           onChange={handleRadioChange}
         />
-        &nbsp; Show completed
+        &nbsp; Complete
       </label>
      <br/>
      <br/>
@@ -64,7 +64,7 @@ const TableMaintenance = (props) => {
           ))}
         </tbody>
       </table>
-      <p style={{color: "white"}}>Click on rows to change the maintenance status</p>
+      <p style={{color: "black"}}>Click on rows to change the maintenance status</p>
     </div>
     
     ):(
