@@ -96,28 +96,14 @@ export default function CheckIn() {
   const navigate = useNavigate();
 
   return (
-    <>
-    <Typography
-      variant="h5"
-      gutterBottom
-      mb={0}
-      mt={4}
-      align="center"
-      style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
-        <strong>Check-in</strong>
-    </Typography>
     <Container
       maxWidth="md"
       disableGutters={true}
-      sx={{
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px - 100px)`,
-        width: '55%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingBottom: `${NAVBAR_HEIGHT}px`,
 
+      sx={{
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
         '@media (max-width:1700px)': {width: '40%',},
         '@media (max-width:1550px)': {width: '45%',},
         '@media (max-width:1300px)': {width: '50%',},
@@ -128,8 +114,16 @@ export default function CheckIn() {
         '@media (max-width:650px)': {width: '88%',},
         '@media (max-width:500px)': {width: '90%',},
         '@media (max-width:460px)': {width: '95%',},
-      }}
-    >
+      }}>
+    <Typography
+      variant="h5"
+      gutterBottom
+      mb={3}
+      mt={4}
+      align="center"
+      style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+        <strong>Check-in</strong>
+    </Typography>
 
     <Paper 
       elevation={5}
@@ -235,6 +229,5 @@ export default function CheckIn() {
     {/* <DevTool control={control} /> */}
     </Paper>
     </Container>
-    </>
   )
 }
