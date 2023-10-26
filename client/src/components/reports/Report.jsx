@@ -134,9 +134,10 @@ const Report = (props) => {
       ) : (
         <div className="container text-center p-5">
           <Typography
-            variant="h5"
+            variant="h4"
             align="center"
-            style={{color: '#f3e5f5', padding: "20px 0px 10px 0px"}}>
+            mt = {5}
+            style={{color: 'black', padding: "20px 0px 10px 0px"}}>
               No records found!
           </Typography>
         </div>

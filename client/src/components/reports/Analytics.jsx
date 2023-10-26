@@ -285,12 +285,13 @@ const Analytics = () => {
   return (
     <div className="container">
       <Typography
-        variant="h4"
+        variant="h5"
         gutterBottom
-        mb={4} 
+        mb={3}
+        mt={4}
         align="center"
-        style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-          Analytics
+        style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+          <strong>Analytics</strong>
       </Typography>
       <div className="mt-2">
         <Link to="/reports">Reports</Link>
