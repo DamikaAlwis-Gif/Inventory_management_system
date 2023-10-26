@@ -35,12 +35,13 @@ const AdminReserView=()=>{
     return(
         <div className="container">
           <Typography
-            variant="h4"
+            variant="h5"
             gutterBottom
-            mb={4} 
+            mb={3}
+            mt={4}
             align="center"
-            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-              Reservations
+            style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+              <strong>Reservations</strong>
           </Typography>
 
           <TableContainer component={Paper} sx={{ boxShadow: 3, borderRadius: 4 }}>
@@ -76,37 +77,6 @@ const AdminReserView=()=>{
             </TableBody>
           </Table>
         </TableContainer>
-
-        {/* <table className="table table-primary table-hover table-responsive  ">
-          <thead className=" ">
-            <tr>
-                
-              <th>User</th>
-              <th>Resource</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Status</th>
-              <th>Purpose</th>
-              <th>Type</th>
-            
-            </tr>
-          </thead>
-          <tbody className="table-group-divider">
-
-            {details.map((mt) => (
-              <tr  key={mt.reservation_id} 
-              >
-               <td>{mt.user_id}</td>
-               <td>{mt.resource_id}</td>
-                <td>{mt.start_date}</td>
-                <td>{mt.end_date}</td>
-                <td>{mt.status}</td>
-                <td>{mt.purpose}</td>
-                <td>{mt.reservation_type}</td>
-              </tr>
-            ))}         
-          </tbody>
-        </table> */}
       </div>
     );
 };
