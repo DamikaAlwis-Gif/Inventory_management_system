@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
+import url from "../utils/configure";
 import Typography from '@mui/material/Typography';
 
 
@@ -42,7 +42,7 @@ const Login = () => {
     if (errors) return;
 
     try {
-      const res = await axios.post("http://localhost:8800/auth/login", value);
+      const res = await axios.post(url.API_URL+"/auth/login", value);
       //console.log(res.data);
       if (res.data.status === "ok") {
         navigate("/dashboard");

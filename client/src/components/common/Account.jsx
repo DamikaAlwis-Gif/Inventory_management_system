@@ -4,6 +4,7 @@ import userImage from '../../Images/user.png'
 import axios from 'axios';
 import { Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
+import url from '../utils/configure';
 const Account = () => {
 
     axios.defaults.withCredentials = true;
@@ -12,7 +13,7 @@ const Account = () => {
     useEffect(() => {
      const getUserInfo = async () => {
         try {
-            const res = await axios.get("http://localhost:8800/auth/user");
+            const res = await axios.get(url.API_URL+"/auth/user");
             //console.log(res.data[0]);
             setUser(res.data[0]);
 
@@ -27,7 +28,7 @@ const Account = () => {
         
         const getUserInfo = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/auth/access");
+                const res = await axios.get(url.API_URL + "/auth/access");
                 //console.log(res.data);
                 let list = [];
                 res.data.map((item) => {

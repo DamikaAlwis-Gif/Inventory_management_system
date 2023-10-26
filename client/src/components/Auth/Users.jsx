@@ -14,6 +14,7 @@ import {
   TableCell,
   Button,
 } from "@mui/material";
+import url from '../utils/configure';
 const Users = () => {
    const [userType, setUserType] = useState("");
    const userTypes = [
@@ -34,9 +35,7 @@ const Users = () => {
       const value = e.target.value;
       const getUsersbyType = async () => {
         try {
-          const res = await axios.get(
-            `http://localhost:8800/access/users/${value}`
-          );
+          const res = await axios.get(url.API_URL +`/access/users/${value}`);
           console.log(res.data);
           setUsers(res.data);
         } catch (error) {
@@ -57,7 +56,7 @@ const Users = () => {
         try {
           setUserID(user_id);
           const res = await axios.get(
-            `http://localhost:8800/access/view/${user_id}`
+            `${url.API_URL}/access/view/${user_id}`
           );
           console.log(res.data);
           setAccessList(res.data);

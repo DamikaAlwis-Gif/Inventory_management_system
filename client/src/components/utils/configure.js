@@ -1,3 +1,4 @@
 const url = {
-    API_URL: 'http://localhost:5000/api',
-}
+  API_URL: "http://localhost:8800",
+};
+export default url;

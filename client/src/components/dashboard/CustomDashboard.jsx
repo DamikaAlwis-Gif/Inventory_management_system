@@ -1,7 +1,7 @@
 import TechDashboard from "./DashboardTech";
 import UserDashboard from "./DashboardUser";
 import ClerkDashboard from "./DashboardClerk";
-
+import url from "../utils/configure";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ export default function CustomDashboard () {
   useEffect (() => {
     const getAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/auth");
+        const response = await axios.get(url.API_URL + "/auth");
 
         if (response.data.status === "ok") {
           setAuth(true);
