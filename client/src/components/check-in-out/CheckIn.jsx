@@ -1,9 +1,15 @@
 import * as React from 'react';
-import { NAVBAR_HEIGHT } from '../../constants';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm, FormProvider } from 'react-hook-form';
+// import { DevTool } from '@hookform/devtools';
+import axios from 'axios';
+
+import { NAVBAR_HEIGHT } from '../../constants';
+
 import dayjs from 'dayjs';
 import CustomDateTimePicker from './CustomDateTimePicker';
+
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -13,15 +19,11 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import Paper from '@mui/material/Paper';
-import { useForm, FormProvider } from 'react-hook-form';
-// import { DevTool } from '@hookform/devtools';
-import axios from 'axios';
-
 
 export default function CheckIn() {
 
   const methods = useForm();
-  const { register, formState, control, reset } = methods;
+  const { register, formState, reset } = methods;
   const { errors } = formState;
 
   const [checkinDatetime, setCheckinDatetime] = useState(dayjs());
@@ -96,18 +98,19 @@ export default function CheckIn() {
   return (
     <>
     <Typography
-      variant="h4"
+      variant="h5"
       gutterBottom
-      mb={0} 
+      mb={0}
+      mt={4}
       align="center"
-      style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-        Check-in
+      style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+        <strong>Check-in</strong>
     </Typography>
     <Container
       maxWidth="md"
       disableGutters={true}
       sx={{
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px - 71px)`,
+        height: `calc(100vh - ${NAVBAR_HEIGHT}px - 100px)`,
         width: '55%',
         display: 'flex',
         flexDirection: 'column',
@@ -125,16 +128,14 @@ export default function CheckIn() {
         '@media (max-width:650px)': {width: '88%',},
         '@media (max-width:500px)': {width: '90%',},
         '@media (max-width:460px)': {width: '95%',},
-        '@media (max-width:420px)': {width: '98%',},
       }}
     >
 
     <Paper 
-      elevation={4}
+      elevation={5}
       sx={{
         padding: '8% 6% 8% 6%',
         borderRadius: '30px',
-        // backgroundColor: '#f3e5f5'
       }}>
     <FormProvider {...methods}>
     <form noValidate onSubmit={methods.handleSubmit(onSubmit)}>
@@ -147,7 +148,7 @@ export default function CheckIn() {
               Check-in Details
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             id="userId"
             label="User ID"
@@ -166,7 +167,7 @@ export default function CheckIn() {
             }}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             id="resourceId"
             label="Resource ID"
