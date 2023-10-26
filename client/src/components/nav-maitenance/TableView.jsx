@@ -22,7 +22,7 @@ const TableView = (props) => {
   return (
     <>
       <div>
-        <label style={{color: '#ffffff'}}>
+        <label style={{color: 'black'}}>
           <input
             type="radio"
             value="true"
@@ -31,7 +31,7 @@ const TableView = (props) => {
           />
           &nbsp; Incomplete &nbsp; &nbsp;
         </label>
-        <label style={{color: '#ffffff'}}>
+        <label style={{color: 'black'}}>
           <input
             type="radio"
             value="false"
@@ -76,7 +76,7 @@ const TableView = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <h5 style={{marginTop: 15, color: "white"}}>Click on rows to change the maintenance status</h5>
+        <h5 style={{marginTop: 15, color: "black"}}>Click on rows to change the maintenance status</h5>
       </div>
     </>
   );
