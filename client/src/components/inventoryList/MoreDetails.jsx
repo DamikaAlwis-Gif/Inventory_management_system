@@ -101,12 +101,13 @@ const MoreDetails = () => {
       {ok && loaded ? (
         <div>
           <Typography
-            variant="h4"
+            variant="h5"
             gutterBottom
-            mb={4} 
+            mb={3}
+            mt={4}
             align="center"
-            style={{color: '#ffffff', padding: "20px 0px 10px 0px"}}>
-              More Details
+            style={{color: '#252652', padding: "20px 0px 10px 0px"}}>
+              <strong>More Details</strong>
           </Typography>
           <div className="container">
             <div className="row">
