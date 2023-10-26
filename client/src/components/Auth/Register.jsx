@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import url from '../utils/configure';
 const Register = () => {
     const [value, setValue] = useState({
       name: "",
@@ -25,7 +25,7 @@ const Register = () => {
     const handleSubmit =async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8800/auth/register", value);
+      const res = await axios.post(url.API_URL+"/auth/register", value);
       if (res.data.status === "ok") {
         navigate("/");
         alert("Registeration success");

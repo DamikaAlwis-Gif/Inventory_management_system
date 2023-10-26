@@ -6,7 +6,7 @@ import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from "@mui/material/IconButton";
-
+import url from "../utils/configure";
 
 const ViewAccess = () => {
     const [user_id, setuser_id] = useState("");
@@ -22,7 +22,9 @@ const ViewAccess = () => {
         const getAccessofuser = async () => {
           try {
             
-            const res = await axios.get(`http://localhost:8800/access/view/${user_id}`);
+            const res = await axios.get(
+              url.API_URL + `/access/view/${user_id}`
+            );
             console.log(res.data);
             setAccessList(res.data);
             setAccessLoaded(true);
