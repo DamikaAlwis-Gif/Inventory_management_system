@@ -1,17 +1,26 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import { validateProperty , validate } from "../Validation/LoginValidation";
+
 import loginImage from "../../Images/LoginImage.jpg";
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
 import Typography from '@mui/material/Typography';
 
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 const Login = () => {
 
@@ -90,7 +99,7 @@ const Login = () => {
       }}
     >
     <Paper 
-      elevation={4}
+      elevation={5}
       sx={{
         padding: '8% 8% 8% 8%',
         borderRadius: '30px'
@@ -111,7 +120,7 @@ const Login = () => {
                 variant="h5"
                 gutterBottom
                 align="center"
-                style={{color: '#320240'}}>
+                style={{color: '#252652'}}>
                   Log In to the Inventory MIS
               </Typography>
             </Grid>
@@ -144,17 +153,20 @@ const Login = () => {
                 helperText={errors.password}
               />
             </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-          <Button onClick={() => navigate("/register")} type="button" variant="text" color="secondary" sx={{
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
+
+          <ThemeProvider theme={darkTheme}>
+          {/* <Button onClick={() => navigate("/register")} type="button" variant="text" color="secondary" sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',
-          }}>Create Account</Button>
+          }}>Create Account</Button> */}
           <Button type="submit" variant="contained" color="secondary"  sx={{
             borderRadius: '20px',
             height: '40px',
             textTransform: 'capitalize',            
           }}>Log in</Button>
+          </ThemeProvider>
         </Grid>
           </Grid>
         </form>
