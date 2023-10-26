@@ -20,6 +20,7 @@ const TableResources = (props) => {
   if (resources.length === 0) {
     return (
       <div className="container text-center p-5" style={{color: "white", marginTop: 80}}>
+        
         <p className="display-6">No resources found!</p>
       </div>
     );

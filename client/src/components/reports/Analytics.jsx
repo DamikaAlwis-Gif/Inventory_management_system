@@ -7,6 +7,7 @@ import LineChart from './LineChart';
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import {base_url} from '../../config';
 
 
 const Analytics = () => {
@@ -39,7 +40,7 @@ const Analytics = () => {
   useEffect(() => {
     const getLabs = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/auth/access");
+        const res = await axios.get(`${base_url}/auth/access`);
 
         const list = res.data.map((item) => item.name);
         setAccessLab(list);
@@ -56,7 +57,7 @@ const Analytics = () => {
     const getAvailabilityReport = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/availability/${labs}`
+          `${base_url}/report/availability/${labs}`
         );
         setAvailabilityData(res.data);
         setAvailabilityLoaded(true);
@@ -75,7 +76,7 @@ const Analytics = () => {
     const getConditionReport = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/condition/${labs}`
+          `${base_url}/report/condition/${labs}`
         );
         setConditionData(res.data);
         setConditionLoaded(true);
@@ -93,7 +94,7 @@ const Analytics = () => {
     const getCheckOutStatus = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/checkoutstatus/${labs}`
+          `${base_url}/report/checkoutstatus/${labs}`
         );
         setCheckoutStatusData(res.data);
         setCheckoutStatusLoaded(true);
@@ -111,7 +112,7 @@ const Analytics = () => {
     const getNumCheckouts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/report/numcheckouts/${labs}`
+          `${base_url}/report/numcheckouts/${labs}`
         );
         console.log(res.data);
         setNumCheckouts(res.data);
@@ -131,7 +132,7 @@ const Analytics = () => {
      const getNumCheckins = async () => {
        try {
          const res = await axios.get(
-           `http://localhost:8800/report/numcheckins/${labs}`
+           `${base_url}/report/numcheckins/${labs}`
          );
          console.log(res.data);
          setNumCheckins(res.data);
@@ -150,7 +151,7 @@ const Analytics = () => {
      const getNumReservations = async () => {
        try {
          const res = await axios.get(
-           `http://localhost:8800/report/numreservations/${labs}`
+           `${base_url}/report/numreservations/${labs}`
          );
          console.log(res.data);
          setNumReservations(res.data);
@@ -170,7 +171,7 @@ const Analytics = () => {
      const getNumMaintenances = async () => {
        try {
          const res = await axios.get(
-           `http://localhost:8800/report/nummaintenances/${labs}`
+           `${base_url}/report/nummaintenances/${labs}`
          );
          setNumMaintenances(res.data);
          setNumMaintenancesLoaded(true);

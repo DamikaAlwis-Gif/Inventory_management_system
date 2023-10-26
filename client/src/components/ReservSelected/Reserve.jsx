@@ -5,7 +5,7 @@ import axios from "axios";
 
 import TableReservDates from "./TableReservDates";
 import AddReservDate from "./AddReservDate";
-
+import {base_url} from '../../config';
 import Typography from '@mui/material/Typography';
 
 const Reserve = () => {
@@ -17,7 +17,7 @@ const Reserve = () => {
     useEffect(() => {
         const fetchAllDetailsByID = async (id) => {
           try {
-            const res = await axios.get("http://localhost:8800/reservations/reservation/" + id);
+            const res = await axios.get(`${base_url}/reservations/reservation/` + id);
             // res.data checks not null or undefined
             // res.data.length checks length property of res.data is greater than 0.
             if (res.data && res.data.length > 0) {

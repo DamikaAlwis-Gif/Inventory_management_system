@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material';
+import {base_url} from '../../config';
 
 const darkTheme = createTheme({
   palette: {
@@ -25,7 +26,7 @@ const MoreDetailsPub = () => {
   useEffect(() => {
     const fetchAllDetailsByID = async (id) => { // fetch all details of a resource by id
       try {
-        const res = await axios.get("http://localhost:8800/resources/usermore/" + id);
+        const res = await axios.get(`${base_url}/resources/usermore/` + id);
         
         if (res.data && res.data.length > 0) {
           setDetails(res.data[0]);
@@ -46,7 +47,9 @@ const MoreDetailsPub = () => {
   const handleReserve = async (e,id) => {// handle reserve button click
     try {
       e.preventDefault();
-     
+
+     // const res = await axios.delete(`${base_url}/resources/` + id);
+
       console.log("Redirected to reservation data page!");
       navigate(`/reserve/${id}`);
     } catch (error) {

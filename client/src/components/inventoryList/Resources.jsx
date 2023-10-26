@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SelectLIst from "./SelectList";
 import TableResources from "./Table";
+import {base_url} from '../../config';
 
 import Typography from '@mui/material/Typography';
 
@@ -38,7 +39,7 @@ const Resources = () => {
 
     const getUserInfo = async () => {// get user info
       try {
-        const res = await axios.get("http://localhost:8800/auth/aaa");
+        const res = await axios.get(`${base_url}/auth/aaa`);
         setRole(res.data.role);
         setLabs(res.data.list);
         setLabsLoaded(true);
@@ -60,8 +61,9 @@ const Resources = () => {
   const fetchAllResources = async () => {
     try {
       const params = labs.join(",");
-      const url = `http://localhost:8800/resources/${params}`;
-      console.log(url);
+
+      const url = `${base_url}/resources/${params}`;
+
       const res = await axios.get(url);
       
       setResources(res.data.data);

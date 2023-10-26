@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashBoard from "../dashboard/DashBoard";
+import {base_url} from '../../config';
 
 const ProtectedRoute = (props) => {
   
@@ -18,7 +19,7 @@ const ProtectedRoute = (props) => {
   useEffect(() => {
     const getAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/auth");
+        const response = await axios.get(`${base_url}/auth`);
 
         console.log(response);
         if (response.data.status === "ok") {

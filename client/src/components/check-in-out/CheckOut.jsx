@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
 import axios from 'axios';
-
+import {base_url} from '../../config';
 export default function CheckOut() {
 
   const methods = useForm();
@@ -44,7 +44,7 @@ export default function CheckOut() {
     const userId = data.userId;
     const resourceId = data.resourceId;
 
-    const urlValidate = `http://localhost:8800/checkout/validate/${userId}/${resourceId}`;
+    const urlValidate = `${base_url}/checkout/validate/${userId}/${resourceId}`;
 
     axios.get(urlValidate, {
       headers: {
@@ -79,7 +79,7 @@ export default function CheckOut() {
         const formDataJSON = JSON.stringify(formData);
         // console.log(formDataJSON);
 
-        const urlPost = 'http://localhost:8800/checkout';
+        const urlPost = '${base_url}/checkout';
 
         axios.post (urlPost, formDataJSON, {
           headers: {

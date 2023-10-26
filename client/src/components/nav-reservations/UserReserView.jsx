@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import {base_url} from '../../config';
 
 const UserReserView=()=>{
   const [details, setDetails] = useState([]);
@@ -20,7 +21,7 @@ const UserReserView=()=>{
   
     const fetchReservData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/reservations/myReservations/" );
+        const res = await axios.get(`${base_url}/reservations/myReservations/` );
          if (res.data && res.data.length > 0) {
           setDetails(res.data);
          // setName(res.data.name);

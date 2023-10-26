@@ -12,6 +12,7 @@ import DashboardInfoCard from './DashboardInfoCard';
 import axios from 'axios';
 
 import "@fontsource/cinzel-decorative/400.css";
+import {base_url} from '../../config';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
 
@@ -39,7 +40,7 @@ export default function Dashboard() {
   useEffect(() => {
 
     // const getVerification = async () => {
-    //   const response = await axios.get("http://localhost:8800/dashboard/verify");
+    //   const response = await axios.get("${base_url}/dashboard/verify");
     //   console.log(response);
     // }
 
@@ -47,7 +48,7 @@ export default function Dashboard() {
 
     const getStatistics = async () => {
       try {
-        const statistics = await axios.get("http://localhost:8800/dashboard")
+        const statistics = await axios.get(`${base_url}/dashboard`)
 
         console.log(statistics.data);
         statistics.data.available && setAvailableNow(statistics.data.available);

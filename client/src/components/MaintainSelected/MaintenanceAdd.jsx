@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 
-
+import {base_url} from '../../config';
 
 const MaintenanceAdd = () => {
 const {id}=useParams();
@@ -48,7 +48,7 @@ const handleChange = (e) => {
        
     try {
       const responce = await axios.post(
-        "http://localhost:8800/maintenance/maintenaceadd",
+        `${base_url}/maintenance/maintenaceadd`,
         info
       );
       if(responce.data=="Done"){

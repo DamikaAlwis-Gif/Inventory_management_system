@@ -9,9 +9,10 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-
+import {base_url} from '../../config';
 import Typography from '@mui/material/Typography';
 
+//const url= config.url;
 
 const Login = () => {
 
@@ -42,7 +43,8 @@ const Login = () => {
     if (errors) return;
 
     try {
-      const res = await axios.post("http://localhost:8800/auth/login", value);
+     
+      const res = await axios.post(`${base_url}/auth/login`, value);
       //console.log(res.data);
       if (res.data.status === "ok") {
         navigate("/dashboard");

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 import Report from './Report'
 import Typography from '@mui/material/Typography';
-
+import {base_url} from '../../config';
 
 const ReportSection = () => {
     const [selectedRadio, setSelectedRadio] = useState("check_in_check_out"); // Initialize with the ID of the initially checked radio button
@@ -54,7 +54,7 @@ const ReportSection = () => {
           }
           const labs = accessLab.join(",");
           const url =
-            "http://localhost:8800/report/" +
+            `${base_url}/report/` +
             selectedRadio +
             `/${resource_id_temp}/${start_date_temp}/${end_date_temp}/${status}/${lab}/${labs}`;
           console.log(url);
@@ -112,7 +112,7 @@ const ReportSection = () => {
     useEffect(() => {
       const getLabs = async () => {
         try {
-          const res = await axios.get("http://localhost:8800/auth/access");
+          const res = await axios.get(`${base_url}/auth/access`);
           
           const list = res.data.map((item) => item.name);
           setAccessLab(list);

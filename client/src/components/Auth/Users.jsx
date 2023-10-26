@@ -5,6 +5,7 @@ import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
+import {base_url} from '../../config';
 import {
   Table,
   TableContainer,
@@ -35,7 +36,7 @@ const Users = () => {
       const getUsersbyType = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:8800/access/users/${value}`
+            `${base_url}/access/users/${value}`
           );
           console.log(res.data);
           setUsers(res.data);
@@ -57,7 +58,7 @@ const Users = () => {
         try {
           setUserID(user_id);
           const res = await axios.get(
-            `http://localhost:8800/access/view/${user_id}`
+            `${base_url}/access/view/${user_id}`
           );
           console.log(res.data);
           setAccessList(res.data);

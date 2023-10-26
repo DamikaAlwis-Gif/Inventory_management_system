@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import TableView from "./TableView";
+import {base_url} from '../../config';
+
 
 import Typography from '@mui/material/Typography';
 
@@ -12,7 +14,7 @@ const AdminMaintenanceView=()=>{
   useEffect(() => {
     const fetchMaintenanceData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/maintenance/all/" );
+        const res = await axios.get(`${base_url}/maintenance/all/` );
          if (res.data && res.data.length > 0) {
           setDetails(res.data);
         } else {
@@ -49,7 +51,7 @@ const AdminMaintenanceView=()=>{
   const updateStatus = async (m_id) => {
     try {
      
-      const url = "http://localhost:8800/resources/updtmtschedule/"+ m_id;
+      const url = `${base_url}/resources/updtmtschedule/`+ m_id;
       const res = await axios.get(url);
       Swal.fire("Updated!", "Maintenance is done", "success");         
       // console.log(res.data);

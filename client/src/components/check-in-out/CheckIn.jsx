@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { DevTool } from '@hookform/devtools';
 import axios from 'axios';
-
+import {base_url} from '../../config';
 
 export default function CheckIn() {
 
@@ -45,7 +45,7 @@ export default function CheckIn() {
     const formDataJSON = JSON.stringify(formData);
     console.log(formDataJSON);
 
-    const url = 'http://localhost:8800/checkin';
+    const url = `${base_url}/checkin`;
 
     axios.post (url, formDataJSON, {
       headers: {

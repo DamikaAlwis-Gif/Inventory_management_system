@@ -8,6 +8,7 @@ import logoutIcon from './LogoutIcon.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import {base_url} from '../../config';
 
 function NavBarNew() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ function NavBarNew() {
   useEffect(() => {
     const getAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/auth");
+        const response = await axios.get(`${base_url}/auth`);
 
         console.log(response);
         if (response.data.status === "ok") {
@@ -41,7 +42,7 @@ function NavBarNew() {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get("http://localhost:8800/auth/logout");
+      const res = await axios.get(`${base_url}/auth/logout`);
       if(res.data.status === "ok"){
         navigate("/");}
     } catch (error) {

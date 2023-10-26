@@ -19,16 +19,23 @@ import accessRouter from "./routes/access.js";
 import reservRouter from "./routes/reserv.js";
 import maintenanceRouter from "./routes/maintenance.js";
 
+import dotenv from "dotenv";
+dotenv.config();
 
 app.use(express.json());
-app.use(cors(
-  {credentials: true,
-  origin: 'http://localhost:3000',
-  methods: ["GET", "POST", "PUT", "DELETE"],
-}
-));
-app.listen(8800, () => {
-  console.log("Connected to backend!");
+
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
+const PORT = process.env.PORT
+app.listen(PORT, () => {
+  console.log(`Connected to backend! ${PORT}`);
+
 });
 app.use(cookieParser());
 
