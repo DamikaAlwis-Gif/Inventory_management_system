@@ -205,7 +205,8 @@ function App() {
 
           <Route
             path="*"
-            element={<h1 className="display-5 text-center" style={{color: "white", marginTop: 70}}>- Not Found -</h1>}
+            element={<h2 className="display-5 text-center" style={{color: '#252652', marginTop: 100}}>- Not Found -</h2>}
+
           ></Route>
           <Route path="/access" element={<ViewAccess />}></Route>
           <Route path="/users" element={<Users />}></Route>

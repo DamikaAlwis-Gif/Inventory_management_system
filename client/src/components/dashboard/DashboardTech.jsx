@@ -38,6 +38,7 @@ export default function Dashboard() {
   const [checkedOut, setCheckedOut] = useState(0);
   const [underMaintenance, setUnderMaintenance] = useState(0);
   const [outofOrder, setOutofOrder] = useState(0);
+  const [upcomingData, setUpcomingData] = useState([]);
 
   useEffect(() => {
 
@@ -56,6 +57,10 @@ export default function Dashboard() {
         statistics.data.checkedOut && setCheckedOut(statistics.data.checkedOut);
         statistics.data.maintenance && setUnderMaintenance(statistics.data.maintenance);
         statistics.data.outofOrder && setOutofOrder(statistics.data.outofOrder);
+
+        const upcoming = await axios.get(`${base_url}/dashboard/upcoming`)
+        console.log(upcoming.data);
+        setUpcomingData(upcoming.data);
       
       } catch (error) {
         console.log(error);
@@ -185,7 +190,7 @@ export default function Dashboard() {
         </Grid>
       </Grid>
       </ThemeProvider>
-      <DenseTable />
+      <DenseTable role="tech" data={upcomingData}/>
     </Container>
   );
 }
