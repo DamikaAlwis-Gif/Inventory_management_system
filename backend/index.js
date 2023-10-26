@@ -5,6 +5,7 @@
 
 import express from "express";
 const app = express();
+import dashboardRouter from "./routes/dashboard.js";
 import resourceRouter from "./routes/resource.js";
 import authRouter from "./routes/auth.js";
 import checkoutRouter from "./routes/checkout.js";
@@ -22,6 +23,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 app.use(express.json());
+
 app.use(
   cors({
     credentials: true,
@@ -33,12 +35,14 @@ app.use(
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Connected to backend! ${PORT}`);
+
 });
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.json("Hello this is backend");
 });
+app.use("/dashboard", dashboardRouter);
 app.use("/resources", resourceRouter);
 app.use("/auth", authRouter);
 app.use("/checkout", checkoutRouter);

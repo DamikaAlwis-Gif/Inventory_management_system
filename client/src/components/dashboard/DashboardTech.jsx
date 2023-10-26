@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+
 import { NAVBAR_HEIGHT } from '../../constants';
-import { useState } from 'react';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-// import DashboardShortcut from './DashboardShortcut';
+
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
-import Paper from '@mui/material/Paper';
+
+import axios from 'axios';
 
 import "@fontsource/cinzel-decorative/400.css";
 
@@ -30,10 +33,38 @@ const darkTheme = createTheme({
 
 export default function Dashboard() {
 
-  const [availableNow, setAvailableNow] = useState(128);
-  const [checkedOut, setCheckedOut] = useState(11);
-  const [underMaintenance, setUnderMaintenance] = useState(25);
-  const [outofOrder, setOutofOrder] = useState(19);
+  const [availableNow, setAvailableNow] = useState(0);
+  const [checkedOut, setCheckedOut] = useState(0);
+  const [underMaintenance, setUnderMaintenance] = useState(0);
+  const [outofOrder, setOutofOrder] = useState(0);
+
+  useEffect(() => {
+
+    // const getVerification = async () => {
+    //   const response = await axios.get("http://localhost:8800/dashboard/verify");
+    //   console.log(response);
+    // }
+
+    // getVerification();
+
+    const getStatistics = async () => {
+      try {
+        const statistics = await axios.get("http://localhost:8800/dashboard")
+        console.log(statistics.data);
+        statistics.data.available && setAvailableNow(statistics.data.available);
+        statistics.data.checkedOut && setCheckedOut(statistics.data.checkedOut);
+        statistics.data.maintenance && setUnderMaintenance(statistics.data.maintenance);
+        statistics.data.outofOrder && setOutofOrder(statistics.data.outofOrder);
+      
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getStatistics();
+
+  }, [])
+
 
   return (
     <Container
