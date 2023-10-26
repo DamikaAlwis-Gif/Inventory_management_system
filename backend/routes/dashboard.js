@@ -37,9 +37,8 @@ const getVerification = (req, res, next) => {
   }
 }
 
-const getStatistics = (req, res) => {
-
-  console.log("\n\nHello from backend!")
+const getLabList = (req, res, next) => {
+  console.log("\n\nHello from getLabList!")
   let labNames = [];
 
   const getLabsSql = "SELECT name FROM accessview WHERE user_id = ?;"
@@ -51,11 +50,18 @@ const getStatistics = (req, res) => {
     } else {
       labNames = labData.map(row => row.name);
       console.log(labNames);
+      req.labNames = labNames;
+      next();
+    }
+  });
+}
 
-      const placeholders = labNames.map(() => '?').join(', ');
+const getStatistics = (req, res) => {
+
+      const placeholders = req.labNames.map(() => '?').join(', ');
 
       const getStatsSql = `SELECT availability, COUNT(*) AS count FROM first_view WHERE lab_name IN (${placeholders}) GROUP BY availability`;
-      db.query(getStatsSql, labNames, (err, statData) => {
+      db.query(getStatsSql, req.labNames, (err, statData) => {
 
         if (err) {
           console.log(err);
@@ -80,10 +86,12 @@ const getStatistics = (req, res) => {
         }
       })
     }
-  })
-}
 
-dashboardRouter.get("/", getVerification, getStatistics);
+// const getpersonalStatistics = (req, res) => {
+
+// }
+
+dashboardRouter.get("/", getVerification, getLabList, getStatistics);
 dashboardRouter.get("/verify", getVerification);
 dashboardRouter.get("/data", getStatistics);
 
