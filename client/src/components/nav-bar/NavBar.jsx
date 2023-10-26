@@ -117,7 +117,17 @@ function NavBarNew() {
             <div className="custom-link-box">Analytics</div>
           </Link>
         )}
-        <div className="custom-nav-links custom-nav-right-group">
+        <Link to="/notifications" className="custom-dropdown-link">
+          <div className="custom-link-box">Notifications</div>
+        </Link>
+        <Link to="/account" className="custom-dropdown-link">
+          <div className="custom-link-box">Profile</div>
+        </Link>
+        <Link to="/" className="custom-dropdown-link"
+          onClick={(e) => handleLogout(e)}>
+          <div className="custom-link-box" style={{color: "darkred"}}>Log out</div>
+        </Link>
+        {/* <div className="custom-nav-links custom-nav-right-group">
           <Link to="/notifications" className="custom-dropdown-link">
             <div className="custom-link-box">
               <img src={notificationIcon} alt="Notifications" />
@@ -137,7 +147,7 @@ function NavBarNew() {
               <img src={logoutIcon} alt="Logout" />
             </div>
           </Link>
-        </div>
+        </div> */}
       </div>
 
       {/* when the navbar is expanded */}
