@@ -51,7 +51,7 @@ const AdminMaintenanceView=()=>{
   const updateStatus = async (m_id) => {
     try {
      
-      const url = `${base_url}/resources/updtmtschedule/`+ m_id;
+      const url = `${base_url}/maintenance/updtmtschedule/`+ m_id;
       const res = await axios.get(url);
       Swal.fire("Updated!", "Maintenance is done", "success");         
       // console.log(res.data);
