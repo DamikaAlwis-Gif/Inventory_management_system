@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { NAVBAR_HEIGHT } from '../../constants';
 
@@ -9,8 +10,6 @@ import Typography from '@mui/material/Typography';
 
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
-
-import axios from 'axios';
 
 import {base_url} from '../../config';
 

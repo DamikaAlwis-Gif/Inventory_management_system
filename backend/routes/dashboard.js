@@ -90,9 +90,85 @@ const getStatistics = (req, res) => {
       })
     }
 
-// const getpersonalStatistics = (req, res) => {
+const getPersonalStatistics = (req, res) => {
+  const labNames = req.labNames;
+  const user_id = req.user_id;
+  const placeholders = labNames.map(() => '?').join(', ');
+  req.placeholders = placeholders;
 
-// }
+  const getPersonalCheckoutsSql = `SELECT COUNT(*) AS checkoutCount FROM check_in_out_view WHERE (lab_name IN (${placeholders}) AND user_id = '${user_id}' AND status IN ('Checked-out', 'Overdue'))`;
+
+  db.query(getPersonalCheckoutsSql, labNames, (err, personalCheckoutData) => {
+
+    if (err) {
+      console.log(err);
+      return res.json({ error: "An error occured while trying to query the database for 'personalCheckoutData'!"})
+
+    }
+    console.log(personalCheckoutData);
+
+    const getPersonalDaysTillCheckinSql = `SELECT DATEDIFF(due_datetime, NOW()) AS daysTillCheckin FROM check_in_out_view WHERE (lab_name IN (${placeholders}) AND user_id = '${user_id}' AND status IN ('Checked-out', 'Overdue')) ORDER BY daysTillCheckin LIMIT 1`;
+
+    db.query(getPersonalDaysTillCheckinSql, labNames, (err, personalDaysTillCheckinData) => {
+
+      if (err) {
+        console.log(err);
+        return res.json({ error: "An error occured while trying to query the database for 'personalDaysTillCheckinData'!"})
+  
+      }
+      console.log(personalDaysTillCheckinData);
+
+      const getPersonalReservationsSql = `SELECT COUNT(*) AS reservationCount FROM reservation_view WHERE (lab_name IN (${placeholders}) AND user_id = '${user_id}' AND start_date > NOW())`;
+
+      db.query(getPersonalReservationsSql, labNames, (err, personalReservationData) => {
+
+        if (err) {
+          console.log(err);
+          return res.json({ error: "An error occured while trying to query the database for 'personalReservationData'!"})
+    
+        }
+        console.log(personalReservationData);
+
+        const getPersonalDaysTillReservationSql = `SELECT DATEDIFF(start_date, NOW()) AS daysTillReservation FROM reservation_view WHERE (lab_name IN (${placeholders}) AND user_id = '${user_id}' AND start_date > NOW()) ORDER BY daysTillReservation LIMIT 1`;
+
+        db.query(getPersonalDaysTillReservationSql, labNames, (err, personalDaysTillReservationData) => {
+
+          if (err) {
+            console.log(err);
+            return res.json({ error: "An error occured while trying to query the database for 'personalDaysTillReservationData'!"})
+      
+          }
+          console.log("This: ", personalDaysTillReservationData);
+
+          let finalCheckoutCount = 0;
+          let finalDaysTillCheckin = 9999;
+          let finalReservationCount = 0;
+          let finalDaysTillReservation = 9999;
+
+          (!personalCheckoutData || personalCheckoutData.length === 0) ?
+            finalCheckoutCount = 0 : finalCheckoutCount = personalCheckoutData[0].checkoutCount;
+
+          (!personalDaysTillCheckinData || personalDaysTillCheckinData.length === 0) ?
+            finalDaysTillCheckin = 9999 : finalDaysTillCheckin = personalDaysTillCheckinData[0].daysTillCheckin;
+  
+          (!personalReservationData || personalReservationData.length === 0) ?
+            finalReservationCount = 0 : finalReservationCount = personalReservationData[0].reservationCount;
+
+          (!personalDaysTillReservationData || personalDaysTillReservationData.length === 0) ?
+            finalDaysTillReservation = 9999 : finalDaysTillReservation = personalDaysTillReservationData[0].daysTillReservation;  
+
+          return res.json({ 
+            status: "OK",
+            checkouts: finalCheckoutCount,
+            daysTillCheckin: finalDaysTillCheckin,
+            reservations: finalReservationCount,
+            daysTillReservation: finalDaysTillReservation
+          });
+        })
+      })
+    })
+  })
+}
 
 const getReservations = (req, res, next) => {
 
@@ -173,6 +249,8 @@ const getCheckInOut = (req, res) => {
 
 dashboardRouter.get("/", getVerification, getLabList, getStatistics);
 dashboardRouter.get("/upcoming", getVerification, getLabList, getReservations, getMaintenance, getCheckInOut);
+
+dashboardRouter.get("/personal", getVerification, getLabList, getPersonalStatistics);
 dashboardRouter.get("/verify", getVerification);
 dashboardRouter.get("/data", getStatistics);
 

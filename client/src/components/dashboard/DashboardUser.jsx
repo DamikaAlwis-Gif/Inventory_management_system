@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { NAVBAR_HEIGHT } from '../../constants';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
+import { NAVBAR_HEIGHT } from '../../constants';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+
 import DashboardInfoCard from './DashboardInfoCard';
 import DenseTable from './TableDense';
+
+import {base_url} from '../../config';
 
 import "@fontsource/cinzel-decorative/400.css";
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material';
@@ -28,10 +32,11 @@ const darkTheme = createTheme({
 
 export default function Dashboard() {
 
-  const [checkedOut, setCheckedOut] = useState(false);
+  const [checkedOut, setCheckedOut] = useState(0);
   const [daysUntilCheckIn, setDaysUntilCheckIn] = useState(false);
-  const [reserved, setReserved] = useState(false);
-  const [daysUntilReservation, setDaysUntilReservation] = useState(false);
+  const [reserved, setReserved] = useState(0);
+  const [daysUntilReservation, setDaysUntilReservation] = useState(0);
+  const [upcomingData, setUpcomingData] = useState([]);
 
   useEffect(() => {
 
@@ -44,13 +49,17 @@ export default function Dashboard() {
 
     const getPersonalStatistics = async () => {
       try {
-        const statistics = await axios.get("http://localhost:8800/dashboard")
+        const statistics = await axios.get(`${base_url}/dashboard/personal`)
 
         console.log(statistics.data);
-        statistics.data.available && setCheckedOut(statistics.data.available);
-        statistics.data.checkedOut && setDaysUntilCheckIn(statistics.data.checkedOut);
-        statistics.data.maintenance && setReserved(statistics.data.maintenance);
-        statistics.data.outofOrder && setDaysUntilReservation(statistics.data.outofOrder);
+        statistics.data.checkouts && setCheckedOut(statistics.data.checkouts);
+        statistics.data.daysTillCheckin && setDaysUntilCheckIn(statistics.data.daysTillCheckin);
+        statistics.data.reservations && setReserved(statistics.data.reservations);
+        statistics.data.daysTillReservation && setDaysUntilReservation(statistics.data.daysTillReservation);
+
+        // const upcoming = await axios.get(`${base_url}/dashboard/upcoming`)
+        // console.log(upcoming.data);
+        // setUpcomingData(upcoming.data);
 
       } catch (error) {
         console.log(error);
@@ -60,6 +69,15 @@ export default function Dashboard() {
     getPersonalStatistics();
 
   }, [])
+
+  useEffect(() => {
+    if (daysUntilReservation === 9999) {
+      setDaysUntilReservation(null);
+    }
+    if (daysUntilCheckIn === 9999) {
+      setDaysUntilCheckIn(null);
+    }
+  }, [daysUntilReservation, daysUntilCheckIn])
 
   return (
     <Container
@@ -178,7 +196,7 @@ export default function Dashboard() {
         </Grid>
       </Grid>
       </ThemeProvider>
-      <DenseTable />
+      {/* <DenseTable role="user" data={upcomingData}/> */}
     </Container>
   );
 }
