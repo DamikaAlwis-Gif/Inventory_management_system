@@ -3,7 +3,7 @@ import mysql from "mysql";
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root@inventory",
+  password: "root",
   database: "inventorydbv2",
   timezone: 'UTC'
 });
