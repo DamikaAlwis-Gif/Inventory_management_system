@@ -83,7 +83,7 @@ export default function CheckOut() {
         const formDataJSON = JSON.stringify(formData);
         // console.log(formDataJSON);
 
-        const urlPost = '${base_url}/checkout';
+        const urlPost = `${base_url}/checkout`;
 
         axios.post (urlPost, formDataJSON, {
           headers: {
