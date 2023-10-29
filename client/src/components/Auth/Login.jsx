@@ -130,7 +130,7 @@ const Login = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="filled-basic"
+                id="username-input"
                 label="Username"
                 variant="outlined"
                 fullWidth
@@ -145,7 +145,7 @@ const Login = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="filled-basic"
+                id="password-input"
                 label="Password"
                 variant="outlined"
                 fullWidth
