@@ -59,6 +59,7 @@ router.post("/login", (req, res) => {
             }); // create a token
             res.cookie("token", token); // store the token in the cookie
             res.json({ status: "ok" }); // If the password is correct,
+            console.log("token saved",token);
           } else {
             res.json({ err: "Wrong password" }); // If the password is incorrect,
           }
