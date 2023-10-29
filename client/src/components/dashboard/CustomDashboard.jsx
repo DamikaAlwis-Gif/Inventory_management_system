@@ -33,9 +33,13 @@ export default function CustomDashboard () {
     getAuth();
   }, []);
 
-  if(!userRole){
+  // useEffect(() => {
+  //   console.log("Role: ", userRole);
+  // }, [userRole]);
+
+
+  if(!userRole)
     return <Loading/>
-  }
   if (["Admin", "Technical Officer"].includes(userRole))
     return (<TechDashboard />)
   if (["Student", "Academic Staff Member"].includes(userRole))
