@@ -1,4 +1,4 @@
 //const base_url = "http://localhost:8800";
-const base_url = "http://51.20.42.51:8800";
+const base_url = "https://inventory-services.onrender.com";
 export { base_url};
 

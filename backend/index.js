@@ -28,10 +28,12 @@ app.use(
   cors({
     credentials: true,
 
-    origin: '*',
+
+    //origin: '*',
+
     //origin: 'http://localhost:3000',
 
-    //origin: 'https://inventory-t4nh.onrender.com',
+    origin: 'https://inventory-t4nh.onrender.com',
   
     //origin: 'http://localhost:3000',
 
