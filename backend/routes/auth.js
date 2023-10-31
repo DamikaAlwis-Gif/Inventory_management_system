@@ -57,8 +57,21 @@ router.post("/login", (req, res) => {
             const token = jwt.sign({ role , name, user_id }, "jwtSecret", {
               expiresIn: "1d",
             }); // create a token
-            res.cookie("token", token); // store the token in the cookie
+            /*
+           // res.cookie("token", token); // store the token in the cookie
+            res.cookie("token", token, {
+              secure: true, // This ensures the cookie is only transmitted over HTTPS
+              httpOnly: true, // This makes the cookie inaccessible to JavaScript
+            }); // store the token in the cookie
+            */
+            res.cookie("token", token, {
+  secure: true, // This ensures the cookie is only transmitted over HTTPS
+  httpOnly: true, // This makes the cookie inaccessible to JavaScript
+  sameSite: "None", // Set SameSite to "None" to allow cross-site cookies
+});
+            
             res.json({ status: "ok" }); // If the password is correct,
+          //  console.log("token saved",token);
           } else {
             res.json({ err: "Wrong password" }); // If the password is incorrect,
           }
