@@ -27,7 +27,7 @@ const TableMtClashHandle=(props)=>{
                
                 <td>{mt.start_date}</td>
                 <td>{mt.end_date}</td>
-                <td>{mt.status}</td>
+                <td>{mt.status === "Undone" ? "Incomplete" : "Complete"}</td> 
                 <td>{mt.purpose}</td>
                 
                 
