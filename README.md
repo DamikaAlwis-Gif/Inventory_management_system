@@ -25,13 +25,13 @@ Welcome to the Inventory Management System for Laboratories project repository. 
 
 1. **Clone the Repository:**
    ```
-   git clone https://github.com/your-username/inventory-management-system.git
+     https://github.com/DamikaAlwis-Gif/inventoryV3.git
    ```
 
 2. **Front-End Setup (React JS):**
-   - Navigate to the `frontend` directory:
+   - Navigate to the `client` directory:
      ```
-     cd frontend
+     cd client
      ```
    - Install dependencies:
      ```
