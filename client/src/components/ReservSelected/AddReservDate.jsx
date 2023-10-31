@@ -14,7 +14,7 @@ const AddReservDate= (props)=>{
         resource_id: id,
         start_dt: "",
         end_dt: "",
-        status: "",
+        status: "due",
         purpose: "",
         reservation_type: "Select a type",
     });
@@ -79,7 +79,7 @@ const AddReservDate= (props)=>{
       resource_id: id,
       start_dt: "",
       end_dt: "",
-      status: "",
+      status: "due",
       purpose: "",
       reservation_type: "Select a type",
     });
@@ -94,7 +94,7 @@ const AddReservDate= (props)=>{
   
             <form>
               <div className="row">
-                <div className="form-group col">
+                {/*<div className="form-group col">
                   <label htmlFor="name" className="form-label ">
                     Status
                   </label>
@@ -107,7 +107,7 @@ const AddReservDate= (props)=>{
                     name="status"
                     //placeholder="title"
                   />
-                </div>
+                 </div> */}
                 <div className="form-group col">
                   <label htmlFor="" className="form-label ">
                     Reservation Type

@@ -107,8 +107,8 @@ return(
                     <option selected disabled>
                       Select a type
                     </option>
-                    <option value="simple">simple</option>
-                    <option value="hard">hard</option>
+                    <option value="regular">regular</option>
+                    <option value="unforeseen">unforeseen</option>
                     
                   </select>
                 </div>

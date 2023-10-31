@@ -58,7 +58,7 @@ const TableMaintenance = (props) => {
               <td>{mt.maintenance_type}</td>
               <td>{mt.start_date}</td>
               <td>{mt.completion_date}</td>
-              <td>{mt.status}</td>
+              <td>{mt.status === "Undone" ? "Incomplete" : "Complete"}</td>
               
             </tr>
           ))}
@@ -85,7 +85,7 @@ const TableMaintenance = (props) => {
               <td>{mt.maintenance_type}</td>
               <td>{mt.start_date}</td>
               <td>{mt.completion_date}</td>
-              <td>{mt.status}</td>
+              <td>{mt.status === "Undone" ? "Incomplete" : "Complete"}</td>
               
             </tr>
           ))}
