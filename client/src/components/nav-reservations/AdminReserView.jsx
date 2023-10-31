@@ -53,7 +53,7 @@ const AdminReserView=()=>{
                 <TableCell align="right"><strong>Resource</strong></TableCell>
                 <TableCell align="right"><strong>Start Date</strong></TableCell>
                 <TableCell align="right"><strong>End Date</strong></TableCell>
-                <TableCell align="right"><strong>Status</strong></TableCell>
+                {/*<TableCell align="right"><strong>Status</strong></TableCell>*/}
                 <TableCell align="right"><strong>Purpose</strong></TableCell>
                 <TableCell align="right"><strong>Type</strong></TableCell>
               </TableRow>
@@ -70,7 +70,7 @@ const AdminReserView=()=>{
                   <TableCell align="right">{mt.resource_id}</TableCell>
                   <TableCell align="right">{mt.start_date}</TableCell>
                   <TableCell align="right">{mt.end_date}</TableCell>
-                  <TableCell align="right">{mt.status}</TableCell>
+                  {/*<TableCell align="right">{mt.status}</TableCell> */}
                   <TableCell align="right">{mt.purpose}</TableCell>
                   <TableCell align="right">{mt.reservation_type}</TableCell>
                 </TableRow>
