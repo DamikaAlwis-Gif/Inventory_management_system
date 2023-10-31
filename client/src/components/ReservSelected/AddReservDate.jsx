@@ -14,7 +14,7 @@ const AddReservDate= (props)=>{
         resource_id: id,
         start_dt: "",
         end_dt: "",
-        status: "",
+        status: "due",
         purpose: "",
         reservation_type: "Select a type",
     });
@@ -79,7 +79,7 @@ const AddReservDate= (props)=>{
       resource_id: id,
       start_dt: "",
       end_dt: "",
-      status: "",
+      status: "due",
       purpose: "",
       reservation_type: "Select a type",
     });
